@@ -1,6 +1,7 @@
 {
   "name": "dvpm",
   "script": "dist/main.js",
+  "port": 36911,
   "instances": "4",
   "env": {
     "NODE_ENV": "development"
