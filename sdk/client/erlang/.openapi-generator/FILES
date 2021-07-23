@@ -1,0 +1,13 @@
+.openapi-generator-ignore
+README.md
+rebar.config
+src/openapi.app.src
+src/openapi_certificates_entity.erl
+src/openapi_default_api.erl
+src/openapi_provider_api.erl
+src/openapi_proxy_settings_entity.erl
+src/openapi_service_entity.erl
+src/openapi_services_api.erl
+src/openapi_time_range_entity.erl
+src/openapi_utils.erl
+src/openapi_vpn_settings_entity.erl
