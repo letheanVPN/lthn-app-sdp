@@ -1,4 +1,4 @@
-# OpenapiClient::CertificatesEntity
+# LetheanVpm::CertificatesEntity
 
 ## Properties
 
@@ -9,9 +9,9 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'lethean_vpm'
 
-instance = OpenapiClient::CertificatesEntity.new(
+instance = LetheanVpm::CertificatesEntity.new(
   id: null
 )
 ```

@@ -1,4 +1,4 @@
-# OpenapiClient::VpnSettingsEntity
+# LetheanVpm::VpnSettingsEntity
 
 ## Properties
 
@@ -13,9 +13,9 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'lethean_vpm'
 
-instance = OpenapiClient::VpnSettingsEntity.new(
+instance = LetheanVpm::VpnSettingsEntity.new(
   endpoint: null,
   port: null,
   parameters: null,

@@ -17,9 +17,14 @@ async function bootstrap() {
   await OpenApiNestFactory.configure(
     app,
     new DocumentBuilder()
-      .setTitle('Lethean VPN Api')
+      .setTitle('LetheanVPN')
       .setDescription('Distributed Virtual Private Marketplace')
       .setVersion('1')
+      .setContact('LetheanVPN', 'https://lt.hn', 'contact@lethean.io')
+      .setLicense(
+        'GPLv3',
+        'https://gitlab.com/lthn.io/projects/vpn/market-api/LICENCE',
+      )
       .addServer('https://dvpm.io'),
     {
       webServerOptions: {

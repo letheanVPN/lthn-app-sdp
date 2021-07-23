@@ -1,5 +1,4 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { ServiceTypeEnum } from './ServiceTypeEnum.entity';
 import { ProxySettingsEntity } from './proxy-settings.entity';
 import { VpnSettingsEntity } from './vpn-settings.entity';
 import { timeRangeEntity } from './time-range.entity';
@@ -14,7 +13,7 @@ export class ServiceEntity {
     maxLength: 2,
     pattern: '[0-9A-F]{1}[0-9A-F]{1}',
   })
-  id: string;
+  id?: string;
 
   /**
    * Name of the service
