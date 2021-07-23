@@ -1,4 +1,4 @@
 export enum ServiceTypeEnum {
-  vpn,
-  proxy,
+  vpn = 'vpn',
+  proxy = 'proxy',
 }

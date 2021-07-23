@@ -28,8 +28,10 @@ export class ServiceEntity {
   /**
    * Type of the service
    */
-  @ApiProperty()
-  type: ServiceTypeEnum;
+  @ApiProperty({
+    enum: ['vpn', 'proxy'],
+  })
+  type: string;
 
   /**
    * Per minute Cost of the service
@@ -47,7 +49,7 @@ export class ServiceEntity {
     minimum: 10,
     maximum: 1440,
   })
-  firstPrePaidMinutes?: number = 10;
+  firstPrePaidMinutes?: number;
 
   /**
    * Number of verifications needed for first payment
@@ -56,7 +58,7 @@ export class ServiceEntity {
     minimum: 0,
     maximum: 2,
   })
-  firstVerificationsNeeded?: number = 1;
+  firstVerificationsNeeded?: number;
 
   /**
    * Amount of pre-paid minutes for subsequent payments
@@ -65,7 +67,7 @@ export class ServiceEntity {
     minimum: 10,
     maximum: 1440,
   })
-  subsequentPrePaidMinutes?: number = 10;
+  subsequentPrePaidMinutes?: number;
 
   /**
    * Number of verifications needed for subsequent payments
@@ -74,13 +76,13 @@ export class ServiceEntity {
     minimum: 0,
     maximum: 1,
   })
-  subsequentVerificationsNeeded?: number = 0;
+  subsequentVerificationsNeeded?: number;
 
   /**
    * Whether or not refunds are allowed
    */
   @ApiProperty()
-  allowRefunds?: boolean = false;
+  allowRefunds?: boolean;
 
   /**
    * Service download speed in Mbits
@@ -89,7 +91,7 @@ export class ServiceEntity {
     minimum: 0,
     maximum: 99999999999,
   })
-  downloadSpeed = 0;
+  downloadSpeed: number;
 
   /**
    * Service upload speed in Mbits
@@ -98,7 +100,7 @@ export class ServiceEntity {
     minimum: 0,
     maximum: 99999999999,
   })
-  uploadSpeed = 0;
+  uploadSpeed: number;
 
   /**
    * array containing Proxy related settings. only available if service is of type proxy, null otherwise
@@ -119,7 +121,7 @@ export class ServiceEntity {
    * disable or not the service
    */
   @ApiProperty()
-  disable = false;
+  disable: boolean;
 
   /**
    * inside each service, there should be a field named certificates that has a list of IDs, referencing the certificates at the provider level.
