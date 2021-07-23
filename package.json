@@ -1,10 +1,10 @@
 {
-  "name": "dvpm",
+  "name": "lthn-vpm",
   "version": "0.0.1",
   "description": "",
-  "author": "",
+  "author": "Snider<snider@lethean.io>",
   "private": true,
-  "license": "UNLICENSED",
+  "license": "GPLv3",
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "nest build",
@@ -19,7 +19,8 @@
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./test/jest-e2e.json"
+    "test:e2e": "jest --config ./test/jest-e2e.json",
+    "setup:macos": "bash sdk/install.deps.macos.sh"
   },
   "dependencies": {
     "@nestjs/common": "^8.0.0",

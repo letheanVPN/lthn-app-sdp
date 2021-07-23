@@ -1,4 +1,4 @@
-# OpenapiClient::TimeRangeEntity
+# LetheanVpm::TimeRangeEntity
 
 ## Properties
 
@@ -10,9 +10,9 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'lethean_vpm'
 
-instance = OpenapiClient::TimeRangeEntity.new(
+instance = LetheanVpm::TimeRangeEntity.new(
   from: null,
   to: null
 )

@@ -1,22 +1,24 @@
-openapi-generator-cli generate -i ./openapi.yaml -g go -o ./sdk/client/go
-openapi-generator-cli generate -i ./openapi.yaml -g android -o ./sdk/client/android
-openapi-generator-cli generate -i ./openapi.yaml -g c -o ./sdk/client/c
-openapi-generator-cli generate -i ./openapi.yaml -g bash -o ./sdk/client/bash
-openapi-generator-cli generate -i ./openapi.yaml -g cpp-qt-client -o ./sdk/client/cpp-qt-client
-openapi-generator-cli generate -i ./openapi.yaml -g cpp-restsdk -o ./sdk/client/cpp-rest
-openapi-generator-cli generate -i ./openapi.yaml -g dart -o ./sdk/client/dart
-openapi-generator-cli generate -i ./openapi.yaml -g elm -o ./sdk/client/elm
-openapi-generator-cli generate -i ./openapi.yaml -g erlang-client -o ./sdk/client/erlang
-openapi-generator-cli generate -i ./openapi.yaml -g lua -o ./sdk/client/lua
-openapi-generator-cli generate -i ./openapi.yaml -g perl -o ./sdk/client/perl
-openapi-generator-cli generate -i ./openapi.yaml -g php -o ./sdk/client/php
-openapi-generator-cli generate -i ./openapi.yaml -g powershell -o ./sdk/client/powershell
-openapi-generator-cli generate -i ./openapi.yaml -g python-legacy -o ./sdk/client/python
-openapi-generator-cli generate -i ./openapi.yaml -g rust -o ./sdk/client/rust
-openapi-generator-cli generate -i ./openapi.yaml -g swift5 -o ./sdk/client/swift5
-openapi-generator-cli generate -i ./openapi.yaml -g typescript-angular -o ./sdk/client/angular-ts
-openapi-generator-cli generate -i ./openapi.yaml -g typescript-rxjs -o ./sdk/client/typescript-rxjs
-openapi-generator-cli generate -i ./openapi.yaml -g typescript-node -o ./sdk/client/typescript-node
-openapi-generator-cli generate -i ./openapi.yaml -g javascript -o ./sdk/client/javascript
-openapi-generator-cli generate -i ./openapi.yaml -g java -o ./sdk/client/java
-openapi-generator-cli generate -i ./openapi.yaml -g ruby -o ./sdk/client/ruby
+rm -rf sdk/client
+bash sdk/conf/ruby.sh
+bash sdk/conf/java.sh
+bash sdk/conf/javascript.sh
+bash sdk/conf/typescript-node.sh
+bash sdk/conf/typescript-rxjs.sh
+bash sdk/conf/typescript-angular.sh
+bash sdk/conf/swift5.sh
+bash sdk/conf/rust.sh
+bash sdk/conf/python.sh
+bash sdk/conf/powershell.sh
+bash sdk/conf/php.sh
+bash sdk/conf/perl.sh
+bash sdk/conf/lua.sh
+bash sdk/conf/erlang.sh
+bash sdk/conf/elm.sh
+bash sdk/conf/dart.sh
+bash sdk/conf/cpp-rest.sh
+bash sdk/conf/cpp-qt.sh
+bash sdk/conf/bash.sh
+bash sdk/conf/c.sh
+bash sdk/conf/go.sh
+bash sdk/conf/android.sh
+

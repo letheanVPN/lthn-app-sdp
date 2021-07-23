@@ -1,4 +1,4 @@
-# OpenapiClient::DefaultApi
+# LetheanVpm::DefaultApi
 
 All URIs are relative to *https://dvpm.io*
 
@@ -18,14 +18,14 @@ All URIs are relative to *https://dvpm.io*
 
 ```ruby
 require 'time'
-require 'openapi_client'
+require 'lethean_vpm'
 
-api_instance = OpenapiClient::DefaultApi.new
+api_instance = LetheanVpm::DefaultApi.new
 
 begin
   
   api_instance.cache_stats
-rescue OpenapiClient::ApiError => e
+rescue LetheanVpm::ApiError => e
   puts "Error when calling DefaultApi->cache_stats: #{e}"
 end
 ```
@@ -43,7 +43,7 @@ begin
   p status_code # => 2xx
   p headers # => { ... }
   p data # => nil
-rescue OpenapiClient::ApiError => e
+rescue LetheanVpm::ApiError => e
   puts "Error when calling DefaultApi->cache_stats_with_http_info: #{e}"
 end
 ```
@@ -76,14 +76,14 @@ No authorization required
 
 ```ruby
 require 'time'
-require 'openapi_client'
+require 'lethean_vpm'
 
-api_instance = OpenapiClient::DefaultApi.new
+api_instance = LetheanVpm::DefaultApi.new
 
 begin
   
   api_instance.sig_verify
-rescue OpenapiClient::ApiError => e
+rescue LetheanVpm::ApiError => e
   puts "Error when calling DefaultApi->sig_verify: #{e}"
 end
 ```
@@ -101,7 +101,7 @@ begin
   p status_code # => 2xx
   p headers # => { ... }
   p data # => nil
-rescue OpenapiClient::ApiError => e
+rescue LetheanVpm::ApiError => e
   puts "Error when calling DefaultApi->sig_verify_with_http_info: #{e}"
 end
 ```

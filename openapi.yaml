@@ -29,6 +29,21 @@ paths:
                   $ref: "#/components/schemas/ServiceEntity"
       tags:
         - provider
+  /v1/service/search:
+    get:
+      operationId: list
+      parameters: []
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: string
+        "302":
+          description: Services list
+      tags:
+        - services
   "/v1/service/search/{client}":
     get:
       operationId: findOne
@@ -69,10 +84,16 @@ paths:
       tags:
         - services
 info:
-  title: Lethean VPN Api
+  title: LetheanVPN
   description: Distributed Virtual Private Marketplace
   version: "1"
-  contact: {}
+  contact:
+    name: LetheanVPN
+    url: https://lt.hn
+    email: contact@lethean.io
+  license:
+    name: GPLv3
+    url: https://gitlab.com/lthn.io/projects/vpn/market-api/LICENCE
 tags: []
 servers:
   - url: https://dvpm.io
@@ -283,7 +304,6 @@ components:
           items:
             $ref: "#/components/schemas/CertificatesEntity"
       required:
-        - id
         - name
         - type
         - cost

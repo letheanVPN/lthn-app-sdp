@@ -1,4 +1,4 @@
-# OpenapiClient::ProviderApi
+# LetheanVpm::ProviderApi
 
 All URIs are relative to *https://dvpm.io*
 
@@ -17,15 +17,15 @@ All URIs are relative to *https://dvpm.io*
 
 ```ruby
 require 'time'
-require 'openapi_client'
+require 'lethean_vpm'
 
-api_instance = OpenapiClient::ProviderApi.new
+api_instance = LetheanVpm::ProviderApi.new
 
 begin
   
   result = api_instance.find_all
   p result
-rescue OpenapiClient::ApiError => e
+rescue LetheanVpm::ApiError => e
   puts "Error when calling ProviderApi->find_all: #{e}"
 end
 ```
@@ -43,7 +43,7 @@ begin
   p status_code # => 2xx
   p headers # => { ... }
   p data # => <Array<ServiceEntity>>
-rescue OpenapiClient::ApiError => e
+rescue LetheanVpm::ApiError => e
   puts "Error when calling ProviderApi->find_all_with_http_info: #{e}"
 end
 ```

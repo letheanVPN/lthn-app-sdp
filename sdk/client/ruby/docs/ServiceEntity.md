@@ -1,10 +1,10 @@
-# OpenapiClient::ServiceEntity
+# LetheanVpm::ServiceEntity
 
 ## Properties
 
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
-| **id** | **String** | ID of the service |  |
+| **id** | **String** | ID of the service | [optional] |
 | **name** | **String** | Name of the service |  |
 | **type** | **String** | Type of the service |  |
 | **cost** | **String** | Per minute Cost of the service |  |
@@ -24,9 +24,9 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'lethean_vpm'
 
-instance = OpenapiClient::ServiceEntity.new(
+instance = LetheanVpm::ServiceEntity.new(
   id: null,
   name: null,
   type: null,

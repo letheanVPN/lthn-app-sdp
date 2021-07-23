@@ -1,4 +1,4 @@
-# OpenapiClient::ProxySettingsEntity
+# LetheanVpm::ProxySettingsEntity
 
 ## Properties
 
@@ -12,9 +12,9 @@
 ## Example
 
 ```ruby
-require 'openapi_client'
+require 'lethean_vpm'
 
-instance = OpenapiClient::ProxySettingsEntity.new(
+instance = LetheanVpm::ProxySettingsEntity.new(
   endpoint: null,
   port: null,
   terms: null,

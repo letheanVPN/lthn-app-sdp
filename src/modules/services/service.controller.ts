@@ -1,9 +1,9 @@
 import { Body, Controller, Get, Optional, Param, Post } from '@nestjs/common';
 import {
   ApiCreatedResponse,
-  ApiForbiddenResponse,
-  ApiTags,
-} from '@nestjs/swagger';
+  ApiForbiddenResponse, ApiFoundResponse,
+  ApiTags
+} from "@nestjs/swagger";
 import { ServiceEntity } from './interfaces/service.entity';
 import { ServiceService } from './service.service';
 
@@ -11,6 +11,14 @@ import { ServiceService } from './service.service';
 @Controller({ version: '1', path: 'service' })
 export class ServiceController {
   constructor(private servicesService: ServiceService) {}
+
+  @Get('search')
+  @ApiFoundResponse({
+    description: 'Services list'
+  })
+  list(): string {
+    return `This action returns a  cat`;
+  }
 
   @Get('search/:client')
   findOne(@Optional() @Param('client') client: string): string {
