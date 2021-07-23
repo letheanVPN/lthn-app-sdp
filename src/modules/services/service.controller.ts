@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Optional, Param, Post } from '@nestjs/common';
 import {
   ApiCreatedResponse,
   ApiForbiddenResponse,
@@ -12,15 +12,10 @@ import { ServiceService } from './service.service';
 export class ServiceController {
   constructor(private servicesService: ServiceService) {}
 
-  @Get('search')
-  findAll(): string {
-    return 'This action returns all cats';
-  }
-
   @Get('search/:client')
-  findOne(@Param() params): string {
-    console.log(params.id);
-    return `This action returns a #${params.id} cat`;
+  findOne(@Optional() @Param('client') client: string): string {
+    console.log(client);
+    return `This action returns a #${client} cat`;
   }
 
   @Post('add')

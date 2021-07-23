@@ -28,6 +28,7 @@
     "@nestjs/swagger": "^5.0.8",
     "cache-manager": "^3.4.4",
     "helmet": "^4.6.0",
+    "nest-openapi-tools": "^3.0.1",
     "pm2": "^5.1.0",
     "reflect-metadata": "^0.1.13",
     "rethinkdb": "^2.4.2",

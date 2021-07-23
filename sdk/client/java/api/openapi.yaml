@@ -1,0 +1,323 @@
+openapi: 3.0.0
+info:
+  contact: {}
+  description: Distributed Virtual Private Marketplace
+  title: Lethean VPN Api
+  version: "1"
+servers:
+- url: https://dvpm.io
+paths:
+  /v1/signature/get:
+    get:
+      operationId: sigVerify
+      parameters: []
+      responses:
+        "200": {}
+      x-accepts: application/json
+  /v1/cache/index:
+    get:
+      operationId: cacheStats
+      parameters: []
+      responses:
+        "200": {}
+      x-accepts: application/json
+  /v1/provider/search:
+    get:
+      operationId: findAll
+      parameters: []
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/ServiceEntity'
+                type: array
+      tags:
+      - provider
+      x-accepts: application/json
+  /v1/service/search/{client}:
+    get:
+      operationId: findOne
+      parameters:
+      - explode: false
+        in: path
+        name: client
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: string
+      tags:
+      - services
+      x-accepts: application/json
+  /v1/service/add:
+    post:
+      operationId: create
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ServiceEntity'
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServiceEntity'
+          description: The record has been successfully created.
+        "403":
+          description: Forbidden.
+      tags:
+      - services
+      x-contentType: application/json
+      x-accepts: application/json
+components:
+  schemas:
+    ProxySettingsEntity:
+      example:
+        endpoint: endpoint
+        port: port
+        terms: terms
+        policy:
+        - policy
+        - policy
+      properties:
+        endpoint:
+          description: IP Address of endpoints for Proxy service only
+          pattern: "/((^s*((([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]).){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]))s*$)|(^s*((([0-9A-Fa-f]{1,4}:){7}([0-9A-Fa-f]{1,4}|:))|(([0-9A-Fa-f]{1,4}:){6}(:[0-9A-Fa-f]{1,4}|((25[0-5]|2[0-4]d|1dd|[1-9]?d)(.(25[0-5]|2[0-4]d|1dd|[1-9]?d)){3})|:))|(([0-9A-Fa-f]{1,4}:){5}(((:[0-9A-Fa-f]{1,4}){1,2})|:((25[0-5]|2[0-4]d|1dd|[1-9]?d)(.(25[0-5]|2[0-4]d|1dd|[1-9]?d)){3})|:))|(([0-9A-Fa-f]{1,4}:){4}(((:[0-9A-Fa-f]{1,4}){1,3})|((:[0-9A-Fa-f]{1,4})?:((25[0-5]|2[0-4]d|1dd|[1-9]?d)(.(25[0-5]|2[0-4]d|1dd|[1-9]?d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){3}(((:[0-9A-Fa-f]{1,4}){1,4})|((:[0-9A-Fa-f]{1,4}){0,2}:((25[0-5]|2[0-4]d|1dd|[1-9]?d)(.(25[0-5]|2[0-4]d|1dd|[1-9]?d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){2}(((:[0-9A-Fa-f]{1,4}){1,5})|((:[0-9A-Fa-f]{1,4}){0,3}:((25[0-5]|2[0-4]d|1dd|[1-9]?d)(.(25[0-5]|2[0-4]d|1dd|[1-9]?d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){1}(((:[0-9A-Fa-f]{1,4}){1,6})|((:[0-9A-Fa-f]{1,4}){0,4}:((25[0-5]|2[0-4]d|1dd|[1-9]?d)(.(25[0-5]|2[0-4]d|1dd|[1-9]?d)){3}))|:))|(:(((:[0-9A-Fa-f]{1,4}){1,7})|((:[0-9A-Fa-f]{1,4}){0,5}:((25[0-5]|2[0-4]d|1dd|[1-9]?d)(.(25[0-5]|2[0-4]d|1dd|[1-9]?d)){3}))|:)))(%.+)?s*$))|(^s*((?=.{1,255}$)(?=.*[A-Za-z].*)[0-9A-Za-z](?:(?:[0-9A-Za-z]|\b\
+            -){0,61}[0-9A-Za-z])?(?:.[0-9A-Za-z](?:(?:[0-9A-Za-z]|\b-){0,61}[0-9A-Za-z])?)*)s*$)/"
+          type: string
+        port:
+          description: Port available on endpoint
+          pattern: ^([0-9]{1,4}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5])/([tT][cC][pP]|[uU][dD][pP])$
+          type: string
+        terms:
+          description: Terms for the service
+          pattern: '[:print:]'
+          type: string
+        policy:
+          description: |-
+            a JSON containing access policy - whitelist/blacklist default, allowed/blocked IPs and FQDNs in regex format.
+            This is NOT sent to SDP. It is used by the Dispatcher to orchestrate restrictions on Server
+          items:
+            type: string
+          type: array
+      required:
+      - endpoint
+      - policy
+      - port
+      - terms
+      type: object
+    VpnSettingsEntity:
+      example:
+        endpoint: endpoint
+        port: port
+        terms: terms
+        parameters: parameters
+        policy:
+        - policy
+        - policy
+      properties:
+        endpoint:
+          description: IP Addresses of endpoints for VPN service only
+          pattern: "/((^s*((([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]).){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]))s*$)|(^s*((([0-9A-Fa-f]{1,4}:){7}([0-9A-Fa-f]{1,4}|:))|(([0-9A-Fa-f]{1,4}:){6}(:[0-9A-Fa-f]{1,4}|((25[0-5]|2[0-4]d|1dd|[1-9]?d)(.(25[0-5]|2[0-4]d|1dd|[1-9]?d)){3})|:))|(([0-9A-Fa-f]{1,4}:){5}(((:[0-9A-Fa-f]{1,4}){1,2})|:((25[0-5]|2[0-4]d|1dd|[1-9]?d)(.(25[0-5]|2[0-4]d|1dd|[1-9]?d)){3})|:))|(([0-9A-Fa-f]{1,4}:){4}(((:[0-9A-Fa-f]{1,4}){1,3})|((:[0-9A-Fa-f]{1,4})?:((25[0-5]|2[0-4]d|1dd|[1-9]?d)(.(25[0-5]|2[0-4]d|1dd|[1-9]?d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){3}(((:[0-9A-Fa-f]{1,4}){1,4})|((:[0-9A-Fa-f]{1,4}){0,2}:((25[0-5]|2[0-4]d|1dd|[1-9]?d)(.(25[0-5]|2[0-4]d|1dd|[1-9]?d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){2}(((:[0-9A-Fa-f]{1,4}){1,5})|((:[0-9A-Fa-f]{1,4}){0,3}:((25[0-5]|2[0-4]d|1dd|[1-9]?d)(.(25[0-5]|2[0-4]d|1dd|[1-9]?d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){1}(((:[0-9A-Fa-f]{1,4}){1,6})|((:[0-9A-Fa-f]{1,4}){0,4}:((25[0-5]|2[0-4]d|1dd|[1-9]?d)(.(25[0-5]|2[0-4]d|1dd|[1-9]?d)){3}))|:))|(:(((:[0-9A-Fa-f]{1,4}){1,7})|((:[0-9A-Fa-f]{1,4}){0,5}:((25[0-5]|2[0-4]d|1dd|[1-9]?d)(.(25[0-5]|2[0-4]d|1dd|[1-9]?d)){3}))|:)))(%.+)?s*$))|(^s*((?=.{1,255}$)(?=.*[A-Za-z].*)[0-9A-Za-z](?:(?:[0-9A-Za-z]|\b\
+            -){0,61}[0-9A-Za-z])?(?:.[0-9A-Za-z](?:(?:[0-9A-Za-z]|\b-){0,61}[0-9A-Za-z])?)*)s*$)/"
+          type: string
+        port:
+          description: Port these settings apply to
+          pattern: ^([0-9]{1,4}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5])/([tT][cC][pP]|[uU][dD][pP])$
+          type: string
+        parameters:
+          description: mtu size parameter for vpn service only
+          type: string
+        terms:
+          description: Terms for the service
+          pattern: '[:print:]'
+          type: string
+        policy:
+          default: []
+          description: a JSON containing access policy - whitelist/blacklist default,
+            allowed/blocked IPs and FQDNs in regex format. This is NOT sent to SDP.
+            It is used by the Dispatcher to orchestrate restrictions on Server
+          items:
+            type: string
+          type: array
+      required:
+      - endpoint
+      - parameters
+      - policy
+      - port
+      - terms
+      type: object
+    timeRangeEntity:
+      example:
+        from: 2000-01-23T04:56:07.000+00:00
+        to: 2000-01-23T04:56:07.000+00:00
+      properties:
+        from:
+          description: YYYY-MM-DDT00:00:00Z
+          format: date-time
+          type: string
+        to:
+          description: YYYY-MM-DDT00:00:00Z
+          format: date-time
+          type: string
+      required:
+      - from
+      - to
+      type: object
+    CertificatesEntity:
+      example:
+        id: 7.061401241503109
+      properties:
+        id:
+          description: ID only
+          type: number
+      required:
+      - id
+      type: object
+    ServiceEntity:
+      example:
+        cost: cost
+        subsequentPrePaidMinutes: 219.61125621192116
+        downloadSpeed: 5.637376656576955E10
+        uploadSpeed: 2.302135886911744E10
+        type: vpn
+        proxy:
+        - endpoint: endpoint
+          port: port
+          terms: terms
+          policy:
+          - policy
+          - policy
+        - endpoint: endpoint
+          port: port
+          terms: terms
+          policy:
+          - policy
+          - policy
+        firstPrePaidMinutes: 124.51843123592465
+        certificates:
+        - id: 7.061401241503109
+        - id: 7.061401241503109
+        vpn:
+        - endpoint: endpoint
+          port: port
+          terms: terms
+          parameters: parameters
+          policy:
+          - policy
+          - policy
+        - endpoint: endpoint
+          port: port
+          terms: terms
+          parameters: parameters
+          policy:
+          - policy
+          - policy
+        disable: true
+        name: name
+        firstVerificationsNeeded: 1.2054912366140806
+        allowRefunds: true
+        id: id
+        validity:
+          from: 2000-01-23T04:56:07.000+00:00
+          to: 2000-01-23T04:56:07.000+00:00
+        subsequentVerificationsNeeded: 0.5962133916683182
+      properties:
+        id:
+          description: ID of the service
+          maxLength: 2
+          minLength: 2
+          pattern: '[0-9A-F]{1}[0-9A-F]{1}'
+          type: string
+        name:
+          description: Name of the service
+          maxLength: 32
+          pattern: ^[a-zA-Z0-9 ,.-_]+$
+          type: string
+        type:
+          description: Type of the service
+          enum:
+          - vpn
+          - proxy
+          type: string
+        cost:
+          description: Per minute Cost of the service
+          maxLength: 14
+          pattern: ([0-9]{1,5}|[.]{1}[0-9]{1,8})
+          type: string
+        firstPrePaidMinutes:
+          description: Amount of pre-paid minutes for first payment
+          maximum: 1440
+          minimum: 10
+          type: number
+        firstVerificationsNeeded:
+          description: Number of verifications needed for first payment
+          maximum: 2
+          minimum: 0
+          type: number
+        subsequentPrePaidMinutes:
+          description: Amount of pre-paid minutes for subsequent payments
+          maximum: 1440
+          minimum: 10
+          type: number
+        subsequentVerificationsNeeded:
+          description: Number of verifications needed for subsequent payments
+          maximum: 1
+          minimum: 0
+          type: number
+        allowRefunds:
+          description: Whether or not refunds are allowed
+          type: boolean
+        downloadSpeed:
+          description: Service download speed in Mbits
+          maximum: 99999999999
+          minimum: 0
+          type: number
+        uploadSpeed:
+          description: Service upload speed in Mbits
+          maximum: 99999999999
+          minimum: 0
+          type: number
+        proxy:
+          description: array containing Proxy related settings. only available if
+            service is of type proxy, null otherwise
+          items:
+            $ref: '#/components/schemas/ProxySettingsEntity'
+          type: array
+        vpn:
+          description: array containing VPN related settings. only available if service
+            is of type vpn, null otherwise
+          items:
+            $ref: '#/components/schemas/VpnSettingsEntity'
+          type: array
+        validity:
+          $ref: '#/components/schemas/timeRangeEntity'
+        disable:
+          description: disable or not the service
+          type: boolean
+        certificates:
+          description: inside each service, there should be a field named certificates
+            that has a list of IDs, referencing the certificates at the provider level.
+          items:
+            $ref: '#/components/schemas/CertificatesEntity'
+          type: array
+      required:
+      - cost
+      - disable
+      - downloadSpeed
+      - id
+      - name
+      - type
+      - uploadSpeed
+      type: object
+

@@ -1,0 +1,292 @@
+openapi: 3.0.0
+paths:
+  /v1/signature/get:
+    get:
+      operationId: sigVerify
+      parameters: []
+      responses:
+        "200":
+          description: ""
+  /v1/cache/index:
+    get:
+      operationId: cacheStats
+      parameters: []
+      responses:
+        "200":
+          description: ""
+  /v1/provider/search:
+    get:
+      operationId: findAll
+      parameters: []
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ServiceEntity"
+      tags:
+        - provider
+  "/v1/service/search/{client}":
+    get:
+      operationId: findOne
+      parameters:
+        - name: client
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: string
+      tags:
+        - services
+  /v1/service/add:
+    post:
+      operationId: create
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ServiceEntity"
+      responses:
+        "201":
+          description: The record has been successfully created.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ServiceEntity"
+        "403":
+          description: Forbidden.
+      tags:
+        - services
+info:
+  title: Lethean VPN Api
+  description: Distributed Virtual Private Marketplace
+  version: "1"
+  contact: {}
+tags: []
+servers:
+  - url: https://dvpm.io
+components:
+  schemas:
+    ProxySettingsEntity:
+      type: object
+      properties:
+        endpoint:
+          type: string
+          description: IP Address of endpoints for Proxy service only
+          pattern: "/((^s*((([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]).){3}([0-9]|[\
+            1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]))s*$)|(^s*((([0-9A-Fa-f]{1,\
+            4}:){7}([0-9A-Fa-f]{1,4}|:))|(([0-9A-Fa-f]{1,4}:){6}(:[0-9A-Fa-f]{1\
+            ,4}|((25[0-5]|2[0-4]d|1dd|[1-9]?d)(.(25[0-5]|2[0-4]d|1dd|[1-9]?d)){\
+            3})|:))|(([0-9A-Fa-f]{1,4}:){5}(((:[0-9A-Fa-f]{1,4}){1,2})|:((25[0-\
+            5]|2[0-4]d|1dd|[1-9]?d)(.(25[0-5]|2[0-4]d|1dd|[1-9]?d)){3})|:))|(([\
+            0-9A-Fa-f]{1,4}:){4}(((:[0-9A-Fa-f]{1,4}){1,3})|((:[0-9A-Fa-f]{1,4}\
+            )?:((25[0-5]|2[0-4]d|1dd|[1-9]?d)(.(25[0-5]|2[0-4]d|1dd|[1-9]?d)){3\
+            }))|:))|(([0-9A-Fa-f]{1,4}:){3}(((:[0-9A-Fa-f]{1,4}){1,4})|((:[0-9A\
+            -Fa-f]{1,4}){0,2}:((25[0-5]|2[0-4]d|1dd|[1-9]?d)(.(25[0-5]|2[0-4]d|\
+            1dd|[1-9]?d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){2}(((:[0-9A-Fa-f]{1,4})\
+            {1,5})|((:[0-9A-Fa-f]{1,4}){0,3}:((25[0-5]|2[0-4]d|1dd|[1-9]?d)(.(2\
+            5[0-5]|2[0-4]d|1dd|[1-9]?d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){1}(((:[0\
+            -9A-Fa-f]{1,4}){1,6})|((:[0-9A-Fa-f]{1,4}){0,4}:((25[0-5]|2[0-4]d|1\
+            dd|[1-9]?d)(.(25[0-5]|2[0-4]d|1dd|[1-9]?d)){3}))|:))|(:(((:[0-9A-Fa\
+            -f]{1,4}){1,7})|((:[0-9A-Fa-f]{1,4}){0,5}:((25[0-5]|2[0-4]d|1dd|[1-\
+            9]?d)(.(25[0-5]|2[0-4]d|1dd|[1-9]?d)){3}))|:)))(%.+)?s*$))|(^s*((?=\
+            .{1,255}$)(?=.*[A-Za-z].*)[0-9A-Za-z](?:(?:[0-9A-Za-z]|\b-){0,61}[0\
+            -9A-Za-z])?(?:.[0-9A-Za-z](?:(?:[0-9A-Za-z]|\b-){0,61}[0-9A-Za-z])?\
+            )*)s*$)/"
+        port:
+          type: string
+          description: Port available on endpoint
+          pattern: ^([0-9]{1,4}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5])/([tT][cC][pP]|[uU][dD][pP])$
+        terms:
+          type: string
+          description: Terms for the service
+          pattern: "[:print:]"
+        policy:
+          description: >-
+            a JSON containing access policy - whitelist/blacklist default,
+            allowed/blocked IPs and FQDNs in regex format.
+
+            This is NOT sent to SDP. It is used by the Dispatcher to orchestrate restrictions on Server
+          type: array
+          items:
+            type: string
+      required:
+        - endpoint
+        - port
+        - terms
+        - policy
+    VpnSettingsEntity:
+      type: object
+      properties:
+        endpoint:
+          type: string
+          description: IP Addresses of endpoints for VPN service only
+          pattern: "/((^s*((([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]).){3}([0-9]|[\
+            1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]))s*$)|(^s*((([0-9A-Fa-f]{1,\
+            4}:){7}([0-9A-Fa-f]{1,4}|:))|(([0-9A-Fa-f]{1,4}:){6}(:[0-9A-Fa-f]{1\
+            ,4}|((25[0-5]|2[0-4]d|1dd|[1-9]?d)(.(25[0-5]|2[0-4]d|1dd|[1-9]?d)){\
+            3})|:))|(([0-9A-Fa-f]{1,4}:){5}(((:[0-9A-Fa-f]{1,4}){1,2})|:((25[0-\
+            5]|2[0-4]d|1dd|[1-9]?d)(.(25[0-5]|2[0-4]d|1dd|[1-9]?d)){3})|:))|(([\
+            0-9A-Fa-f]{1,4}:){4}(((:[0-9A-Fa-f]{1,4}){1,3})|((:[0-9A-Fa-f]{1,4}\
+            )?:((25[0-5]|2[0-4]d|1dd|[1-9]?d)(.(25[0-5]|2[0-4]d|1dd|[1-9]?d)){3\
+            }))|:))|(([0-9A-Fa-f]{1,4}:){3}(((:[0-9A-Fa-f]{1,4}){1,4})|((:[0-9A\
+            -Fa-f]{1,4}){0,2}:((25[0-5]|2[0-4]d|1dd|[1-9]?d)(.(25[0-5]|2[0-4]d|\
+            1dd|[1-9]?d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){2}(((:[0-9A-Fa-f]{1,4})\
+            {1,5})|((:[0-9A-Fa-f]{1,4}){0,3}:((25[0-5]|2[0-4]d|1dd|[1-9]?d)(.(2\
+            5[0-5]|2[0-4]d|1dd|[1-9]?d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){1}(((:[0\
+            -9A-Fa-f]{1,4}){1,6})|((:[0-9A-Fa-f]{1,4}){0,4}:((25[0-5]|2[0-4]d|1\
+            dd|[1-9]?d)(.(25[0-5]|2[0-4]d|1dd|[1-9]?d)){3}))|:))|(:(((:[0-9A-Fa\
+            -f]{1,4}){1,7})|((:[0-9A-Fa-f]{1,4}){0,5}:((25[0-5]|2[0-4]d|1dd|[1-\
+            9]?d)(.(25[0-5]|2[0-4]d|1dd|[1-9]?d)){3}))|:)))(%.+)?s*$))|(^s*((?=\
+            .{1,255}$)(?=.*[A-Za-z].*)[0-9A-Za-z](?:(?:[0-9A-Za-z]|\b-){0,61}[0\
+            -9A-Za-z])?(?:.[0-9A-Za-z](?:(?:[0-9A-Za-z]|\b-){0,61}[0-9A-Za-z])?\
+            )*)s*$)/"
+        port:
+          type: string
+          description: Port these settings apply to
+          pattern: ^([0-9]{1,4}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5])/([tT][cC][pP]|[uU][dD][pP])$
+        parameters:
+          type: string
+          description: mtu size parameter for vpn service only
+        terms:
+          type: string
+          description: Terms for the service
+          pattern: "[:print:]"
+        policy:
+          description: a JSON containing access policy - whitelist/blacklist default,
+            allowed/blocked IPs and FQDNs in regex format. This is NOT sent to
+            SDP. It is used by the Dispatcher to orchestrate restrictions on
+            Server
+          default: []
+          type: array
+          items:
+            type: string
+      required:
+        - endpoint
+        - port
+        - parameters
+        - terms
+        - policy
+    timeRangeEntity:
+      type: object
+      properties:
+        from:
+          type: string
+          format: date-time
+          description: YYYY-MM-DDT00:00:00Z
+        to:
+          type: string
+          format: date-time
+          description: YYYY-MM-DDT00:00:00Z
+      required:
+        - from
+        - to
+    CertificatesEntity:
+      type: object
+      properties:
+        id:
+          type: number
+          description: ID only
+      required:
+        - id
+    ServiceEntity:
+      type: object
+      properties:
+        id:
+          type: string
+          description: ID of the service
+          minLength: 2
+          maxLength: 2
+          pattern: "[0-9A-F]{1}[0-9A-F]{1}"
+        name:
+          type: string
+          description: Name of the service
+          maxLength: 32
+          pattern: ^[a-zA-Z0-9 ,.-_]+$
+        type:
+          type: string
+          description: Type of the service
+          enum:
+            - vpn
+            - proxy
+        cost:
+          type: string
+          description: Per minute Cost of the service
+          maxLength: 14
+          pattern: ([0-9]{1,5}|[.]{1}[0-9]{1,8})
+        firstPrePaidMinutes:
+          type: number
+          description: Amount of pre-paid minutes for first payment
+          minimum: 10
+          maximum: 1440
+        firstVerificationsNeeded:
+          type: number
+          description: Number of verifications needed for first payment
+          minimum: 0
+          maximum: 2
+        subsequentPrePaidMinutes:
+          type: number
+          description: Amount of pre-paid minutes for subsequent payments
+          minimum: 10
+          maximum: 1440
+        subsequentVerificationsNeeded:
+          type: number
+          description: Number of verifications needed for subsequent payments
+          minimum: 0
+          maximum: 1
+        allowRefunds:
+          type: boolean
+          description: Whether or not refunds are allowed
+        downloadSpeed:
+          type: number
+          description: Service download speed in Mbits
+          minimum: 0
+          maximum: 99999999999
+        uploadSpeed:
+          type: number
+          description: Service upload speed in Mbits
+          minimum: 0
+          maximum: 99999999999
+        proxy:
+          description: array containing Proxy related settings. only available if service
+            is of type proxy, null otherwise
+          type: array
+          items:
+            $ref: "#/components/schemas/ProxySettingsEntity"
+        vpn:
+          description: array containing VPN related settings. only available if service is
+            of type vpn, null otherwise
+          type: array
+          items:
+            $ref: "#/components/schemas/VpnSettingsEntity"
+        validity:
+          $ref: "#/components/schemas/timeRangeEntity"
+        disable:
+          type: boolean
+          description: disable or not the service
+        certificates:
+          description: inside each service, there should be a field named certificates
+            that has a list of IDs, referencing the certificates at the provider
+            level.
+          type: array
+          items:
+            $ref: "#/components/schemas/CertificatesEntity"
+      required:
+        - id
+        - name
+        - type
+        - cost
+        - downloadSpeed
+        - uploadSpeed
+        - disable

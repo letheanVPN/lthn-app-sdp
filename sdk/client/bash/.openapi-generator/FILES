@@ -1,0 +1,14 @@
+.openapi-generator-ignore
+Dockerfile
+README.md
+_client.sh
+client.sh
+client.sh.bash-completion
+docs/CertificatesEntity.md
+docs/DefaultApi.md
+docs/ProviderApi.md
+docs/ProxySettingsEntity.md
+docs/ServiceEntity.md
+docs/ServicesApi.md
+docs/TimeRangeEntity.md
+docs/VpnSettingsEntity.md
