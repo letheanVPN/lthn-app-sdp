@@ -28,3 +28,6 @@
 [submodule "sdk/client/java"]
 	path = sdk/client/java
 	url = git@gitlab.com:lthn.io/projects/vpn/sdk/java.git
+[submodule "sdk/client/javascript"]
+	path = sdk/client/javascript
+	url = git@gitlab.com:lthn.io/projects/vpn/sdk/javascript.git
