@@ -52,3 +52,6 @@
 [submodule "sdk/client/ruby"]
 	path = sdk/client/ruby
 	url = git@gitlab.com:lthn.io/projects/vpn/sdk/ruby.git
+[submodule "sdk/client/rust"]
+	path = sdk/client/rust
+	url = git@gitlab.com:lthn.io/projects/vpn/sdk/rust.git
