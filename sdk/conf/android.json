@@ -1,0 +1,9 @@
+{
+  "additionalProperties": {
+    "groupId": "org.lthn",
+    "apiPackage":"org.lthn.vpn.client",
+    "invokerPackage":"org.lthn.vpn.client",
+    "artifactId":"org.lthn.vpn.client",
+    "modelPackage":"org.lthn.vpn.models"
+  }
+}
