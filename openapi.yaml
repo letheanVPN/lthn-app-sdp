@@ -85,6 +85,53 @@ paths:
           description: Forbidden.
       tags:
         - vpm
+  /v1/feedback/add:
+    post:
+      operationId: addFeedback
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/FeedbackEntity"
+      responses:
+        "201":
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: string
+      tags:
+        - vpm
+  "/v1/feedback/get/{client}/{id}":
+    get:
+      operationId: getProviderFeedback
+      parameters: []
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/FeedbackEntity"
+      tags:
+        - vpm
+  /v1/feedback/stats:
+    get:
+      operationId: getProvidersFeedback
+      parameters: []
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/FeedbackEntity"
+      tags:
+        - vpm
 info:
   title: LetheanVPN
   description: Distributed Virtual Private Marketplace
@@ -376,3 +423,37 @@ components:
         - downloadSpeed
         - uploadSpeed
         - disable
+    FeedbackEntity:
+      type: object
+      properties:
+        id:
+          type: string
+          pattern: iz[a-zA-Z0-9]
+          maxLength: 97
+          minLength: 97
+        provider:
+          type: string
+          pattern: "[A-Za-z0-9+/=!@#$&:;.,{}]"
+          minLength: 64
+          maxLength: 64
+        services:
+          type: string
+          maxLength: 2
+          minLength: 2
+          pattern: "[0-9A-F]{1}[1-9A-F]{1}"
+        speed:
+          type: number
+          pattern: "[0-5]{1}"
+          minimum: 0
+          maximum: 5
+        stability:
+          type: number
+          minimum: 0
+          maximum: 5
+          pattern: "[0-5]{1}"
+      required:
+        - id
+        - provider
+        - services
+        - speed
+        - stability
