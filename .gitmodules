@@ -19,3 +19,6 @@
 [submodule "sdk/client/elm"]
 	path = sdk/client/elm
 	url = git@gitlab.com:lthn.io/projects/vpn/sdk/elm.git
+[submodule "sdk/client/erlang"]
+	path = sdk/client/erlang
+	url = git@gitlab.com:lthn.io/projects/vpn/sdk/erlang.git
