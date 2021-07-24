@@ -25,7 +25,7 @@ async function bootstrap() {
         'GPLv3',
         'https://gitlab.com/lthn.io/projects/vpn/market-api/LICENCE',
       )
-      .addServer('http://localhost:36911')
+     // .addServer('http://localhost:36911')
       .addServer('https://dvpm.io'),
     {
       webServerOptions: {
