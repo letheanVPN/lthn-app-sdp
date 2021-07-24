@@ -55,3 +55,6 @@
 [submodule "sdk/client/rust"]
 	path = sdk/client/rust
 	url = git@gitlab.com:lthn.io/projects/vpn/sdk/rust.git
+[submodule "sdk/client/rxjs-ts"]
+	path = sdk/client/rxjs-ts
+	url = git@gitlab.com:lthn.io/projects/vpn/sdk/rxjs-ts.git
