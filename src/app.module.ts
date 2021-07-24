@@ -6,6 +6,8 @@ import { ServiceModule } from './modules/services/service.module';
 import { FavouriteModule } from './modules/favourite/favourite.module';
 import { FeedbackModule } from './modules/feedback/feedback.module';
 import { APP_INTERCEPTOR } from '@nestjs/core';
+import { RethinkModule } from './providers/rethink/rethink.module';
+import { RethinkProvider } from './providers/rethink/database.provider';
 
 @Module({
   imports: [
@@ -17,6 +19,7 @@ import { APP_INTERCEPTOR } from '@nestjs/core';
     ServiceModule,
     FavouriteModule,
     FeedbackModule,
+    RethinkModule,
   ],
   controllers: [AppController],
   providers: [
@@ -25,6 +28,7 @@ import { APP_INTERCEPTOR } from '@nestjs/core';
       provide: APP_INTERCEPTOR,
       useClass: CacheInterceptor,
     },
+    RethinkProvider,
   ],
 })
 export class AppModule {}

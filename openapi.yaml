@@ -96,6 +96,7 @@ info:
     url: https://gitlab.com/lthn.io/projects/vpn/market-api/LICENCE
 tags: []
 servers:
+  - url: http://localhost:36911
   - url: https://dvpm.io
 components:
   schemas:

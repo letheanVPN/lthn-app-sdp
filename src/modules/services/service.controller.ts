@@ -1,9 +1,10 @@
 import { Body, Controller, Get, Optional, Param, Post } from '@nestjs/common';
 import {
   ApiCreatedResponse,
-  ApiForbiddenResponse, ApiFoundResponse,
-  ApiTags
-} from "@nestjs/swagger";
+  ApiForbiddenResponse,
+  ApiFoundResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 import { ServiceEntity } from './interfaces/service.entity';
 import { ServiceService } from './service.service';
 
@@ -14,7 +15,7 @@ export class ServiceController {
 
   @Get('search')
   @ApiFoundResponse({
-    description: 'Services list'
+    description: 'Services list',
   })
   list(): string {
     return `This action returns a  cat`;
@@ -32,7 +33,16 @@ export class ServiceController {
     type: ServiceEntity,
   })
   @ApiForbiddenResponse({ description: 'Forbidden.' })
-  async create(@Body() createServiceDto: ServiceEntity) {
-    this.servicesService.create(createServiceDto);
+  async create(
+    @Body() createServiceDto: ServiceEntity,
+  ): Promise<ServiceEntity> {
+    return await this.servicesService
+      .newService(createServiceDto)
+      .then((result) => {
+        return result;
+      })
+      .catch((error) => {
+        return error;
+      });
   }
 }
