@@ -83,15 +83,21 @@ Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
 *DefaultApi* | [**cacheStats**](docs/DefaultApi.md#cacheStats) | **GET** /v1/cache/index | 
 *DefaultApi* | [**sigVerify**](docs/DefaultApi.md#sigVerify) | **GET** /v1/signature/get | 
-*ProviderApi* | [**findAll**](docs/ProviderApi.md#findAll) | **GET** /v1/provider/search | 
-*ServicesApi* | [**create**](docs/ServicesApi.md#create) | **POST** /v1/service/add | 
-*ServicesApi* | [**findOne**](docs/ServicesApi.md#findOne) | **GET** /v1/service/search/{client} | 
-*ServicesApi* | [**list**](docs/ServicesApi.md#list) | **GET** /v1/service/search | 
+*VpmApi* | [**addFeedback**](docs/VpmApi.md#addFeedback) | **POST** /v1/feedback/add | 
+*VpmApi* | [**createService**](docs/VpmApi.md#createService) | **POST** /v1/service/add | 
+*VpmApi* | [**findAll**](docs/VpmApi.md#findAll) | **GET** /v1/provider/search | 
+*VpmApi* | [**findOne**](docs/VpmApi.md#findOne) | **GET** /v1/service/search/{client} | 
+*VpmApi* | [**getProviderFeedback**](docs/VpmApi.md#getProviderFeedback) | **GET** /v1/feedback/get/{client}/{id} | 
+*VpmApi* | [**getProvidersFeedback**](docs/VpmApi.md#getProvidersFeedback) | **GET** /v1/feedback/stats | 
+*VpmApi* | [**listServices**](docs/VpmApi.md#listServices) | **GET** /v1/service/search | 
 
 
 ## Documentation for Models
 
+ - [CertificateEntity](docs/CertificateEntity.md)
  - [CertificatesEntity](docs/CertificatesEntity.md)
+ - [FeedbackEntity](docs/FeedbackEntity.md)
+ - [ProviderEntity](docs/ProviderEntity.md)
  - [ProxySettingsEntity](docs/ProxySettingsEntity.md)
  - [ServiceEntity](docs/ServiceEntity.md)
  - [TimeRangeEntity](docs/TimeRangeEntity.md)

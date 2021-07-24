@@ -1,5 +1,5 @@
 /**
- * Lethean VPM
+ * LetheanVPN
  * Distributed Virtual Private Marketplace
  *
  * The version of the OpenAPI document: 1
@@ -57,8 +57,20 @@ public class JsonUtil {
   public static Type getListTypeForDeserialization(Class cls) {
     String className = cls.getSimpleName();
     
+    if ("CertificateEntity".equalsIgnoreCase(className)) {
+      return new TypeToken<List<CertificateEntity>>(){}.getType();
+    }
+    
     if ("CertificatesEntity".equalsIgnoreCase(className)) {
       return new TypeToken<List<CertificatesEntity>>(){}.getType();
+    }
+    
+    if ("FeedbackEntity".equalsIgnoreCase(className)) {
+      return new TypeToken<List<FeedbackEntity>>(){}.getType();
+    }
+    
+    if ("ProviderEntity".equalsIgnoreCase(className)) {
+      return new TypeToken<List<ProviderEntity>>(){}.getType();
     }
     
     if ("ProxySettingsEntity".equalsIgnoreCase(className)) {
@@ -83,8 +95,20 @@ public class JsonUtil {
   public static Type getTypeForDeserialization(Class cls) {
     String className = cls.getSimpleName();
     
+    if ("CertificateEntity".equalsIgnoreCase(className)) {
+      return new TypeToken<CertificateEntity>(){}.getType();
+    }
+    
     if ("CertificatesEntity".equalsIgnoreCase(className)) {
       return new TypeToken<CertificatesEntity>(){}.getType();
+    }
+    
+    if ("FeedbackEntity".equalsIgnoreCase(className)) {
+      return new TypeToken<FeedbackEntity>(){}.getType();
+    }
+    
+    if ("ProviderEntity".equalsIgnoreCase(className)) {
+      return new TypeToken<ProviderEntity>(){}.getType();
     }
     
     if ("ProxySettingsEntity".equalsIgnoreCase(className)) {

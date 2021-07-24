@@ -1,5 +1,5 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import { Body, Controller, Get, Optional, Param, Post } from '@nestjs/common';
+import { ApiPropertyOptional, ApiTags } from '@nestjs/swagger';
 import { FeedbackEntity } from './entities/feedback.entitty';
 
 @ApiTags('vpm')
@@ -11,7 +11,10 @@ export class FeedbackController {
   }
 
   @Get('get/:client/:id')
-  getProviderFeedback() {
+  getProviderFeedback(
+    @Param('client') client?: string,
+    @Param('id') id?: string,
+  ) {
     return new FeedbackEntity();
   }
 

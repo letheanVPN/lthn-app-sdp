@@ -1,5 +1,5 @@
 /**
- * Lethean VPM
+ * LetheanVPN
  * Distributed Virtual Private Marketplace
  *
  * The version of the OpenAPI document: 1
@@ -63,7 +63,7 @@ public class ServiceEntity {
   /**
    * ID of the service
    **/
-  @ApiModelProperty(value = "ID of the service")
+  @ApiModelProperty(required = true, value = "ID of the service")
   public String getId() {
     return id;
   }

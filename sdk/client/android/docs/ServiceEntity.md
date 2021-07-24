@@ -6,7 +6,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **String** | ID of the service |  [optional]
+**id** | **String** | ID of the service | 
 **name** | **String** | Name of the service | 
 **type** | [**TypeEnum**](#TypeEnum) | Type of the service | 
 **cost** | **String** | Per minute Cost of the service | 

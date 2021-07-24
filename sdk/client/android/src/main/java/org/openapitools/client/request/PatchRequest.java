@@ -1,5 +1,5 @@
 /**
- * Lethean VPM
+ * LetheanVPN
  * Distributed Virtual Private Marketplace
  *
  * The version of the OpenAPI document: 1
