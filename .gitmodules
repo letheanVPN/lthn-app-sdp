@@ -40,3 +40,6 @@
 [submodule "sdk/client/perl"]
 	path = sdk/client/perl
 	url = git@gitlab.com:lthn.io/projects/vpn/sdk/perl.git
+[submodule "sdk/client/php"]
+	path = sdk/client/php
+	url = git@gitlab.com:lthn.io/projects/vpn/sdk/php.git
