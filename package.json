@@ -20,7 +20,8 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
-    "setup:macos": "bash sdk/install.deps.macos.sh"
+    "setup:macos": "bash sdk/install.deps.macos.sh",
+    "setup:db": "node data/seed-db.js"
   },
   "dependencies": {
     "@nestjs/common": "^8.0.0",
@@ -30,6 +31,8 @@
     "@types/rethinkdb": "^2.3.17",
     "cache-manager": "^3.4.4",
     "helmet": "^4.6.0",
+    "ion-js": "^4.2.1",
+    "jsbi": "^3.1.5",
     "nest-openapi-tools": "^3.0.1",
     "pm2": "^5.1.0",
     "reflect-metadata": "^0.1.13",

@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { ServiceEntity } from './interfaces/service.entity';
+import { ServiceEntity } from './entities/service.entity';
 import { RethinkService } from '../../../providers/rethink/rethink.service';
 
 const TABLE = 'services';

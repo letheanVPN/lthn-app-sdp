@@ -417,6 +417,7 @@ components:
           items:
             $ref: "#/components/schemas/CertificatesEntity"
       required:
+        - id
         - name
         - type
         - cost

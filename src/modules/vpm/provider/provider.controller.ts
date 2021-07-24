@@ -1,6 +1,6 @@
 import { Controller, Get, Version } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
-import { ProviderEntity } from './interfaces/provider.entity';
+import { ProviderEntity } from './entities/provider.entity';
 
 @ApiTags('vpm')
 @Controller({ version: '1', path: 'provider' })

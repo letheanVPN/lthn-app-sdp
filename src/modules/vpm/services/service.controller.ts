@@ -5,7 +5,7 @@ import {
   ApiFoundResponse,
   ApiTags,
 } from '@nestjs/swagger';
-import { ServiceEntity } from './interfaces/service.entity';
+import { ServiceEntity } from './entities/service.entity';
 import { ServiceService } from './service.service';
 
 @ApiTags('vpm')
