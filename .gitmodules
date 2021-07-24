@@ -37,3 +37,6 @@
 [submodule "sdk/client/node-ts"]
 	path = sdk/client/node-ts
 	url = git@gitlab.com:lthn.io/projects/vpn/sdk/node-ts.git
+[submodule "sdk/client/perl"]
+	path = sdk/client/perl
+	url = git@gitlab.com:lthn.io/projects/vpn/sdk/perl.git
