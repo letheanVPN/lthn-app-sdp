@@ -1,3 +1,6 @@
 [submodule "sdk/client/android"]
 	path = sdk/client/android
 	url = git@gitlab.com:lthn.io/projects/vpn/sdk/android.git
+[submodule "sdk/client/angular-ts"]
+	path = sdk/client/angular-ts
+	url = git@gitlab.com:lthn.io/projects/vpn/sdk/angular-ts.git
