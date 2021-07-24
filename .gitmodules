@@ -43,3 +43,6 @@
 [submodule "sdk/client/php"]
 	path = sdk/client/php
 	url = git@gitlab.com:lthn.io/projects/vpn/sdk/php.git
+[submodule "sdk/client/powershell"]
+	path = sdk/client/powershell
+	url = git@gitlab.com:lthn.io/projects/vpn/sdk/powershell.git
