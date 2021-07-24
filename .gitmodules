@@ -10,3 +10,6 @@
 [submodule "sdk/client/c"]
 	path = sdk/client/c
 	url = git@gitlab.com:lthn.io/projects/vpn/sdk/c.git
+[submodule "sdk/client/cpp-qt"]
+	path = sdk/client/cpp-qt
+	url = git@gitlab.com:lthn.io/projects/vpn/sdk/cpp-qt.git
