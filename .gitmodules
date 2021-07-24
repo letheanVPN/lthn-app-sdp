@@ -58,3 +58,6 @@
 [submodule "sdk/client/rxjs-ts"]
 	path = sdk/client/rxjs-ts
 	url = git@gitlab.com:lthn.io/projects/vpn/sdk/rxjs-ts.git
+[submodule "sdk/client/swift5"]
+	path = sdk/client/swift5
+	url = git@gitlab.com:lthn.io/projects/vpn/sdk/swift5.git
