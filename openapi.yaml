@@ -107,7 +107,17 @@ paths:
   "/v1/feedback/get/{client}/{id}":
     get:
       operationId: getProviderFeedback
-      parameters: []
+      parameters:
+        - name: client
+          required: true
+          in: path
+          schema:
+            type: string
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
       responses:
         "200":
           description: ""
@@ -145,7 +155,6 @@ info:
     url: https://gitlab.com/lthn.io/projects/vpn/market-api/LICENCE
 tags: []
 servers:
-  - url: http://localhost:36911
   - url: https://dvpm.io
 components:
   schemas:
