@@ -1,4 +1,4 @@
-import { ApiProperty } from '@nestjs/swagger';
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { ProxySettingsEntity } from './proxy-settings.entity';
 import { VpnSettingsEntity } from './vpn-settings.entity';
 import { timeRangeEntity } from './time-range.entity';
@@ -13,7 +13,7 @@ export class ServiceEntity {
     maxLength: 2,
     pattern: '[0-9A-F]{1}[0-9A-F]{1}',
   })
-  id?: string;
+  id: string;
 
   /**
    * Name of the service
@@ -48,6 +48,7 @@ export class ServiceEntity {
     minimum: 10,
     maximum: 1440,
   })
+  @ApiPropertyOptional()
   firstPrePaidMinutes?: number;
 
   /**
@@ -57,6 +58,7 @@ export class ServiceEntity {
     minimum: 0,
     maximum: 2,
   })
+  @ApiPropertyOptional()
   firstVerificationsNeeded?: number;
 
   /**
@@ -66,6 +68,7 @@ export class ServiceEntity {
     minimum: 10,
     maximum: 1440,
   })
+  @ApiPropertyOptional()
   subsequentPrePaidMinutes?: number;
 
   /**
@@ -75,12 +78,14 @@ export class ServiceEntity {
     minimum: 0,
     maximum: 1,
   })
+  @ApiPropertyOptional()
   subsequentVerificationsNeeded?: number;
 
   /**
    * Whether or not refunds are allowed
    */
   @ApiProperty()
+  @ApiPropertyOptional()
   allowRefunds?: boolean;
 
   /**
@@ -105,15 +110,18 @@ export class ServiceEntity {
    * array containing Proxy related settings. only available if service is of type proxy, null otherwise
    */
   @ApiProperty()
+  @ApiPropertyOptional()
   proxy?: ProxySettingsEntity[];
 
   /**
    * array containing VPN related settings. only available if service is of type vpn, null otherwise
    */
   @ApiProperty()
+  @ApiPropertyOptional()
   vpn?: VpnSettingsEntity[];
 
   @ApiProperty()
+  @ApiPropertyOptional()
   validity?: timeRangeEntity;
 
   /**
@@ -126,5 +134,6 @@ export class ServiceEntity {
    * inside each service, there should be a field named certificates that has a list of IDs, referencing the certificates at the provider level.
    */
   @ApiProperty()
+  @ApiPropertyOptional()
   certificates?: CertificatesEntity[];
 }

@@ -1,6 +1,6 @@
 import { Body, Controller, Get, Post } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
-import { FeedbackEntity } from './interfaces/feedback.entitty';
+import { FeedbackEntity } from './entities/feedback.entitty';
 
 @ApiTags('vpm')
 @Controller({ version: '1', path: 'feedback' })
