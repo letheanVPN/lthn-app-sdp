@@ -8,7 +8,7 @@ import {
 import { ServiceEntity } from './interfaces/service.entity';
 import { ServiceService } from './service.service';
 
-@ApiTags('services')
+@ApiTags('vpm')
 @Controller({ version: '1', path: 'service' })
 export class ServiceController {
   constructor(private servicesService: ServiceService) {}
@@ -17,8 +17,15 @@ export class ServiceController {
   @ApiFoundResponse({
     description: 'Services list',
   })
-  list(): string {
-    return `This action returns a  cat`;
+  async listServices(): Promise<ServiceEntity[]> {
+    return await this.servicesService
+      .listServices()
+      .then((result) => {
+        return result;
+      })
+      .catch((error) => {
+        return error;
+      });
   }
 
   @Get('search/:client')
@@ -33,7 +40,7 @@ export class ServiceController {
     type: ServiceEntity,
   })
   @ApiForbiddenResponse({ description: 'Forbidden.' })
-  async create(
+  async createService(
     @Body() createServiceDto: ServiceEntity,
   ): Promise<ServiceEntity> {
     return await this.servicesService
