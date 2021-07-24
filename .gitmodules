@@ -4,3 +4,6 @@
 [submodule "sdk/client/angular-ts"]
 	path = sdk/client/angular-ts
 	url = git@gitlab.com:lthn.io/projects/vpn/sdk/angular-ts.git
+[submodule "sdk/client/bash"]
+	path = sdk/client/bash
+	url = git@gitlab.com:lthn.io/projects/vpn/sdk/bash.git
