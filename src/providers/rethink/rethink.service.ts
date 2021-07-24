@@ -36,4 +36,12 @@ export class RethinkService {
       .insert(content)
       .run(this.connection);
   }
+
+  async fetch(tableName: string): Promise<rethink.Cursor> {
+    return await rethink
+      .db('lethean-api')
+      .table(tableName)
+      .getAll()
+      .run(this.connection);
+  }
 }

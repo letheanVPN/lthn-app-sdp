@@ -26,12 +26,12 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: "#/components/schemas/ServiceEntity"
+                  $ref: "#/components/schemas/ProviderEntity"
       tags:
-        - provider
+        - vpm
   /v1/service/search:
     get:
-      operationId: list
+      operationId: listServices
       parameters: []
       responses:
         "200":
@@ -39,11 +39,13 @@ paths:
           content:
             application/json:
               schema:
-                type: string
+                type: array
+                items:
+                  $ref: "#/components/schemas/ServiceEntity"
         "302":
           description: Services list
       tags:
-        - services
+        - vpm
   "/v1/service/search/{client}":
     get:
       operationId: findOne
@@ -61,10 +63,10 @@ paths:
               schema:
                 type: string
       tags:
-        - services
+        - vpm
   /v1/service/add:
     post:
-      operationId: create
+      operationId: createService
       parameters: []
       requestBody:
         required: true
@@ -82,7 +84,7 @@ paths:
         "403":
           description: Forbidden.
       tags:
-        - services
+        - vpm
 info:
   title: LetheanVPN
   description: Distributed Virtual Private Marketplace
@@ -100,6 +102,69 @@ servers:
   - url: https://dvpm.io
 components:
   schemas:
+    CertificateEntity:
+      type: object
+      properties:
+        id:
+          type: number
+        cn:
+          type: string
+          description: Common name of certificates
+          pattern: "[a-zA-z .]"
+        certificates:
+          description: Base 64 encoded strings of certificates for Proxy service only
+          type: array
+          items:
+            type: string
+            pattern: ^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$
+      required:
+        - id
+        - cn
+        - certificates
+    ProviderEntity:
+      type: object
+      properties:
+        id:
+          type: string
+          description: ID of the ProviderEntity
+          minLength: 64
+          maxLength: 64
+          pattern: "[A-F0-9+/=]"
+        nodeType:
+          type: string
+          description: Node Type
+          enum:
+            - residential
+            - commercial
+            - government
+        name:
+          type: string
+          description: Name of the ProviderEntity
+          maxLength: 16
+          pattern: ^[a-zA-Z0-9 ,.-_]+$
+        certificates:
+          description: Base 64 encoded certificate content
+          type: array
+          items:
+            $ref: "#/components/schemas/CertificateEntity"
+        wallet:
+          type: string
+          description: Wallet address
+          maxLength: 97
+          minLength: 97
+          pattern: iz[a-zA-Z0-9]
+        terms:
+          type: string
+          description: Terms of the ProviderEntity as a whole
+          maxLength: 50000
+          pattern: "[:print:]"
+      required:
+        - id
+        - nodeType
+        - name
+        - certificates
+        - wallet
+        - terms
     ProxySettingsEntity:
       type: object
       properties:

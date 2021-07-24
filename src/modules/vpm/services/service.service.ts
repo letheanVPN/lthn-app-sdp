@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { ServiceEntity } from './interfaces/service.entity';
-import { RethinkService } from '../../providers/rethink/rethink.service';
+import { RethinkService } from '../../../providers/rethink/rethink.service';
 
 const TABLE = 'services';
 
@@ -13,7 +13,14 @@ export class ServiceService {
     return await this.rethinkService.insert(TABLE, service);
   }
 
-  findAll(): ServiceEntity[] {
-    return this.cats;
+  async listServices() {
+    return await this.rethinkService
+      .fetch(TABLE)
+      .then((results) => {
+        return results;
+      })
+      .catch((error) => {
+        return error;
+      });
   }
 }

@@ -1,10 +1,10 @@
 import { CacheInterceptor, CacheModule, Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { ProviderModule } from './modules/provider/provider.module';
-import { ServiceModule } from './modules/services/service.module';
-import { FavouriteModule } from './modules/favourite/favourite.module';
-import { FeedbackModule } from './modules/feedback/feedback.module';
+import { ProviderModule } from './modules/vpm/provider/provider.module';
+import { ServiceModule } from './modules/vpm/services/service.module';
+import { FavouriteModule } from './modules/vpm/favourite/favourite.module';
+import { FeedbackModule } from './modules/vpm/feedback/feedback.module';
 import { APP_INTERCEPTOR } from '@nestjs/core';
 import { RethinkModule } from './providers/rethink/rethink.module';
 import { RethinkProvider } from './providers/rethink/database.provider';
