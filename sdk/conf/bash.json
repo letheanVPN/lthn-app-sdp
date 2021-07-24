@@ -1,0 +1,10 @@
+{
+  "additionalProperties": {
+    "apiPackage": "lthn-vpn",
+    "generateBashCompletion": true,
+    "generateZshCompletion":  true,
+    "processMarkdown":  true,
+    "scriptName":"lthnd-vpn",
+    "hostEnvironmentVariable": "https://dvpm.io"
+  }
+}
