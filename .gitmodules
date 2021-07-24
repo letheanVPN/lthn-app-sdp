@@ -46,3 +46,6 @@
 [submodule "sdk/client/powershell"]
 	path = sdk/client/powershell
 	url = git@gitlab.com:lthn.io/projects/vpn/sdk/powershell.git
+[submodule "sdk/client/python"]
+	path = sdk/client/python
+	url = git@gitlab.com:lthn.io/projects/vpn/sdk/python.git
