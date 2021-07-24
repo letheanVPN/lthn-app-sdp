@@ -22,3 +22,6 @@
 [submodule "sdk/client/erlang"]
 	path = sdk/client/erlang
 	url = git@gitlab.com:lthn.io/projects/vpn/sdk/erlang.git
+[submodule "sdk/client/go"]
+	path = sdk/client/go
+	url = git@gitlab.com:lthn.io/projects/vpn/sdk/go.git
