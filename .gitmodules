@@ -1,0 +1,3 @@
+[submodule "sdk/client/android"]
+	path = sdk/client/android
+	url = git@gitlab.com:lthn.io/projects/vpn/sdk/android.git
