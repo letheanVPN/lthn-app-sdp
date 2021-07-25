@@ -343,7 +343,7 @@ paths:
           content:
             application/json:
               schema:
-                type: string
+                $ref: "#/components/schemas/VersionDTO"
       tags:
         - explorer
   /v1/explorer/validate/outputs:
@@ -1094,6 +1094,43 @@ components:
           description: payload data
           allOf:
             - $ref: "#/components/schemas/RawBlockEntity"
+      required:
+        - status
+        - data
+    VersionEntity:
+      type: object
+      properties:
+        api:
+          type: number
+        blockchain_height:
+          type: number
+        git_branch_name:
+          type: string
+        last_git_commit_date:
+          type: string
+        last_git_commit_hash:
+          type: string
+        monero_version_full:
+          type: string
+      required:
+        - api
+        - blockchain_height
+        - git_branch_name
+        - last_git_commit_date
+        - last_git_commit_hash
+        - monero_version_full
+    VersionDTO:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+            - success
+            - fail
+        data:
+          description: payload data
+          allOf:
+            - $ref: "#/components/schemas/VersionEntity"
       required:
         - status
         - data

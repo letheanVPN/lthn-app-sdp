@@ -133,7 +133,7 @@ export class ExplorerController {
 
   @Get('chain/version')
   getVersion() {
-    return 'curl  -w "\\n" -X GET "http://127.0.0.1:8081/api/version"';
+    return this.explorerService.getVersion();
   }
 
   @Get('validate/outputs')
