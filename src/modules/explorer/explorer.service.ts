@@ -11,6 +11,7 @@ import { EmissionDTO } from './dto/emission.dto';
 import { NetworkStatsDTO } from './dto/network.stats.dto';
 import { TransactionsDTO } from './dto/transactions.dto';
 import { TransactionDTO } from './dto/transaction.dto';
+import { RawTransactionDTO } from './dto/raw.transaction.dto';
 
 @Injectable()
 export class ExplorerService {
@@ -76,6 +77,16 @@ export class ExplorerService {
       .pipe(
         map((res) => {
           return res.data as RawBlockDTO;
+        }),
+      );
+  }
+
+  async getRawTransactionData(id: string) {
+    return this.httpService
+      .get(`https://explorer.lethean.io/api/rawtransaction/${id}`)
+      .pipe(
+        map((res) => {
+          return res.data as RawTransactionDTO;
         }),
       );
   }

@@ -302,6 +302,8 @@ paths:
   "/v1/explorer/chain/transaction/{tx_hash}":
     get:
       operationId: getTransaction
+      summary: ""
+      description: Fetch data about a transaction on the Blockhain
       parameters:
         - name: tx_hash
           required: true
@@ -321,14 +323,20 @@ paths:
   "/v1/explorer/chain/transaction/raw/{tx_hash}":
     get:
       operationId: getRawTransactionData
-      parameters: []
+      parameters:
+        - name: tx_hash
+          required: true
+          in: path
+          description: Search id, must be tx_hash
+          schema:
+            type: string
       responses:
         "200":
           description: ""
           content:
             application/json:
               schema:
-                type: string
+                $ref: "#/components/schemas/RawTransactionDTO"
       tags:
         - explorer
   /v1/explorer/chain/stats:
@@ -1220,6 +1228,117 @@ components:
           description: payload data
           allOf:
             - $ref: "#/components/schemas/TransactionEntity"
+      required:
+        - status
+        - data
+    ecdhInfo:
+      type: object
+      properties:
+        amount:
+          type: string
+        mask:
+          type: string
+      required:
+        - amount
+        - mask
+    MgsEntity:
+      type: object
+      properties:
+        cc:
+          type: string
+        ss:
+          type: array
+          items:
+            type: string
+      required:
+        - cc
+        - ss
+    RangeSigsEntity:
+      type: object
+      properties:
+        Ci:
+          type: string
+        asig:
+          type: string
+      required:
+        - Ci
+        - asig
+    RawTransactionEntity:
+      type: object
+      properties:
+        extra:
+          type: array
+          items:
+            type: string
+        rct_signatures:
+          type: object
+          properties:
+            ecdhInfo:
+              required: true
+              type: array
+              items:
+                $ref: "#/components/schemas/ecdhInfo"
+            outPk:
+              required: true
+              type: array
+              items:
+                type: string
+            pseudoOuts:
+              required: true
+              type: array
+              items:
+                type: string
+            txnFee:
+              required: true
+              type: number
+            type:
+              required: true
+              type: number
+        rctsig_prunable:
+          type: object
+          properties:
+            MGs:
+              required: true
+              type: array
+              items:
+                $ref: "#/components/schemas/MgsEntity"
+            rangeSigs:
+              required: true
+              type: array
+              items:
+                $ref: "#/components/schemas/RangeSigsEntity"
+        unlock_time:
+          type: number
+        version:
+          type: number
+        vin:
+          type: array
+          items:
+            type: string
+        vout:
+          type: array
+          items:
+            type: string
+      required:
+        - extra
+        - rct_signatures
+        - rctsig_prunable
+        - unlock_time
+        - version
+        - vin
+        - vout
+    RawTransactionDTO:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+            - success
+            - fail
+        data:
+          description: payload data
+          allOf:
+            - $ref: "#/components/schemas/RawTransactionEntity"
       required:
         - status
         - data
