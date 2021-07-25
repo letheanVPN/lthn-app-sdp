@@ -5,6 +5,7 @@ import { VersioningType } from '@nestjs/common';
 import { OpenApiNestFactory } from 'nest-openapi-tools';
 
 import * as helmet from 'helmet';
+import { ExplorerModule } from './modules/explorer/explorer.module';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, { cors: true });
 
@@ -44,6 +45,36 @@ async function bootstrap() {
       },
     },
     {
+      operationIdFactory: (c: string, method: string) => method,
+    },
+  );
+
+  await OpenApiNestFactory.configure(
+    app,
+    new DocumentBuilder()
+      .setTitle('Lethean Explorer API')
+      .setDescription('Lethean chain explorer API')
+      .setVersion('1')
+      .setContact('Lethean VPN', 'https://lt.hn', 'contact@lethean.io')
+      .addServer('https://dvpm.io'),
+    {
+      webServerOptions: {
+        enabled: false,
+        path: '/',
+      },
+      fileGeneratorOptions: {
+        enabled: true,
+        outputFilePath: './explorer.yaml', // or ./openapi.json
+      },
+      clientGeneratorOptions: {
+        enabled: false,
+        type: 'typescript-axios',
+        outputFolderPath: 'sdk/client/typescript/axios',
+        openApiFilePath: './openapi.yaml', // or ./openapi.json
+      },
+    },
+    {
+      include: [ExplorerModule],
       operationIdFactory: (c: string, method: string) => method,
     },
   );
