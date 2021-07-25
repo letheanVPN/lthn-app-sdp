@@ -1,6 +1,6 @@
 import { ApiProperty, ApiTags } from '@nestjs/swagger';
 
-@ApiTags('vpm')
+@ApiTags('vpn')
 export class FeedbackEntity {
   /**
    * User ID

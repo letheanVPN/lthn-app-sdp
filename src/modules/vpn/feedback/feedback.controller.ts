@@ -1,8 +1,8 @@
-import { Body, Controller, Get, Optional, Param, Post } from '@nestjs/common';
-import { ApiPropertyOptional, ApiTags } from '@nestjs/swagger';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { FeedbackEntity } from './entities/feedback.entitty';
 
-@ApiTags('vpm')
+@ApiTags('vpn')
 @Controller({ version: '1', path: 'feedback' })
 export class FeedbackController {
   @Post('add')

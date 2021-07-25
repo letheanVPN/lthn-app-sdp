@@ -1,7 +1,7 @@
 import { ApiProperty, ApiTags } from '@nestjs/swagger';
 import { CertificateEntity } from './certificate.entity';
 
-@ApiTags('vpm')
+@ApiTags('vpn')
 export class ProviderEntity {
   /**
    * ID of the ProviderEntity

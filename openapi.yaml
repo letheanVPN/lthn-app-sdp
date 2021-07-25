@@ -28,7 +28,7 @@ paths:
                 items:
                   $ref: "#/components/schemas/ProviderEntity"
       tags:
-        - vpm
+        - vpn
   /v1/service/search:
     get:
       operationId: listServices
@@ -45,7 +45,7 @@ paths:
         "302":
           description: Services list
       tags:
-        - vpm
+        - vpn
   "/v1/service/search/{client}":
     get:
       operationId: findOne
@@ -63,7 +63,7 @@ paths:
               schema:
                 type: string
       tags:
-        - vpm
+        - vpn
   /v1/service/add:
     post:
       operationId: createService
@@ -84,7 +84,7 @@ paths:
         "403":
           description: Forbidden.
       tags:
-        - vpm
+        - vpn
   /v1/feedback/add:
     post:
       operationId: addFeedback
@@ -103,7 +103,7 @@ paths:
               schema:
                 type: string
       tags:
-        - vpm
+        - vpn
   "/v1/feedback/get/{client}/{id}":
     get:
       operationId: getProviderFeedback
@@ -126,7 +126,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/FeedbackEntity"
       tags:
-        - vpm
+        - vpn
   /v1/feedback/stats:
     get:
       operationId: getProvidersFeedback
@@ -141,13 +141,196 @@ paths:
                 items:
                   $ref: "#/components/schemas/FeedbackEntity"
       tags:
-        - vpm
+        - vpn
+  /v1/explorer/chain/mempool:
+    get:
+      operationId: getMempool
+      summary: ""
+      description: Fetch transactions in memory pool
+      parameters:
+        - name: page
+          required: false
+          in: path
+          example: 0
+          description: Page to show
+          schema: {}
+        - name: limit
+          required: false
+          in: path
+          example: 25
+          description: Transactions per page
+          schema: {}
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MempoolEntityDTO"
+      tags:
+        - explorer
+  /v1/explorer/chain/search:
+    get:
+      operationId: searchChain
+      parameters: []
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: string
+      tags:
+        - explorer
+  /v1/explorer/chain/block:
+    get:
+      operationId: getBlock
+      parameters: []
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: string
+      tags:
+        - explorer
+  /v1/explorer/chain/block/outputs:
+    get:
+      operationId: getOutputsBlocks
+      parameters: []
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: string
+      tags:
+        - explorer
+  "/v1/explorer/chain/block/raw/{block_id}":
+    get:
+      operationId: getRawBlockData
+      parameters: []
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: string
+      tags:
+        - explorer
+  /v1/explorer/chain/transaction:
+    get:
+      operationId: getTransaction
+      parameters: []
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: string
+      tags:
+        - explorer
+  /v1/explorer/chain/transaction/list:
+    get:
+      operationId: getTransactions
+      parameters: []
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: string
+      tags:
+        - explorer
+  "/v1/explorer/chain/transaction/raw/{tx_hash}":
+    get:
+      operationId: getRawTransactionData
+      parameters: []
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: string
+      tags:
+        - explorer
+  /v1/explorer/chain/stats:
+    get:
+      operationId: getNetworkInfo
+      parameters: []
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: string
+      tags:
+        - explorer
+  /v1/explorer/chain/stats/emission:
+    get:
+      operationId: getEmission
+      parameters: []
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: string
+      tags:
+        - explorer
+  /v1/explorer/chain/version:
+    get:
+      operationId: getVersion
+      parameters: []
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: string
+      tags:
+        - explorer
+  /v1/explorer/validate/outputs:
+    get:
+      operationId: proveOutputs
+      parameters: []
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: string
+      tags:
+        - explorer
+  /v1/explorer/validate/transfer:
+    get:
+      operationId: proveTransfer
+      parameters: []
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: string
+      tags:
+        - explorer
 info:
-  title: LetheanVPN
+  title: Lethean VPN
   description: Distributed Virtual Private Marketplace
   version: "1"
   contact:
-    name: LetheanVPN
+    name: Lethean VPN
     url: https://lt.hn
     email: contact@lethean.io
   license:
@@ -467,3 +650,81 @@ components:
         - services
         - speed
         - stability
+    MempoolTxnEntity:
+      type: object
+      properties:
+        coinbase:
+          type: boolean
+        extra:
+          type: string
+        mixin:
+          type: number
+        payment_id:
+          type: string
+        payment_id8:
+          type: string
+        rct_type:
+          type: number
+        timestamp:
+          type: number
+        timestamp_utc:
+          type: string
+        tx_fee:
+          type: number
+        tx_hash:
+          type: string
+        tx_size:
+          type: number
+        tx_version:
+          type: number
+        xmr_inputs:
+          type: number
+        xmr_outputs:
+          type: number
+      required:
+        - coinbase
+        - extra
+        - mixin
+        - rct_type
+        - timestamp
+        - timestamp_utc
+        - tx_fee
+        - tx_hash
+        - tx_size
+        - tx_version
+        - xmr_inputs
+        - xmr_outputs
+    MempoolEntity:
+      type: object
+      properties:
+        limit:
+          type: number
+        page:
+          type: number
+        total_page_no:
+          type: number
+        txs:
+          type: array
+          items:
+            $ref: "#/components/schemas/MempoolTxnEntity"
+        txs_no:
+          type: number
+      required:
+        - limit
+        - page
+        - total_page_no
+        - txs_no
+    MempoolEntityDTO:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+            - success
+        data:
+          description: payload data
+          allOf:
+            - $ref: "#/components/schemas/MempoolEntity"
+      required:
+        - status
+        - data
