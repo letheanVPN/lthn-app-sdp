@@ -96,9 +96,15 @@ export class ExplorerController {
     );
   }
 
-  @Get('chain/block/raw/:block_id')
-  getRawBlockData() {
-    return 'curl  -w "\\n" -X GET "http://139.162.32.245:8081/api/rawblock/1293257"';
+  @ApiParam({
+    name: 'id',
+    required: true,
+    example: '1008663',
+    description: 'Search id, must be block_number',
+  })
+  @Get('chain/block/raw/:id')
+  getRawBlockData(@Param('id') id: string) {
+    return this.explorerService.getRawBlockData(id);
   }
 
   @Get('chain/transaction')

@@ -248,17 +248,24 @@ paths:
                 $ref: "#/components/schemas/BlockOutputsDTO"
       tags:
         - explorer
-  "/v1/explorer/chain/block/raw/{block_id}":
+  "/v1/explorer/chain/block/raw/{id}":
     get:
       operationId: getRawBlockData
-      parameters: []
+      parameters:
+        - name: id
+          required: true
+          in: path
+          example: "1008663"
+          description: Search id, must be block_number
+          schema:
+            type: string
       responses:
         "200":
           description: ""
           content:
             application/json:
               schema:
-                type: string
+                $ref: "#/components/schemas/RawBlockDTO"
       tags:
         - explorer
   /v1/explorer/chain/transaction:
@@ -988,6 +995,105 @@ components:
           description: payload data
           allOf:
             - $ref: "#/components/schemas/BlockOutputEntity"
+      required:
+        - status
+        - data
+    RawBlockMinerVin:
+      type: object
+      properties:
+        gen:
+          type: object
+          properties:
+            height:
+              required: true
+              type: number
+      required:
+        - gen
+    RawBlockMinerVout:
+      type: object
+      properties:
+        amount:
+          type: number
+        target:
+          type: object
+          properties:
+            key:
+              required: true
+              type: string
+      required:
+        - amount
+        - target
+    RawBlockMinerTx:
+      type: object
+      properties:
+        extra:
+          type: array
+          items:
+            type: number
+        rct_signatures:
+          type: object
+          properties:
+            type:
+              required: true
+              type: number
+        unlock_time:
+          type: number
+        version:
+          type: number
+        vin:
+          type: array
+          items:
+            $ref: "#/components/schemas/RawBlockMinerVin"
+        vout:
+          type: array
+          items:
+            $ref: "#/components/schemas/RawBlockMinerVout"
+      required:
+        - extra
+        - rct_signatures
+        - unlock_time
+        - version
+        - vin
+        - vout
+    RawBlockEntity:
+      type: object
+      properties:
+        major_version:
+          type: number
+        miner_tx:
+          $ref: "#/components/schemas/RawBlockMinerTx"
+        minor_version:
+          type: number
+        nonce:
+          type: number
+        prev_id:
+          type: string
+        timestamp:
+          type: number
+        tx_hashes:
+          type: array
+          items:
+            type: string
+      required:
+        - major_version
+        - miner_tx
+        - minor_version
+        - nonce
+        - prev_id
+        - timestamp
+        - tx_hashes
+    RawBlockDTO:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+            - success
+            - fail
+        data:
+          description: payload data
+          allOf:
+            - $ref: "#/components/schemas/RawBlockEntity"
       required:
         - status
         - data
