@@ -1,0 +1,7 @@
+{
+  "additionalProperties": {
+    "apiModulePrefix":"lthn",
+    "configurationPrefix":"lthn",
+    "npmName":"vpn"
+  }
+}
