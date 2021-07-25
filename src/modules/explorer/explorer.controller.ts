@@ -140,6 +140,9 @@ export class ExplorerController {
     return this.explorerService.getRawBlockData(id);
   }
 
+  /**
+   * Fetch data about a transaction on the Blockhain
+   */
   @Get('chain/transaction/:tx_hash')
   @ApiParam({
     name: 'tx_hash',
@@ -153,8 +156,13 @@ export class ExplorerController {
   }
 
   @Get('chain/transaction/raw/:tx_hash')
-  getRawTransactionData() {
-    return 'curl  -w "\\n" -X GET "http://139.162.32.245:8081/api/rawtransaction/6093260dbe79fd6277694d14789dc8718f1bd54457df8bab338c2efa3bb0f03d"';
+  @ApiParam({
+    name: 'tx_hash',
+    required: true,
+    description: 'Search id, must be tx_hash',
+  })
+  getRawTransactionData(@Param('tx_hash') tx_hash: string) {
+    return this.explorerService.getRawTransactionData(tx_hash);
   }
 
   @Get('chain/stats')
