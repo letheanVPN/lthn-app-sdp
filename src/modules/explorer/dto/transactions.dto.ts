@@ -1,11 +1,11 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { BlockEntity } from '../entites/block.entity';
+import { TransactionsEntity } from '../entites/transactions.entity';
 
-export class BlockDTO {
+export class TransactionsDTO {
   /**
    * payload data
    */
-  data: BlockEntity;
+  data: TransactionsEntity;
 
   @ApiProperty({ enum: ['success', 'fail'] })
   status: string;
