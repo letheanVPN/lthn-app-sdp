@@ -10,6 +10,7 @@ import { VersionDTO } from './dto/version.dto';
 import { EmissionDTO } from './dto/emission.dto';
 import { NetworkStatsDTO } from './dto/network.stats.dto';
 import { TransactionsDTO } from './dto/transactions.dto';
+import { TransactionDTO } from './dto/transaction.dto';
 
 @ApiTags('explorer')
 @Controller({ version: '1', path: 'explorer' })
@@ -51,6 +52,30 @@ export class ExplorerController {
     return this.explorerService.performSearch(id);
   }
 
+  /**
+   * get the list of blocks
+   * @param limit
+   * @param page
+   */
+  @Get('chain/block')
+  @ApiParam({
+    name: 'limit',
+    required: false,
+    example: 10,
+    description: 'Transactions per page',
+  })
+  @ApiParam({
+    name: 'page',
+    required: false,
+    example: 0,
+    description: 'Page to show',
+  })
+  getTransactions(limit = 10, page = 0): Promise<Observable<TransactionsDTO>> {
+    return this.explorerService.getTransactions(limit, page);
+  }
+  /**
+   * Get block data from block height
+   */
   @Get('chain/block/:id')
   @ApiParam({
     name: 'id',
@@ -101,37 +126,30 @@ export class ExplorerController {
     );
   }
 
+  /**
+   * Get raw chain data with the block ID
+   */
+  @Get('chain/block/raw/:id')
   @ApiParam({
     name: 'id',
     required: true,
     example: '1008663',
     description: 'Search id, must be block_number',
   })
-  @Get('chain/block/raw/:id')
   getRawBlockData(@Param('id') id: string) {
     return this.explorerService.getRawBlockData(id);
   }
 
-  @Get('chain/transaction')
-  getTransaction() {
-    return 'curl  -w "\\n" -X GET "http://127.0.0.1:8081/api/transaction/6093260dbe79fd6277694d14789dc8718f1bd54457df8bab338c2efa3bb0f03d"';
-  }
-
-  @Get('chain/transaction/list')
+  @Get('chain/transaction/:tx_hash')
   @ApiParam({
-    name: 'limit',
-    required: false,
-    example: 10,
-    description: 'Transactions per page',
+    name: 'tx_hash',
+    required: true,
+    description: 'Transaction hash',
   })
-  @ApiParam({
-    name: 'page',
-    required: false,
-    example: 0,
-    description: 'Page to show',
-  })
-  getTransactions(limit = 10, page = 0): Promise<Observable<TransactionsDTO>> {
-    return this.explorerService.getTransactions(limit, page);
+  getTransaction(
+    @Param('tx_hash') tx_hash: string,
+  ): Promise<Observable<TransactionDTO>> {
+    return this.explorerService.getTransaction(tx_hash);
   }
 
   @Get('chain/transaction/raw/:tx_hash')
@@ -147,7 +165,6 @@ export class ExplorerController {
   getEmission(): Promise<Observable<EmissionDTO>> {
     return this.explorerService.getEmission();
   }
-
   @Get('chain/version')
   getVersion(): Promise<Observable<VersionDTO>> {
     return this.explorerService.getVersion();
