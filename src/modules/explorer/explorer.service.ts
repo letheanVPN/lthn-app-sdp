@@ -1,9 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { HttpService } from '@nestjs/axios';
-import { Observable } from 'rxjs';
-import { AxiosResponse } from 'axios';
 import { map } from 'rxjs/operators';
-import qs from 'qs';
 import { MempoolDTO } from './dto/mempool.dto';
 import { SearchDTO } from './dto/search.dto';
 import { BlockDTO } from './dto/block.dto';
@@ -12,6 +9,7 @@ import { RawBlockDTO } from './dto/raw.block.dto';
 import { VersionDTO } from './dto/version.dto';
 import { EmissionDTO } from './dto/emission.dto';
 import { NetworkStatsDTO } from './dto/network.stats.dto';
+import { TransactionsDTO } from './dto/transactions.dto';
 
 @Injectable()
 export class ExplorerService {
@@ -25,6 +23,18 @@ export class ExplorerService {
       .pipe(
         map((res) => {
           return res.data as MempoolDTO;
+        }),
+      );
+  }
+
+  async getTransactions(limit, page) {
+    return this.httpService
+      .get('https://explorer.lethean.io/api/transactions', {
+        params: { limit: limit, page: page },
+      })
+      .pipe(
+        map((res) => {
+          return res.data as TransactionsDTO;
         }),
       );
   }
@@ -68,6 +78,7 @@ export class ExplorerService {
         }),
       );
   }
+
   async getVersion() {
     return this.httpService.get('https://explorer.lethean.io/api/version').pipe(
       map((res) => {

@@ -1,4 +1,3 @@
-import { TxnEntity } from './txn.entity';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class RawBlockMinerTx {

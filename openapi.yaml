@@ -284,14 +284,26 @@ paths:
   /v1/explorer/chain/transaction/list:
     get:
       operationId: getTransactions
-      parameters: []
+      parameters:
+        - name: page
+          required: false
+          in: path
+          example: 0
+          description: Page to show
+          schema: {}
+        - name: limit
+          required: false
+          in: path
+          example: 10
+          description: Transactions per page
+          schema: {}
       responses:
         "200":
           description: ""
           content:
             application/json:
               schema:
-                type: string
+                $ref: "#/components/schemas/TransactionsDTO"
       tags:
         - explorer
   "/v1/explorer/chain/transaction/raw/{tx_hash}":
@@ -1094,6 +1106,69 @@ components:
           description: payload data
           allOf:
             - $ref: "#/components/schemas/RawBlockEntity"
+      required:
+        - status
+        - data
+    TransactionBlock:
+      type: object
+      properties:
+        age:
+          type: string
+        hash:
+          type: string
+        height:
+          type: number
+        size:
+          type: number
+        timestamp:
+          type: number
+        timestamp_utc:
+          type: string
+        txs:
+          type: array
+          items:
+            $ref: "#/components/schemas/TxnEntity"
+      required:
+        - age
+        - hash
+        - height
+        - size
+        - timestamp
+        - timestamp_utc
+        - txs
+    TransactionsEntity:
+      type: object
+      properties:
+        blocks:
+          type: array
+          items:
+            $ref: "#/components/schemas/TransactionBlock"
+        current_height:
+          type: number
+        limit:
+          type: number
+        page:
+          type: number
+        total_page_no:
+          type: number
+      required:
+        - blocks
+        - current_height
+        - limit
+        - page
+        - total_page_no
+    TransactionsDTO:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+            - success
+            - fail
+        data:
+          description: payload data
+          allOf:
+            - $ref: "#/components/schemas/TransactionsEntity"
       required:
         - status
         - data

@@ -9,6 +9,8 @@ import { BlockOutputsDTO } from './dto/block.outputs.dto';
 import { VersionDTO } from './dto/version.dto';
 import { EmissionDTO } from './dto/emission.dto';
 import { NetworkStatsDTO } from './dto/network.stats.dto';
+import { TransactionsDTO } from './dto/transactions.dto';
+
 @ApiTags('explorer')
 @Controller({ version: '1', path: 'explorer' })
 export class ExplorerController {
@@ -116,8 +118,20 @@ export class ExplorerController {
   }
 
   @Get('chain/transaction/list')
-  getTransactions() {
-    return 'curl  -w "\\n" -X GET "http://127.0.0.1:8081/api/transactions?page=2&limit=10"';
+  @ApiParam({
+    name: 'limit',
+    required: false,
+    example: 10,
+    description: 'Transactions per page',
+  })
+  @ApiParam({
+    name: 'page',
+    required: false,
+    example: 0,
+    description: 'Page to show',
+  })
+  getTransactions(limit = 10, page = 0): Promise<Observable<TransactionsDTO>> {
+    return this.explorerService.getTransactions(limit, page);
   }
 
   @Get('chain/transaction/raw/:tx_hash')
