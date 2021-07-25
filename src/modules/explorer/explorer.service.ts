@@ -1,10 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import { HttpService } from '@nestjs/axios';
 import { Observable } from 'rxjs';
-import { MempoolEntityDTO } from './entites/mempool.entity';
 import { AxiosResponse } from 'axios';
 import { map } from 'rxjs/operators';
 import qs from 'qs';
+import { MempoolDTO } from './dto/mempool.dto';
+import { SearchDTO } from './dto/search.dto';
 
 @Injectable()
 export class ExplorerService {
@@ -17,9 +18,18 @@ export class ExplorerService {
       })
       .pipe(
         map((res) => {
-          return res.data as MempoolEntityDTO;
+          return res.data as MempoolDTO;
         }),
       );
-    // http://127.0.0.1:8081/api/mempool?limit=10
+  }
+
+  async performSearch(id: string) {
+    return this.httpService
+      .get(`https://explorer.lethean.io/api/search/${id}`)
+      .pipe(
+        map((res) => {
+          return res.data as SearchDTO;
+        }),
+      );
   }
 }

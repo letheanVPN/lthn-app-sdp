@@ -1,4 +1,4 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Param } from '@nestjs/common';
 import { ApiParam, ApiTags } from '@nestjs/swagger';
 import { ExplorerService } from './explorer.service';
 @ApiTags('explorer')
@@ -26,9 +26,19 @@ export class ExplorerController {
     return this.explorerService.getMempool(limit, page);
   }
 
-  @Get('chain/search')
-  searchChain() {
-    return 'curl  -w "\\n" -X GET "http://127.0.0.1:8081/api/search/1293669"';
+  /**
+   * Search the blockhain for records
+   * @param id
+   */
+  @Get('chain/search/:id')
+  @ApiParam({
+    name: 'id',
+    required: true,
+    example: 'f85dc71b11989c8bd479b41bb2a29da4856a8fd531a3d1789b4eab2390cf5b0e',
+    description: 'Search id, can be block_number | tx_hash | block_hash',
+  })
+  searchChain(@Param('id') id: string) {
+    return this.explorerService.performSearch(id);
   }
 
   @Get('chain/block')
