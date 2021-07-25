@@ -8,6 +8,7 @@ import { MempoolDTO } from './dto/mempool.dto';
 import { SearchDTO } from './dto/search.dto';
 import { BlockDTO } from './dto/block.dto';
 import { BlockOutputsDTO } from './dto/block.outputs.dto';
+import { RawBlockDTO } from './dto/raw.block.dto';
 
 @Injectable()
 export class ExplorerService {
@@ -41,6 +42,16 @@ export class ExplorerService {
       .pipe(
         map((res) => {
           return res.data as BlockDTO;
+        }),
+      );
+  }
+
+  async getRawBlockData(id: string) {
+    return this.httpService
+      .get(`https://explorer.lethean.io/api/rawblock/${id}`)
+      .pipe(
+        map((res) => {
+          return res.data as RawBlockDTO;
         }),
       );
   }
