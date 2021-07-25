@@ -155,6 +155,9 @@ export class ExplorerController {
     return this.explorerService.getTransaction(tx_hash);
   }
 
+  /**
+   * Get raw data from the chain about a transaction by its hash
+   */
   @Get('chain/transaction/raw/:tx_hash')
   @ApiParam({
     name: 'tx_hash',
@@ -165,26 +168,54 @@ export class ExplorerController {
     return this.explorerService.getRawTransactionData(tx_hash);
   }
 
+  /**
+   * Network stats for the chain
+   */
   @Get('chain/stats')
   getNetworkInfo(): Promise<Observable<NetworkStatsDTO>> {
     return this.explorerService.getNetworkStats();
   }
+
+  /**
+   * Blockchain emission stats
+   */
   @Get('chain/stats/emission')
   getEmission(): Promise<Observable<EmissionDTO>> {
     return this.explorerService.getEmission();
   }
+
+  /**
+   * Blockchain version
+   */
   @Get('chain/version')
   getVersion(): Promise<Observable<VersionDTO>> {
     return this.explorerService.getVersion();
   }
 
-  @Get('validate/outputs')
-  proveOutputs() {
-    return 'curl  -w "\\n" -X GET "http://127.0.0.1:8081/api/outputs?txhash=17049bc5f2d9fbca1ce8dae443bbbbed2fc02f1ee003ffdd0571996905faa831&address=44AFFq5kSiGBoZ4NMDwYtN18obc8AemS33DBLWs3H7otXft3XjrpDtQGv7SqSsaBYBb98uNbr2VBBEt7f2wfn3RVGQBEP3A&viewkey=f359631075708155cc3d92a32b75a7d02a5dcf27756707b47a2b31b21c389501&txprove=0"';
-  }
-
   @Get('validate/transfer')
-  proveTransfer() {
-    return 'curl  -w "\\n" -X GET "http://127.0.0.1:8082/api/outputs?txhash=94782a8c0aa8d8768afa0c040ef0544b63eb5148ca971a024ac402cad313d3b3&address=9wUf8UcPUtb2huK7RphBw5PFCyKosKxqtGxbcKBDnzTCPrdNfJjLjtuht87zhTgsffCB21qmjxjj18Pw7cBnRctcKHrUB7N&viewkey=e94b5bfc599d2f741d6f07e3ab2a83f915e96fb374dfb2cd3dbe730e34ecb40b&txprove=1"';
+  @ApiParam({
+    name: 'txhash',
+    required: true,
+  })
+  @ApiParam({
+    name: 'address',
+    required: true,
+  })
+  @ApiParam({
+    name: 'viewkey',
+    required: true,
+  })
+  @ApiParam({
+    name: 'txprove',
+    required: false,
+    example: true,
+  })
+  proveTransfer(txhash, address, viewkey = 5, txprove = true) {
+    return this.explorerService.proveTransfer(
+      txhash,
+      address,
+      viewkey,
+      txprove,
+    );
   }
 }
