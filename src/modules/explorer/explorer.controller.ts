@@ -6,6 +6,8 @@ import { Observable } from 'rxjs';
 import { BlockDTO } from './dto/block.dto';
 import { MempoolDTO } from './dto/mempool.dto';
 import { BlockOutputsDTO } from './dto/block.outputs.dto';
+import { VersionDTO } from './dto/version.dto';
+import { EmissionDTO } from './dto/emission.dto';
 @ApiTags('explorer')
 @Controller({ version: '1', path: 'explorer' })
 export class ExplorerController {
@@ -127,12 +129,12 @@ export class ExplorerController {
     return 'curl  -w "\\n" -X GET "http://127.0.0.1:8081/api/networkinfo"';
   }
   @Get('chain/stats/emission')
-  getEmission() {
-    return 'curl  -w "\\n" -X GET "http://127.0.0.1:8081/api/emission"';
+  getEmission(): Promise<Observable<EmissionDTO>> {
+    return this.explorerService.getEmission();
   }
 
   @Get('chain/version')
-  getVersion() {
+  getVersion(): Promise<Observable<VersionDTO>> {
     return this.explorerService.getVersion();
   }
 
