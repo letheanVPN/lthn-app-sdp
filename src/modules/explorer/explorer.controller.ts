@@ -11,6 +11,9 @@ import { EmissionDTO } from './dto/emission.dto';
 import { NetworkStatsDTO } from './dto/network.stats.dto';
 import { TransactionsDTO } from './dto/transactions.dto';
 import { TransactionDTO } from './dto/transaction.dto';
+import { ProveTransferDTO } from './dto/prove.transfer.dto';
+import { RawTransactionDTO } from './dto/raw.transaction.dto';
+import { RawBlockDTO } from './dto/raw.block.dto';
 
 @ApiTags('explorer')
 @Controller({ version: '1', path: 'explorer' })
@@ -136,7 +139,7 @@ export class ExplorerController {
     example: '1008663',
     description: 'Search id, must be block_number',
   })
-  getRawBlockData(@Param('id') id: string) {
+  getRawBlockData(@Param('id') id: string): Promise<Observable<RawBlockDTO>> {
     return this.explorerService.getRawBlockData(id);
   }
 
@@ -164,7 +167,9 @@ export class ExplorerController {
     required: true,
     description: 'Search id, must be tx_hash',
   })
-  getRawTransactionData(@Param('tx_hash') tx_hash: string) {
+  getRawTransactionData(
+    @Param('tx_hash') tx_hash: string,
+  ): Promise<Observable<RawTransactionDTO>> {
     return this.explorerService.getRawTransactionData(tx_hash);
   }
 
@@ -210,7 +215,12 @@ export class ExplorerController {
     required: false,
     example: true,
   })
-  proveTransfer(txhash, address, viewkey = 5, txprove = true) {
+  proveTransfer(
+    txhash,
+    address,
+    viewkey = 5,
+    txprove = true,
+  ): Promise<Observable<ProveTransferDTO>> {
     return this.explorerService.proveTransfer(
       txhash,
       address,

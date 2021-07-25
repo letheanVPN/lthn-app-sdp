@@ -429,7 +429,6 @@ info:
     url: https://gitlab.com/lthn.io/projects/vpn/market-api/LICENCE
 tags: []
 servers:
-  - url: http://localhost:36911
   - url: https://dvpm.io
 components:
   schemas:
@@ -1105,28 +1104,41 @@ components:
       required:
         - status
         - data
+    RctSigEntity:
+      type: object
+      properties:
+        type:
+          type: number
+      required:
+        - type
+    RawBlockMinerVinGen:
+      type: object
+      properties:
+        height:
+          type: number
+      required:
+        - height
     RawBlockMinerVin:
       type: object
       properties:
         gen:
-          type: object
-          properties:
-            height:
-              required: true
-              type: number
+          $ref: "#/components/schemas/RawBlockMinerVinGen"
       required:
         - gen
+    VoutTarget:
+      type: object
+      properties:
+        key:
+          type: string
+      required:
+        - key
     RawBlockMinerVout:
       type: object
       properties:
         amount:
           type: number
         target:
-          type: object
-          properties:
-            key:
-              required: true
-              type: string
+          $ref: "#/components/schemas/VoutTarget"
       required:
         - amount
         - target
@@ -1138,11 +1150,7 @@ components:
           items:
             type: number
         rct_signatures:
-          type: object
-          properties:
-            type:
-              required: true
-              type: number
+          $ref: "#/components/schemas/RctSigEntity"
         unlock_time:
           type: number
         version:
@@ -1160,8 +1168,6 @@ components:
         - rct_signatures
         - unlock_time
         - version
-        - vin
-        - vout
     RawBlockEntity:
       type: object
       properties:
@@ -1253,6 +1259,31 @@ components:
       required:
         - amount
         - mask
+    RawTransactionRctSignature:
+      type: object
+      properties:
+        ecdhInfo:
+          type: array
+          items:
+            $ref: "#/components/schemas/ecdhInfo"
+        outPk:
+          type: array
+          items:
+            type: string
+        pseudoOuts:
+          type: array
+          items:
+            type: string
+        txnFee:
+          type: number
+        type:
+          type: number
+      required:
+        - ecdhInfo
+        - outPk
+        - pseudoOuts
+        - txnFee
+        - type
     MgsEntity:
       type: object
       properties:
@@ -1275,6 +1306,59 @@ components:
       required:
         - Ci
         - asig
+    RctSigPrunable:
+      type: object
+      properties:
+        MGs:
+          type: array
+          items:
+            $ref: "#/components/schemas/MgsEntity"
+        rangeSigs:
+          type: array
+          items:
+            $ref: "#/components/schemas/RangeSigsEntity"
+      required:
+        - MGs
+        - rangeSigs
+    RawTransactionEntityVinKey:
+      type: object
+      properties:
+        amount:
+          type: number
+        k_image:
+          type: string
+        key_offsets:
+          type: array
+          items:
+            type: number
+      required:
+        - amount
+        - k_image
+        - key_offsets
+    RawTransactionEntityVin:
+      type: object
+      properties:
+        key:
+          $ref: "#/components/schemas/RawTransactionEntityVinKey"
+      required:
+        - key
+    RawTransactionEntityVoutTarget:
+      type: object
+      properties:
+        key:
+          type: string
+      required:
+        - key
+    RawTransactionEntityVout:
+      type: object
+      properties:
+        amount:
+          type: number
+        target:
+          $ref: "#/components/schemas/RawTransactionEntityVoutTarget"
+      required:
+        - amount
+        - target
     RawTransactionEntity:
       type: object
       properties:
@@ -1283,42 +1367,9 @@ components:
           items:
             type: string
         rct_signatures:
-          type: object
-          properties:
-            ecdhInfo:
-              required: true
-              type: array
-              items:
-                $ref: "#/components/schemas/ecdhInfo"
-            outPk:
-              required: true
-              type: array
-              items:
-                type: string
-            pseudoOuts:
-              required: true
-              type: array
-              items:
-                type: string
-            txnFee:
-              required: true
-              type: number
-            type:
-              required: true
-              type: number
+          $ref: "#/components/schemas/RawTransactionRctSignature"
         rctsig_prunable:
-          type: object
-          properties:
-            MGs:
-              required: true
-              type: array
-              items:
-                $ref: "#/components/schemas/MgsEntity"
-            rangeSigs:
-              required: true
-              type: array
-              items:
-                $ref: "#/components/schemas/RangeSigsEntity"
+          $ref: "#/components/schemas/RctSigPrunable"
         unlock_time:
           type: number
         version:
@@ -1326,11 +1377,11 @@ components:
         vin:
           type: array
           items:
-            type: string
+            $ref: "#/components/schemas/RawTransactionEntityVin"
         vout:
           type: array
           items:
-            type: string
+            $ref: "#/components/schemas/RawTransactionEntityVout"
       required:
         - extra
         - rct_signatures

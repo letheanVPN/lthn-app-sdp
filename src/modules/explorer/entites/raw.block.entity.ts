@@ -1,32 +1,39 @@
 import { ApiProperty } from '@nestjs/swagger';
 
+export class RctSigEntity {
+  type: number;
+}
+
 export class RawBlockMinerTx {
   @ApiProperty()
   extra: number[];
   @ApiProperty()
-  rct_signatures: {
-    type: number;
-  };
+  rct_signatures: RctSigEntity;
   @ApiProperty()
   unlock_time: number;
   @ApiProperty()
   version: number;
-  @ApiProperty()
+  @ApiProperty({ required: false })
   vin: RawBlockMinerVin[];
-  @ApiProperty()
+  @ApiProperty({ required: false })
   vout: RawBlockMinerVout[];
 }
-
-export class RawBlockMinerVin {
-  gen: {
-    height: number;
-  };
+export class RawBlockMinerVinGen {
+  height: number;
 }
+export class VoutTarget {
+  key: string;
+}
+export class RawBlockMinerVin {
+  @ApiProperty()
+  gen: RawBlockMinerVinGen;
+}
+
 export class RawBlockMinerVout {
+  @ApiProperty()
   amount: number;
-  target: {
-    key: string;
-  };
+  @ApiProperty()
+  target: VoutTarget;
 }
 
 export class RawBlockEntity {
