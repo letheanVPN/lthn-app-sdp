@@ -7,6 +7,7 @@ import qs from 'qs';
 import { MempoolDTO } from './dto/mempool.dto';
 import { SearchDTO } from './dto/search.dto';
 import { BlockDTO } from './dto/block.dto';
+import { BlockOutputsDTO } from './dto/block.outputs.dto';
 
 @Injectable()
 export class ExplorerService {
@@ -33,12 +34,30 @@ export class ExplorerService {
         }),
       );
   }
+
   async getBlockData(id: string) {
     return this.httpService
       .get(`https://explorer.lethean.io/api/block/${id}`)
       .pipe(
         map((res) => {
           return res.data as BlockDTO;
+        }),
+      );
+  }
+
+  async getOutputBlocks(address, viewkey, limit, mempool) {
+    return this.httpService
+      .get('https://explorer.lethean.io/api/outputsblocks', {
+        params: {
+          address: address,
+          viewkey: viewkey,
+          limit: limit,
+          mempool: mempool,
+        },
+      })
+      .pipe(
+        map((res) => {
+          return res.data as BlockOutputsDTO;
         }),
       );
   }
