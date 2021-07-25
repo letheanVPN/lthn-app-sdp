@@ -166,20 +166,29 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/MempoolEntityDTO"
+                $ref: "#/components/schemas/MempoolDTO"
       tags:
         - explorer
-  /v1/explorer/chain/search:
+  "/v1/explorer/chain/search/{id}":
     get:
       operationId: searchChain
-      parameters: []
+      summary: ""
+      description: Search the blockhain for records
+      parameters:
+        - name: id
+          required: true
+          in: path
+          example: f85dc71b11989c8bd479b41bb2a29da4856a8fd531a3d1789b4eab2390cf5b0e
+          description: Search id, can be block_number | tx_hash | block_hash
+          schema:
+            type: string
       responses:
         "200":
           description: ""
           content:
             application/json:
               schema:
-                type: string
+                $ref: "#/components/schemas/SearchDTO"
       tags:
         - explorer
   /v1/explorer/chain/block:
@@ -338,6 +347,7 @@ info:
     url: https://gitlab.com/lthn.io/projects/vpn/market-api/LICENCE
 tags: []
 servers:
+  - url: http://localhost:36911
   - url: https://dvpm.io
 components:
   schemas:
@@ -650,7 +660,7 @@ components:
         - services
         - speed
         - stability
-    MempoolTxnEntity:
+    TxnEntity:
       type: object
       properties:
         coinbase:
@@ -706,7 +716,7 @@ components:
         txs:
           type: array
           items:
-            $ref: "#/components/schemas/MempoolTxnEntity"
+            $ref: "#/components/schemas/TxnEntity"
         txs_no:
           type: number
       required:
@@ -714,7 +724,7 @@ components:
         - page
         - total_page_no
         - txs_no
-    MempoolEntityDTO:
+    MempoolDTO:
       type: object
       properties:
         status:
@@ -725,6 +735,121 @@ components:
           description: payload data
           allOf:
             - $ref: "#/components/schemas/MempoolEntity"
+      required:
+        - status
+        - data
+    MixinEntity:
+      type: object
+      properties:
+        block_no:
+          type: number
+        public_key:
+          type: string
+      required:
+        - block_no
+        - public_key
+    InputsEntity:
+      type: object
+      properties:
+        amount:
+          type: number
+        key_image:
+          type: string
+        mixins:
+          type: array
+          items:
+            $ref: "#/components/schemas/MixinEntity"
+      required:
+        - amount
+        - key_image
+        - mixins
+    OutputEntity:
+      type: object
+      properties:
+        amount:
+          type: number
+        public_key:
+          type: string
+      required:
+        - amount
+        - public_key
+    SearchEntity:
+      type: object
+      properties:
+        block_height:
+          type: number
+        coinbase:
+          type: boolean
+        confirmations:
+          type: number
+        current_height:
+          type: number
+        extra:
+          type: string
+        inputs:
+          type: array
+          items:
+            $ref: "#/components/schemas/InputsEntity"
+        mixin:
+          type: number
+        outputs:
+          type: array
+          items:
+            $ref: "#/components/schemas/OutputEntity"
+        payment_id:
+          type: string
+        payment_id8:
+          type: string
+        rct_type:
+          type: number
+        timestamp:
+          type: number
+        timestamp_utc:
+          type: string
+        title:
+          type: string
+        tx_fee:
+          type: number
+        tx_hash:
+          type: string
+        tx_size:
+          type: number
+        tx_version:
+          type: number
+        xmr_inputs:
+          type: number
+        xmr_outputs:
+          type: number
+      required:
+        - block_height
+        - coinbase
+        - confirmations
+        - current_height
+        - extra
+        - inputs
+        - mixin
+        - outputs
+        - rct_type
+        - timestamp
+        - timestamp_utc
+        - title
+        - tx_fee
+        - tx_hash
+        - tx_size
+        - tx_version
+        - xmr_inputs
+        - xmr_outputs
+    SearchDTO:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+            - success
+        data:
+          description: payload data
+          allOf:
+            - $ref: "#/components/schemas/SearchEntity"
       required:
         - status
         - data
