@@ -1,4 +1,6 @@
 import { ApiProperty, ApiTags } from '@nestjs/swagger';
+import { InputsEntity } from './inputs.entity';
+import { OutputEntity } from './output.entity';
 
 @ApiTags('explorer')
 export class SearchEntity {
@@ -42,27 +44,4 @@ export class SearchEntity {
   xmr_inputs: number;
   @ApiProperty()
   xmr_outputs: number;
-}
-
-export class InputsEntity {
-  @ApiProperty()
-  amount: number;
-  @ApiProperty()
-  key_image: string;
-  @ApiProperty()
-  mixins: MixinEntity[];
-}
-
-export class MixinEntity {
-  @ApiProperty()
-  block_no: number;
-  @ApiProperty()
-  public_key: string;
-}
-
-export class OutputEntity {
-  @ApiProperty()
-  amount: number;
-  @ApiProperty()
-  public_key: string;
 }

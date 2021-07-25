@@ -191,9 +191,38 @@ paths:
                 $ref: "#/components/schemas/SearchDTO"
       tags:
         - explorer
+  /v1/explorer/chain/block:
+    get:
+      operationId: getTransactions
+      summary: ""
+      description: get the list of blocks
+      parameters:
+        - name: page
+          required: false
+          in: path
+          example: 0
+          description: Page to show
+          schema: {}
+        - name: limit
+          required: false
+          in: path
+          example: 10
+          description: Transactions per page
+          schema: {}
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TransactionsDTO"
+      tags:
+        - explorer
   "/v1/explorer/chain/block/{id}":
     get:
       operationId: getBlock
+      summary: ""
+      description: Get block data from block height
       parameters:
         - name: id
           required: true
@@ -251,6 +280,8 @@ paths:
   "/v1/explorer/chain/block/raw/{id}":
     get:
       operationId: getRawBlockData
+      summary: ""
+      description: Get raw chain data with the block ID
       parameters:
         - name: id
           required: true
@@ -268,42 +299,23 @@ paths:
                 $ref: "#/components/schemas/RawBlockDTO"
       tags:
         - explorer
-  /v1/explorer/chain/transaction:
+  "/v1/explorer/chain/transaction/{tx_hash}":
     get:
       operationId: getTransaction
-      parameters: []
-      responses:
-        "200":
-          description: ""
-          content:
-            application/json:
-              schema:
-                type: string
-      tags:
-        - explorer
-  /v1/explorer/chain/transaction/list:
-    get:
-      operationId: getTransactions
       parameters:
-        - name: page
-          required: false
+        - name: tx_hash
+          required: true
           in: path
-          example: 0
-          description: Page to show
-          schema: {}
-        - name: limit
-          required: false
-          in: path
-          example: 10
-          description: Transactions per page
-          schema: {}
+          description: Transaction hash
+          schema:
+            type: string
       responses:
         "200":
           description: ""
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/TransactionsDTO"
+                $ref: "#/components/schemas/TransactionDTO"
       tags:
         - explorer
   "/v1/explorer/chain/transaction/raw/{tx_hash}":
@@ -905,6 +917,69 @@ components:
       required:
         - status
         - data
+    TransactionBlock:
+      type: object
+      properties:
+        age:
+          type: string
+        hash:
+          type: string
+        height:
+          type: number
+        size:
+          type: number
+        timestamp:
+          type: number
+        timestamp_utc:
+          type: string
+        txs:
+          type: array
+          items:
+            $ref: "#/components/schemas/TxnEntity"
+      required:
+        - age
+        - hash
+        - height
+        - size
+        - timestamp
+        - timestamp_utc
+        - txs
+    TransactionsEntity:
+      type: object
+      properties:
+        blocks:
+          type: array
+          items:
+            $ref: "#/components/schemas/TransactionBlock"
+        current_height:
+          type: number
+        limit:
+          type: number
+        page:
+          type: number
+        total_page_no:
+          type: number
+      required:
+        - blocks
+        - current_height
+        - limit
+        - page
+        - total_page_no
+    TransactionsDTO:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+            - success
+            - fail
+        data:
+          description: payload data
+          allOf:
+            - $ref: "#/components/schemas/TransactionsEntity"
+      required:
+        - status
+        - data
     BlockEntity:
       type: object
       properties:
@@ -1109,55 +1184,31 @@ components:
       required:
         - status
         - data
-    TransactionBlock:
+    TransactionEntity:
       type: object
       properties:
-        age:
-          type: string
-        hash:
-          type: string
-        height:
+        block_height:
           type: number
-        size:
+        coinbase:
+          type: boolean
+        confirmations:
           type: number
-        timestamp:
-          type: number
-        timestamp_utc:
-          type: string
-        txs:
-          type: array
-          items:
-            $ref: "#/components/schemas/TxnEntity"
-      required:
-        - age
-        - hash
-        - height
-        - size
-        - timestamp
-        - timestamp_utc
-        - txs
-    TransactionsEntity:
-      type: object
-      properties:
-        blocks:
-          type: array
-          items:
-            $ref: "#/components/schemas/TransactionBlock"
         current_height:
           type: number
-        limit:
-          type: number
-        page:
-          type: number
-        total_page_no:
-          type: number
+        extra:
+          type: string
+        inputs:
+          type: array
+          items:
+            $ref: "#/components/schemas/InputsEntity"
       required:
-        - blocks
+        - block_height
+        - coinbase
+        - confirmations
         - current_height
-        - limit
-        - page
-        - total_page_no
-    TransactionsDTO:
+        - extra
+        - inputs
+    TransactionDTO:
       type: object
       properties:
         status:
@@ -1168,7 +1219,7 @@ components:
         data:
           description: payload data
           allOf:
-            - $ref: "#/components/schemas/TransactionsEntity"
+            - $ref: "#/components/schemas/TransactionEntity"
       required:
         - status
         - data
