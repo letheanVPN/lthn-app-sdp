@@ -12,6 +12,7 @@ import { NetworkStatsDTO } from './dto/network.stats.dto';
 import { TransactionsDTO } from './dto/transactions.dto';
 import { TransactionDTO } from './dto/transaction.dto';
 import { RawTransactionDTO } from './dto/raw.transaction.dto';
+import { ProveTransferDTO } from './dto/prove.transfer.dto';
 
 @Injectable()
 export class ExplorerService {
@@ -132,6 +133,23 @@ export class ExplorerService {
       .pipe(
         map((res) => {
           return res.data as BlockOutputsDTO;
+        }),
+      );
+  }
+
+  async proveTransfer(txhash, address, viewkey, txprove) {
+    return this.httpService
+      .get('https://explorer.lethean.io/api/outputs', {
+        params: {
+          txhash: txhash,
+          address: address,
+          viewkey: viewkey,
+          txprove: txprove,
+        },
+      })
+      .pipe(
+        map((res) => {
+          return res.data as ProveTransferDTO;
         }),
       );
   }
