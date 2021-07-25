@@ -6,6 +6,7 @@ import { map } from 'rxjs/operators';
 import qs from 'qs';
 import { MempoolDTO } from './dto/mempool.dto';
 import { SearchDTO } from './dto/search.dto';
+import { BlockDTO } from './dto/block.dto';
 
 @Injectable()
 export class ExplorerService {
@@ -29,6 +30,15 @@ export class ExplorerService {
       .pipe(
         map((res) => {
           return res.data as SearchDTO;
+        }),
+      );
+  }
+  async getBlockData(id: string) {
+    return this.httpService
+      .get(`https://explorer.lethean.io/api/block/${id}`)
+      .pipe(
+        map((res) => {
+          return res.data as BlockDTO;
         }),
       );
   }
