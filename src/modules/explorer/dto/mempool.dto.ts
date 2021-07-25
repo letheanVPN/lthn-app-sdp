@@ -7,6 +7,6 @@ export class MempoolDTO {
    */
   data: MempoolEntity;
 
-  @ApiProperty({ enum: ['success'] })
+  @ApiProperty({ enum: ['success', 'fail'] })
   status: string;
 }

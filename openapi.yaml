@@ -191,17 +191,24 @@ paths:
                 $ref: "#/components/schemas/SearchDTO"
       tags:
         - explorer
-  /v1/explorer/chain/block:
+  "/v1/explorer/chain/block/{id}":
     get:
       operationId: getBlock
-      parameters: []
+      parameters:
+        - name: id
+          required: true
+          in: path
+          example: "1008663"
+          description: Search id, must be block_number
+          schema:
+            type: string
       responses:
         "200":
           description: ""
           content:
             application/json:
               schema:
-                type: string
+                $ref: "#/components/schemas/BlockDTO"
       tags:
         - explorer
   /v1/explorer/chain/block/outputs:
@@ -731,6 +738,7 @@ components:
           type: string
           enum:
             - success
+            - fail
         data:
           description: payload data
           allOf:
@@ -846,10 +854,53 @@ components:
           type: string
           enum:
             - success
+            - fail
         data:
           description: payload data
           allOf:
             - $ref: "#/components/schemas/SearchEntity"
+      required:
+        - status
+        - data
+    BlockEntity:
+      type: object
+      properties:
+        block_height:
+          type: number
+        current_height:
+          type: number
+        hash:
+          type: string
+        size:
+          type: number
+        timestamp:
+          type: number
+        timestamp_utc:
+          type: string
+        txs:
+          type: array
+          items:
+            $ref: "#/components/schemas/TxnEntity"
+      required:
+        - block_height
+        - current_height
+        - hash
+        - size
+        - timestamp
+        - timestamp_utc
+        - txs
+    BlockDTO:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+            - success
+            - fail
+        data:
+          description: payload data
+          allOf:
+            - $ref: "#/components/schemas/BlockEntity"
       required:
         - status
         - data

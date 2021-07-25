@@ -1,6 +1,10 @@
 import { Controller, Get, Param } from '@nestjs/common';
 import { ApiParam, ApiTags } from '@nestjs/swagger';
 import { ExplorerService } from './explorer.service';
+import { SearchDTO } from './dto/search.dto';
+import { Observable } from 'rxjs';
+import { BlockDTO } from './dto/block.dto';
+import { MempoolDTO } from './dto/mempool.dto';
 @ApiTags('explorer')
 @Controller({ version: '1', path: 'explorer' })
 export class ExplorerController {
@@ -22,13 +26,13 @@ export class ExplorerController {
     example: 0,
     description: 'Page to show',
   })
-  getMempool(limit = 25, page = 0) {
+  getMempool(limit = 25, page = 0): Promise<Observable<MempoolDTO>> {
     return this.explorerService.getMempool(limit, page);
   }
 
   /**
    * Search the blockhain for records
-   * @param id
+   * @param id block_number | tx_hash | block_hash
    */
   @Get('chain/search/:id')
   @ApiParam({
@@ -37,13 +41,19 @@ export class ExplorerController {
     example: 'f85dc71b11989c8bd479b41bb2a29da4856a8fd531a3d1789b4eab2390cf5b0e',
     description: 'Search id, can be block_number | tx_hash | block_hash',
   })
-  searchChain(@Param('id') id: string) {
+  searchChain(@Param('id') id: string): Promise<Observable<SearchDTO>> {
     return this.explorerService.performSearch(id);
   }
 
-  @Get('chain/block')
-  getBlock() {
-    return 'curl  -w "\\n" -X GET "http://139.162.32.245:8081/api/block/1293257"';
+  @Get('chain/block/:id')
+  @ApiParam({
+    name: 'id',
+    required: true,
+    example: '1008663',
+    description: 'Search id, must be block_number',
+  })
+  getBlock(@Param('id') id: string): Promise<Observable<BlockDTO>> {
+    return this.explorerService.getBlockData(id);
   }
 
   @Get('chain/block/outputs')
