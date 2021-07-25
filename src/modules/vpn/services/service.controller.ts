@@ -8,7 +8,7 @@ import {
 import { ServiceEntity } from './entities/service.entity';
 import { ServiceService } from './service.service';
 
-@ApiTags('vpm')
+@ApiTags('vpn')
 @Controller({ version: '1', path: 'service' })
 export class ServiceController {
   constructor(private servicesService: ServiceService) {}
