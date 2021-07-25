@@ -8,6 +8,7 @@ import { MempoolDTO } from './dto/mempool.dto';
 import { BlockOutputsDTO } from './dto/block.outputs.dto';
 import { VersionDTO } from './dto/version.dto';
 import { EmissionDTO } from './dto/emission.dto';
+import { NetworkStatsDTO } from './dto/network.stats.dto';
 @ApiTags('explorer')
 @Controller({ version: '1', path: 'explorer' })
 export class ExplorerController {
@@ -125,8 +126,8 @@ export class ExplorerController {
   }
 
   @Get('chain/stats')
-  getNetworkInfo() {
-    return 'curl  -w "\\n" -X GET "http://127.0.0.1:8081/api/networkinfo"';
+  getNetworkInfo(): Promise<Observable<NetworkStatsDTO>> {
+    return this.explorerService.getNetworkStats();
   }
   @Get('chain/stats/emission')
   getEmission(): Promise<Observable<EmissionDTO>> {
