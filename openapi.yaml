@@ -317,7 +317,7 @@ paths:
           content:
             application/json:
               schema:
-                type: string
+                $ref: "#/components/schemas/NetworkStatsDTO"
       tags:
         - explorer
   /v1/explorer/chain/stats/emission:
@@ -1094,6 +1094,88 @@ components:
           description: payload data
           allOf:
             - $ref: "#/components/schemas/RawBlockEntity"
+      required:
+        - status
+        - data
+    NetworkStatsEntity:
+      type: object
+      properties:
+        alt_blocks_count:
+          type: number
+        block_size_limit:
+          type: number
+        cumulative_difficulty:
+          type: number
+        current:
+          type: boolean
+        difficulty:
+          type: number
+        fee_per_kb:
+          type: number
+        grey_peerlist_size:
+          type: number
+        hash_rate:
+          type: number
+        height:
+          type: number
+        incoming_connections_count:
+          type: number
+        outgoing_connections_count:
+          type: number
+        start_time:
+          type: number
+        status:
+          type: boolean
+        target:
+          type: number
+        target_height:
+          type: number
+        testnet:
+          type: boolean
+        top_block_hash:
+          type: string
+        tx_count:
+          type: number
+        tx_pool_size:
+          type: number
+        tx_pool_size_kbytes:
+          type: number
+        white_peerlist_size:
+          type: number
+      required:
+        - alt_blocks_count
+        - block_size_limit
+        - cumulative_difficulty
+        - current
+        - difficulty
+        - fee_per_kb
+        - grey_peerlist_size
+        - hash_rate
+        - height
+        - incoming_connections_count
+        - outgoing_connections_count
+        - start_time
+        - status
+        - target
+        - target_height
+        - testnet
+        - top_block_hash
+        - tx_count
+        - tx_pool_size
+        - tx_pool_size_kbytes
+        - white_peerlist_size
+    NetworkStatsDTO:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+            - success
+            - fail
+        data:
+          description: payload data
+          allOf:
+            - $ref: "#/components/schemas/NetworkStatsEntity"
       required:
         - status
         - data

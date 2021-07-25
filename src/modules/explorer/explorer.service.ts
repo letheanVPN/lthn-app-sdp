@@ -11,6 +11,7 @@ import { BlockOutputsDTO } from './dto/block.outputs.dto';
 import { RawBlockDTO } from './dto/raw.block.dto';
 import { VersionDTO } from './dto/version.dto';
 import { EmissionDTO } from './dto/emission.dto';
+import { NetworkStatsDTO } from './dto/network.stats.dto';
 
 @Injectable()
 export class ExplorerService {
@@ -58,6 +59,15 @@ export class ExplorerService {
       );
   }
 
+  async getNetworkStats() {
+    return this.httpService
+      .get('https://explorer.lethean.io/api/networkinfo')
+      .pipe(
+        map((res) => {
+          return res.data as NetworkStatsDTO;
+        }),
+      );
+  }
   async getVersion() {
     return this.httpService.get('https://explorer.lethean.io/api/version').pipe(
       map((res) => {
@@ -65,6 +75,7 @@ export class ExplorerService {
       }),
     );
   }
+
   async getEmission() {
     return this.httpService
       .get('https://explorer.lethean.io/api/emission')
