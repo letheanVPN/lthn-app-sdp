@@ -330,7 +330,7 @@ paths:
           content:
             application/json:
               schema:
-                type: string
+                $ref: "#/components/schemas/EmissionDTO"
       tags:
         - explorer
   /v1/explorer/chain/version:
@@ -1094,6 +1094,34 @@ components:
           description: payload data
           allOf:
             - $ref: "#/components/schemas/RawBlockEntity"
+      required:
+        - status
+        - data
+    EmissionEntity:
+      type: object
+      properties:
+        blk_no:
+          type: number
+        coinbase:
+          type: number
+        fee:
+          type: number
+      required:
+        - blk_no
+        - coinbase
+        - fee
+    EmissionDTO:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+            - success
+            - fail
+        data:
+          description: payload data
+          allOf:
+            - $ref: "#/components/schemas/EmissionEntity"
       required:
         - status
         - data

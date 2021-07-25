@@ -10,6 +10,7 @@ import { BlockDTO } from './dto/block.dto';
 import { BlockOutputsDTO } from './dto/block.outputs.dto';
 import { RawBlockDTO } from './dto/raw.block.dto';
 import { VersionDTO } from './dto/version.dto';
+import { EmissionDTO } from './dto/emission.dto';
 
 @Injectable()
 export class ExplorerService {
@@ -63,6 +64,15 @@ export class ExplorerService {
         return res.data as VersionDTO;
       }),
     );
+  }
+  async getEmission() {
+    return this.httpService
+      .get('https://explorer.lethean.io/api/emission')
+      .pipe(
+        map((res) => {
+          return res.data as EmissionDTO;
+        }),
+      );
   }
 
   async getOutputBlocks(address, viewkey, limit, mempool) {
