@@ -5,6 +5,7 @@ import { SearchDTO } from './dto/search.dto';
 import { Observable } from 'rxjs';
 import { BlockDTO } from './dto/block.dto';
 import { MempoolDTO } from './dto/mempool.dto';
+import { BlockOutputsDTO } from './dto/block.outputs.dto';
 @ApiTags('explorer')
 @Controller({ version: '1', path: 'explorer' })
 export class ExplorerController {
@@ -56,9 +57,43 @@ export class ExplorerController {
     return this.explorerService.getBlockData(id);
   }
 
+  /**
+   * Search for our outputs in last few blocks (up to 5 blocks), using provided address and viewkey.
+   */
   @Get('chain/block/outputs')
-  getOutputsBlocks() {
-    return 'curl  -w "\\n" -X GET http://127.0.0.1:8081/api/outputsblocks?address=9sDyNU82ih1gdhDgrqHbEcfSDFASjFgxL9B9v5f1AytFUrYsVEj7bD9Pyx5Sw2qLk8HgGdFM8qj5DNecqGhm24Ce6QwEGDi&viewkey=807079280293998634d66e745562edaaca45c0a75c8290603578b54e9397e90a&limit=5&mempool=1';
+  @ApiParam({
+    name: 'address',
+    required: true,
+    description: 'Address to check',
+  })
+  @ApiParam({
+    name: 'viewkey',
+    required: true,
+    description: 'Viewkey for the transaction',
+  })
+  @ApiParam({
+    name: 'limit',
+    required: false,
+    description: 'Blocks to check',
+  })
+  @ApiParam({
+    name: 'mempool',
+    required: false,
+    example: 1,
+    description: 'Check mempool',
+  })
+  getOutputsBlocks(
+    address,
+    viewkey,
+    limit = 5,
+    mempool = 1,
+  ): Promise<Observable<BlockOutputsDTO>> {
+    return this.explorerService.getOutputBlocks(
+      address,
+      viewkey,
+      limit,
+      mempool,
+    );
   }
 
   @Get('chain/block/raw/:block_id')

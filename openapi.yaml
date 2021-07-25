@@ -214,14 +214,38 @@ paths:
   /v1/explorer/chain/block/outputs:
     get:
       operationId: getOutputsBlocks
-      parameters: []
+      summary: ""
+      description: Search for our outputs in last few blocks (up to 5 blocks), using
+        provided address and viewkey.
+      parameters:
+        - name: mempool
+          required: false
+          in: path
+          example: 1
+          description: Check mempool
+          schema: {}
+        - name: limit
+          required: false
+          in: path
+          description: Blocks to check
+          schema: {}
+        - name: viewkey
+          required: true
+          in: path
+          description: Viewkey for the transaction
+          schema: {}
+        - name: address
+          required: true
+          in: path
+          description: Address to check
+          schema: {}
       responses:
         "200":
           description: ""
           content:
             application/json:
               schema:
-                type: string
+                $ref: "#/components/schemas/BlockOutputsDTO"
       tags:
         - explorer
   "/v1/explorer/chain/block/raw/{block_id}":
@@ -901,6 +925,69 @@ components:
           description: payload data
           allOf:
             - $ref: "#/components/schemas/BlockEntity"
+      required:
+        - status
+        - data
+    BlockOutputsEntity:
+      type: object
+      properties:
+        amount:
+          type: number
+        block_no:
+          type: number
+        in_mempool:
+          type: boolean
+        output_idx:
+          type: number
+        output_pubkey:
+          type: string
+        payment_id:
+          type: string
+        tx_hash:
+          type: string
+      required:
+        - amount
+        - block_no
+        - in_mempool
+        - output_idx
+        - output_pubkey
+        - tx_hash
+    BlockOutputEntity:
+      type: object
+      properties:
+        address:
+          type: string
+        height:
+          type: number
+        limit:
+          type: number
+        mempool:
+          type: boolean
+        outputs:
+          type: array
+          items:
+            $ref: "#/components/schemas/BlockOutputsEntity"
+        viewkey:
+          type: string
+      required:
+        - address
+        - height
+        - limit
+        - mempool
+        - outputs
+        - viewkey
+    BlockOutputsDTO:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+            - success
+            - fail
+        data:
+          description: payload data
+          allOf:
+            - $ref: "#/components/schemas/BlockOutputEntity"
       required:
         - status
         - data
