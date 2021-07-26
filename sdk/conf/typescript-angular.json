@@ -2,6 +2,7 @@
   "additionalProperties": {
     "apiModulePrefix":"lethean",
     "configurationPrefix":"lethean",
-    "npmName":"lethean"
+    "npmName":"lethean",
+    "ngVersion": 12
   }
 }
