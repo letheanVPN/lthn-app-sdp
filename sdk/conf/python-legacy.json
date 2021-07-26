@@ -1,0 +1,7 @@
+{
+  "additionalProperties": {
+    "packageName": "lethean",
+    "projectName": "lethean",
+    "packageUrl": "https://lt.hn/en/sdk/python"
+  }
+}
