@@ -1,7 +1,7 @@
 {
   "additionalProperties": {
-    "apiModulePrefix":"lthn",
-    "configurationPrefix":"lthn",
-    "npmName":"vpn"
+    "apiModulePrefix":"lethean",
+    "configurationPrefix":"lethean",
+    "npmName":"lethean"
   }
 }

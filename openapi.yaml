@@ -427,7 +427,9 @@ info:
   license:
     name: GPLv3
     url: https://gitlab.com/lthn.io/projects/vpn/market-api/LICENCE
-tags: []
+tags:
+  - name: explorer
+    description: ""
 servers:
   - url: https://dvpm.io
 components:

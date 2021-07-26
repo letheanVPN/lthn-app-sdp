@@ -1,7 +1,0 @@
-{
-  "additionalProperties": {
-    "apiModulePrefix":"lthn",
-    "configurationPrefix":"lthn",
-    "npmName":"@lthn/explorer-ts"
-  }
-}
