@@ -21,6 +21,7 @@ async function bootstrap() {
       .setTitle('Lethean VPN')
       .setDescription('Distributed Virtual Private Marketplace')
       .setVersion('1')
+      .addTag('explorer')
       .setContact('Lethean VPN', 'https://lt.hn', 'contact@lethean.io')
       .setLicense(
         'GPLv3',
@@ -45,36 +46,6 @@ async function bootstrap() {
       },
     },
     {
-      operationIdFactory: (c: string, method: string) => method,
-    },
-  );
-
-  await OpenApiNestFactory.configure(
-    app,
-    new DocumentBuilder()
-      .setTitle('Lethean Explorer API')
-      .setDescription('Lethean chain explorer API')
-      .setVersion('1')
-      .setContact('Lethean VPN', 'https://lt.hn', 'contact@lethean.io')
-      .addServer('https://dvpm.io'),
-    {
-      webServerOptions: {
-        enabled: false,
-        path: '/',
-      },
-      fileGeneratorOptions: {
-        enabled: true,
-        outputFilePath: './explorer.yaml', // or ./openapi.json
-      },
-      clientGeneratorOptions: {
-        enabled: false,
-        type: 'typescript-axios',
-        outputFolderPath: 'sdk/client/typescript/axios',
-        openApiFilePath: './openapi.yaml', // or ./openapi.json
-      },
-    },
-    {
-      include: [ExplorerModule],
       operationIdFactory: (c: string, method: string) => method,
     },
   );
