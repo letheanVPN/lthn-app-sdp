@@ -1,5 +1,5 @@
-import { Controller, Get, Param } from '@nestjs/common';
-import { ApiParam, ApiTags } from '@nestjs/swagger';
+import { Controller, Get, Param, Query } from '@nestjs/common';
+import { ApiParam, ApiQuery, ApiTags } from '@nestjs/swagger';
 import { ExplorerService } from './explorer.service';
 import { SearchDTO } from './dto/search.dto';
 import { Observable } from 'rxjs';
@@ -24,19 +24,22 @@ export class ExplorerController {
    * Fetch transactions in memory pool
    */
   @Get('chain/mempool')
-  @ApiParam({
+  @ApiQuery({
     name: 'limit',
     required: false,
     example: 25,
     description: 'Transactions per page',
   })
-  @ApiParam({
+  @ApiQuery({
     name: 'page',
     required: false,
     example: 0,
     description: 'Page to show',
   })
-  getMempool(limit = 25, page = 0): Promise<Observable<MempoolDTO>> {
+  getMempool(
+    @Query('limit') limit: number,
+    @Query('page') page: number,
+  ): Promise<Observable<MempoolDTO>> {
     return this.explorerService.getMempool(limit, page);
   }
 
@@ -60,20 +63,23 @@ export class ExplorerController {
    * @param limit
    * @param page
    */
-  @Get('chain/block')
-  @ApiParam({
+  @Get('chain/blocks')
+  @ApiQuery({
     name: 'limit',
     required: false,
     example: 10,
     description: 'Transactions per page',
   })
-  @ApiParam({
+  @ApiQuery({
     name: 'page',
     required: false,
     example: 0,
     description: 'Page to show',
   })
-  getTransactions(limit = 10, page = 0): Promise<Observable<TransactionsDTO>> {
+  getTransactions(
+    @Query('limit') limit: number,
+    @Query('page') page: number,
+  ): Promise<Observable<TransactionsDTO>> {
     return this.explorerService.getTransactions(limit, page);
   }
   /**
@@ -94,32 +100,33 @@ export class ExplorerController {
    * Search for our outputs in last few blocks (up to 5 blocks), using provided address and viewkey.
    */
   @Get('chain/block/outputs')
-  @ApiParam({
+  @ApiQuery({
     name: 'address',
     required: true,
     description: 'Address to check',
   })
-  @ApiParam({
+  @ApiQuery({
     name: 'viewkey',
     required: true,
     description: 'Viewkey for the transaction',
   })
-  @ApiParam({
+  @ApiQuery({
     name: 'limit',
     required: false,
+    example: 5,
     description: 'Blocks to check',
   })
-  @ApiParam({
+  @ApiQuery({
     name: 'mempool',
     required: false,
     example: 1,
     description: 'Check mempool',
   })
   getOutputsBlocks(
-    address,
-    viewkey,
-    limit = 5,
-    mempool = 1,
+    @Query('address') address: string,
+    @Query('viewkey') viewkey: string,
+    @Query('limit') limit: number,
+    @Query('mempool') mempool: number,
   ): Promise<Observable<BlockOutputsDTO>> {
     return this.explorerService.getOutputBlocks(
       address,
@@ -198,28 +205,28 @@ export class ExplorerController {
   }
 
   @Get('validate/transfer')
-  @ApiParam({
+  @ApiQuery({
     name: 'txhash',
     required: true,
   })
-  @ApiParam({
+  @ApiQuery({
     name: 'address',
     required: true,
   })
-  @ApiParam({
+  @ApiQuery({
     name: 'viewkey',
     required: true,
   })
-  @ApiParam({
+  @ApiQuery({
     name: 'txprove',
     required: false,
     example: true,
   })
   proveTransfer(
-    txhash,
-    address,
-    viewkey = 5,
-    txprove = true,
+    @Query('txhash') txhash: string,
+    @Query('address') address: string,
+    @Query('viewkey') viewkey: number,
+    @Query('txprove') txprove: boolean,
   ): Promise<Observable<ProveTransferDTO>> {
     return this.explorerService.proveTransfer(
       txhash,

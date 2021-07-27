@@ -1,19 +1,5 @@
 openapi: 3.0.0
 paths:
-  /v1/signature/get:
-    get:
-      operationId: sigVerify
-      parameters: []
-      responses:
-        "200":
-          description: ""
-  /v1/cache/index:
-    get:
-      operationId: cacheStats
-      parameters: []
-      responses:
-        "200":
-          description: ""
   /v1/provider/search:
     get:
       operationId: findAll
@@ -148,18 +134,20 @@ paths:
       summary: ""
       description: Fetch transactions in memory pool
       parameters:
-        - name: page
-          required: false
-          in: path
-          example: 0
-          description: Page to show
-          schema: {}
         - name: limit
           required: false
-          in: path
+          in: query
           example: 25
           description: Transactions per page
-          schema: {}
+          schema:
+            type: number
+        - name: page
+          required: false
+          in: query
+          example: 0
+          description: Page to show
+          schema:
+            type: number
       responses:
         "200":
           description: ""
@@ -191,24 +179,26 @@ paths:
                 $ref: "#/components/schemas/SearchDTO"
       tags:
         - explorer
-  /v1/explorer/chain/block:
+  /v1/explorer/chain/blocks:
     get:
       operationId: getTransactions
       summary: ""
       description: get the list of blocks
       parameters:
-        - name: page
-          required: false
-          in: path
-          example: 0
-          description: Page to show
-          schema: {}
         - name: limit
           required: false
-          in: path
+          in: query
           example: 10
           description: Transactions per page
-          schema: {}
+          schema:
+            type: number
+        - name: page
+          required: false
+          in: query
+          example: 0
+          description: Page to show
+          schema:
+            type: number
       responses:
         "200":
           description: ""
@@ -247,27 +237,32 @@ paths:
       description: Search for our outputs in last few blocks (up to 5 blocks), using
         provided address and viewkey.
       parameters:
-        - name: mempool
-          required: false
-          in: path
-          example: 1
-          description: Check mempool
-          schema: {}
-        - name: limit
-          required: false
-          in: path
-          description: Blocks to check
-          schema: {}
-        - name: viewkey
-          required: true
-          in: path
-          description: Viewkey for the transaction
-          schema: {}
         - name: address
           required: true
-          in: path
+          in: query
           description: Address to check
-          schema: {}
+          schema:
+            type: string
+        - name: viewkey
+          required: true
+          in: query
+          description: Viewkey for the transaction
+          schema:
+            type: string
+        - name: limit
+          required: false
+          in: query
+          example: 5
+          description: Blocks to check
+          schema:
+            type: number
+        - name: mempool
+          required: false
+          in: query
+          example: 1
+          description: Check mempool
+          schema:
+            type: number
       responses:
         "200":
           description: ""
@@ -390,23 +385,27 @@ paths:
     get:
       operationId: proveTransfer
       parameters:
-        - name: txprove
-          required: false
-          in: path
-          example: true
-          schema: {}
-        - name: viewkey
-          required: true
-          in: path
-          schema: {}
-        - name: address
-          required: true
-          in: path
-          schema: {}
         - name: txhash
           required: true
-          in: path
-          schema: {}
+          in: query
+          schema:
+            type: string
+        - name: address
+          required: true
+          in: query
+          schema:
+            type: string
+        - name: viewkey
+          required: true
+          in: query
+          schema:
+            type: number
+        - name: txprove
+          required: false
+          in: query
+          example: true
+          schema:
+            type: boolean
       responses:
         "200":
           description: ""
