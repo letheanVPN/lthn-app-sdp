@@ -302,6 +302,7 @@ tags:
   - name: explorer
     description: ""
 servers:
+  - url: http://localhost:36911
   - url: https://dvpm.io
 components:
   schemas:
@@ -791,6 +792,10 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/InputsEntity"
+        outputs:
+          type: array
+          items:
+            $ref: "#/components/schemas/OutputEntity"
       required:
         - block_height
         - coinbase
@@ -798,6 +803,7 @@ components:
         - current_height
         - extra
         - inputs
+        - outputs
     TransactionDTO:
       type: object
       properties:
