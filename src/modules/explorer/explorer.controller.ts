@@ -59,30 +59,6 @@ export class ExplorerController {
   }
 
   /**
-   * get the list of blocks
-   * @param limit
-   * @param page
-   */
-  @Get('chain/blocks')
-  @ApiQuery({
-    name: 'limit',
-    required: false,
-    example: 10,
-    description: 'Transactions per page',
-  })
-  @ApiQuery({
-    name: 'page',
-    required: false,
-    example: 0,
-    description: 'Page to show',
-  })
-  getTransactions(
-    @Query('limit') limit: number,
-    @Query('page') page: number,
-  ): Promise<Observable<TransactionsDTO>> {
-    return this.explorerService.getTransactions(limit, page);
-  }
-  /**
    * Get block data from block height
    */
   @Get('chain/block/:id')
@@ -150,6 +126,30 @@ export class ExplorerController {
     return this.explorerService.getRawBlockData(id);
   }
 
+  /**
+   * get the list of recent trasnactions
+   * @param limit
+   * @param page
+   */
+  @Get('chain/transactions')
+  @ApiQuery({
+    name: 'limit',
+    required: false,
+    example: 10,
+    description: 'Transactions per page',
+  })
+  @ApiQuery({
+    name: 'page',
+    required: false,
+    example: 0,
+    description: 'Page to show',
+  })
+  getTransactions(
+    @Query('limit') limit: number,
+    @Query('page') page: number,
+  ): Promise<Observable<TransactionsDTO>> {
+    return this.explorerService.getTransactions(limit, page);
+  }
   /**
    * Fetch data about a transaction on the Blockhain
    */
