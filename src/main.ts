@@ -20,7 +20,7 @@ async function bootstrap() {
     new DocumentBuilder()
       .setTitle('Lethean VPN')
       .setDescription('Distributed Virtual Private Marketplace')
-      .setVersion('1.0.0')
+      .setVersion('1.0.2')
       .addTag('explorer')
       .setContact('Lethean VPN', 'https://lt.hn', 'contact@lethean.io')
       .setLicense(
@@ -46,6 +46,7 @@ async function bootstrap() {
       },
     },
     {
+      include: [ExplorerModule],
       operationIdFactory: (c: string, method: string) => method,
     },
   );
