@@ -10,7 +10,7 @@
     "developerOrganizationUrl": "https://lt.hn",
     "groupId": "org.lethean",
     "invokerPackage": "org.lethean.api",
-    "modelPackage": "org.lthn.lethean.api.model",
+    "modelPackage": "org.lethean.api.model",
     "licenseName": "GPLv3",
     "licenseUrl": "https://www.gnu.org/licenses/gpl-3.0.html",
     "scmUrl": "https://gitlab.com/lthn.io/projects/sdk/clients/java",
