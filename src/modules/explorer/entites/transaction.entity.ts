@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { InputsEntity } from './inputs.entity';
+import { OutputEntity } from './output.entity';
 
 export class TransactionEntity {
   @ApiProperty()
@@ -14,4 +15,6 @@ export class TransactionEntity {
   extra: string;
   @ApiProperty()
   inputs: InputsEntity[];
+  @ApiProperty()
+  outputs: OutputEntity[];
 }
