@@ -290,7 +290,7 @@ paths:
 info:
   title: Lethean VPN
   description: Distributed Virtual Private Marketplace
-  version: 1.0.3
+  version: '1.0.6'
   contact:
     name: Lethean VPN
     url: https://lt.hn
@@ -302,7 +302,6 @@ tags:
   - name: explorer
     description: ""
 servers:
-  - url: http://localhost:36911
   - url: https://dvpm.io
 components:
   schemas:
