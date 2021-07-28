@@ -1,4 +1,4 @@
-import { Controller, Param, Post } from '@nestjs/common';
+import { Controller } from '@nestjs/common';
 import { RethinkService } from './rethink.service';
 
 @Controller('rethink')
