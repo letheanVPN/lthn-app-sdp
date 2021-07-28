@@ -191,7 +191,7 @@ export class ExplorerController {
   /**
    * Blockchain emission stats
    */
-  @Get('chain/stats/emission')
+  @Get('chain/emission')
   getEmission(): Promise<Observable<EmissionDTO>> {
     return this.explorerService.getEmission();
   }

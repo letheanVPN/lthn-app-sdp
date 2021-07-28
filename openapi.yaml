@@ -290,7 +290,7 @@ paths:
 info:
   title: Lethean VPN
   description: Distributed Virtual Private Marketplace
-  version: '1.0.6'
+  version: '1.0.8'
   contact:
     name: Lethean VPN
     url: https://lt.hn
