@@ -1,26 +1,21 @@
 import { Injectable } from '@nestjs/common';
 import { ServiceEntity } from './entities/service.entity';
-import { RethinkService } from '../../../providers/rethink/rethink.service';
+import { map } from 'rxjs/operators';
+import { HttpService } from '@nestjs/axios';
 
 const TABLE = 'services';
 
 @Injectable()
 export class ServiceService {
-  private readonly cats: ServiceEntity[] = [];
-  constructor(private rethinkService: RethinkService) {}
-
-  async newService(service: ServiceEntity) {
-    return await this.rethinkService.insert(TABLE, service);
-  }
+  constructor(private httpService: HttpService) {}
 
   async listServices() {
-    return await this.rethinkService
-      .fetch(TABLE)
-      .then((results) => {
-        return results;
-      })
-      .catch((error) => {
-        return error;
-      });
+    return this.httpService
+      .get('https://sdp.lethean.io/v1/services/search')
+      .pipe(
+        map((res) => {
+          return res.data as ServiceEntity[];
+        }),
+      );
   }
 }
