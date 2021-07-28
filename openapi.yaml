@@ -223,7 +223,7 @@ paths:
                 $ref: "#/components/schemas/NetworkStatsDTO"
       tags:
         - explorer
-  /v1/explorer/chain/stats/emission:
+  /v1/explorer/chain/emission:
     get:
       operationId: getEmission
       summary: ""
@@ -290,7 +290,7 @@ paths:
 info:
   title: Lethean VPN
   description: Distributed Virtual Private Marketplace
-  version: '1.0.8'
+  version: 1.0.7
   contact:
     name: Lethean VPN
     url: https://lt.hn

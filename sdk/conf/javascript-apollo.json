@@ -1,0 +1,8 @@
+{
+  "additionalProperties": {
+    "apiPackage":"lethean",
+    "projectName":"@lethean/api-apollo",
+    "licenseName":"MIT",
+    "npmName":"@lethean/api-apollo"
+  }
+}

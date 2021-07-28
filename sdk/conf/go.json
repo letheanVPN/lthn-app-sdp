@@ -1,6 +1,6 @@
 {
   "additionalProperties": {
-    "packageName": "lthn.vpn",
+    "packageName": "lethean",
     "generateInterfaces": true
   }
 }
