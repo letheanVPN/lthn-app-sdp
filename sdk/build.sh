@@ -24,6 +24,7 @@ do
   filename=$(basename "$f" .json)
   rm -rf "$BASE_DIR"/sdk/client/"$filename"/*
   openapi-generator-cli generate -i "$BASE_DIR"/dvpm/openapi.yaml -g "$filename" -o "$BASE_DIR"/sdk/client/"$filename" -c "$f" --git-host gitlab.com \
-  --git-repo-id projects/sdk/clients/"$filename" --git-user-id lthn.io --artifact-version "${PACKAGE_VERSION}"
-  (cd "$BASE_DIR"/sdk/client/"$filename" &&  /bin/sh ./git_push.sh)
+  --git-repo-id projects/sdk/clients/"$filename" --git-user-id lthn.io --artifact-version "${PACKAGE_VERSION}" --group-id lethean \
+  -p packageVersion="${PACKAGE_VERSION}" --global-property apiTests=true
+  (cp -f "$(pwd)"/sdk/build/git_push.sh "$BASE_DIR"/sdk/client/"$filename"/git_push.sh && cd "$BASE_DIR"/sdk/client/"$filename" &&  /bin/sh ./git_push.sh lthn.io projects/sdk/clients/"$filename")
 done

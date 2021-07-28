@@ -1,0 +1,10 @@
+{
+  "additionalProperties": {
+    "apiModulePrefix":"lethean",
+    "configurationPrefix":"lethean",
+    "npmName":"@lethean/api-ts",
+    "supportsES6": true,
+    "useInversify": true,
+    "useObjectParameters": true
+  }
+}

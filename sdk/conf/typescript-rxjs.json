@@ -1,0 +1,6 @@
+{
+  "additionalProperties": {
+    "npmName":"@lethean/api-rxjs",
+    "supportsES6": true
+  }
+}
