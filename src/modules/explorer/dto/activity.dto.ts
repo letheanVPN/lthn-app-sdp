@@ -11,23 +11,6 @@ export class Activity {
   updates: Commit[];
 }
 
-export class Commit {
-  @ApiProperty()
-  id: string;
-  @ApiProperty()
-  link: CommitLink;
-  @ApiProperty()
-  title: string;
-  @ApiProperty()
-  updated: string;
-  @ApiProperty()
-  'media:thumbnail': CommitMediaThumbnail;
-  @ApiProperty()
-  author: CommitAuthor;
-  @ApiProperty()
-  summary: string;
-}
-
 export class CommitAuthor {
   @ApiProperty()
   username: string;
@@ -49,4 +32,21 @@ export class CommitMediaThumbnail {
 export class CommitLink {
   @ApiProperty()
   href: string;
+}
+
+export class Commit {
+  @ApiProperty()
+  id: string;
+  @ApiProperty()
+  link: CommitLink;
+  @ApiProperty()
+  title: string;
+  @ApiProperty()
+  updated: string;
+  @ApiProperty()
+  'media:thumbnail': CommitMediaThumbnail;
+  @ApiProperty()
+  author: CommitAuthor;
+  @ApiProperty()
+  summary: string;
 }
