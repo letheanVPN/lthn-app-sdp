@@ -22,7 +22,7 @@ async function bootstrap() {
     new DocumentBuilder()
       .setTitle('Lethean VPN')
       .setDescription('Distributed Virtual Private Marketplace')
-      .setVersion('1.1.1')
+      .setVersion('1.2.0')
       .addTag('explorer')
       .addTag('vpn')
       .setContact('Lethean VPN', 'https://lt.hn', 'contact@lethean.io')

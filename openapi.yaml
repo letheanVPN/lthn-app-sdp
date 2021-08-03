@@ -270,6 +270,21 @@ paths:
                 $ref: "#/components/schemas/VersionDTO"
       tags:
         - explorer
+  /v1/explorer/activity:
+    get:
+      operationId: getActivity
+      summary: ""
+      description: Project commits
+      parameters: []
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Activity"
+      tags:
+        - explorer
   /v1/explorer/validate/transfer:
     get:
       operationId: proveTransfer
@@ -1352,6 +1367,68 @@ components:
       required:
         - status
         - data
+    Commit:
+      type: object
+      properties:
+        id:
+          type: string
+        link:
+          type: object
+          properties:
+            href:
+              required: true
+              type: string
+        title:
+          type: string
+        updated:
+          type: string
+        media:thumbnail:
+          type: object
+          properties:
+            width:
+              required: true
+              type: string
+            height:
+              required: true
+              type: string
+            url:
+              required: true
+              type: string
+        author:
+          type: object
+          properties:
+            username:
+              required: true
+              type: string
+            name:
+              required: true
+              type: string
+            email:
+              required: true
+              type: string
+        summary:
+          type: string
+      required:
+        - id
+        - link
+        - title
+        - updated
+        - media:thumbnail
+        - author
+        - summary
+    Activity:
+      type: object
+      properties:
+        updated:
+          type: string
+          description: payload data
+        updates:
+          type: array
+          items:
+            $ref: "#/components/schemas/Commit"
+      required:
+        - updated
+        - updates
     ProveTransferOutputsEntity:
       type: object
       properties:
