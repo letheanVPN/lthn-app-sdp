@@ -322,7 +322,7 @@ paths:
 info:
   title: Lethean VPN
   description: Distributed Virtual Private Marketplace
-  version: '1.2.0'
+  version: 1.2.0
   contact:
     name: Lethean VPN
     url: https://lt.hn
@@ -1367,45 +1367,54 @@ components:
       required:
         - status
         - data
+    CommitLink:
+      type: object
+      properties:
+        href:
+          type: string
+      required:
+        - href
+    CommitMediaThumbnail:
+      type: object
+      properties:
+        width:
+          type: string
+        height:
+          type: string
+        url:
+          type: string
+      required:
+        - width
+        - height
+        - url
+    CommitAuthor:
+      type: object
+      properties:
+        username:
+          type: string
+        name:
+          type: string
+        email:
+          type: string
+      required:
+        - username
+        - name
+        - email
     Commit:
       type: object
       properties:
         id:
           type: string
         link:
-          type: object
-          properties:
-            href:
-              required: true
-              type: string
+          $ref: "#/components/schemas/CommitLink"
         title:
           type: string
         updated:
           type: string
         media:thumbnail:
-          type: object
-          properties:
-            width:
-              required: true
-              type: string
-            height:
-              required: true
-              type: string
-            url:
-              required: true
-              type: string
+          $ref: "#/components/schemas/CommitMediaThumbnail"
         author:
-          type: object
-          properties:
-            username:
-              required: true
-              type: string
-            name:
-              required: true
-              type: string
-            email:
-              required: true
-              type: string
+          $ref: "#/components/schemas/CommitAuthor"
         summary:
           type: string
       required:
