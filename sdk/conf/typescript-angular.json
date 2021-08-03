@@ -3,6 +3,6 @@
     "apiModulePrefix":"lethean",
     "configurationPrefix":"lethean",
     "npmName":"@lethean/api-angular",
-    "ngVersion": 12
+    "ngVersion": 8
   }
 }
