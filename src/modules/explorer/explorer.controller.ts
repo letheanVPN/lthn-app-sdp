@@ -14,6 +14,7 @@ import { TransactionDTO } from './dto/transaction.dto';
 import { ProveTransferDTO } from './dto/prove.transfer.dto';
 import { RawTransactionDTO } from './dto/raw.transaction.dto';
 import { RawBlockDTO } from './dto/raw.block.dto';
+import { Activity } from './dto/activity.dto';
 
 @ApiTags('explorer')
 @Controller({ version: '1', path: 'explorer' })
@@ -202,6 +203,14 @@ export class ExplorerController {
   @Get('chain/version')
   getVersion(): Promise<Observable<VersionDTO>> {
     return this.explorerService.getVersion();
+  }
+
+  /**
+   * Project commits
+   */
+  @Get('activity')
+  getActivity(): Promise<Observable<Activity>> {
+    return this.explorerService.getActivity();
   }
 
   @Get('validate/transfer')

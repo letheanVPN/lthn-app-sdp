@@ -13,6 +13,7 @@ import { TransactionsDTO } from './dto/transactions.dto';
 import { TransactionDTO } from './dto/transaction.dto';
 import { RawTransactionDTO } from './dto/raw.transaction.dto';
 import { ProveTransferDTO } from './dto/prove.transfer.dto';
+import { Activity } from './dto/activity.dto';
 
 @Injectable()
 export class ExplorerService {
@@ -28,6 +29,32 @@ export class ExplorerService {
           return res.data as MempoolDTO;
         }),
       );
+  }
+  async getActivity() {
+    return this.httpService.get('https://gitlab.com/lthn.io.atom').pipe(
+      map((res) => {
+        const parser = require('fast-xml-parser');
+        const options = {
+          attributeNamePrefix: '',
+          attrNodeName: false, //default is 'false'
+          ignoreAttributes: false,
+          textNodeName: 'html',
+          ignoreNameSpace: false,
+          allowBooleanAttributes: false,
+          parseNodeValue: true,
+          parseAttributeValue: true,
+          trimValues: true,
+          parseTrueNumberOnly: false,
+          arrayMode: false, //"strict",
+          stopNodes: ['summary'],
+        };
+        const str = parser.parse(res.data, options);
+        return {
+          updated: str.feed.updated,
+          updates: str.feed.entry,
+        } as Activity;
+      }),
+    );
   }
 
   async getTransactions(limit, page) {

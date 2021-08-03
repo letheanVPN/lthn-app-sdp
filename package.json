@@ -1,6 +1,6 @@
 {
   "name": "lethean",
-  "version": "1.1.1",
+  "version": "1.2.0",
   "description": "",
   "author": "Snider<snider@lethean.io>",
   "private": true,
@@ -31,8 +31,10 @@
     "@nestjs/platform-express": "^8.0.0",
     "@nestjs/swagger": "^5.0.8",
     "@types/rethinkdb": "^2.3.17",
+    "@types/xml2js": "^0.4.9",
     "axios": "^0.21.1",
     "cache-manager": "^3.4.4",
+    "fast-xml-parser": "^3.19.0",
     "helmet": "^4.6.0",
     "ion-js": "^4.2.1",
     "jsbi": "^3.1.5",
@@ -43,7 +45,8 @@
     "rethinkdb": "^2.4.2",
     "rimraf": "^3.0.2",
     "rxjs": "^7.2.0",
-    "swagger-ui-express": "^4.1.6"
+    "swagger-ui-express": "^4.1.6",
+    "xml2js": "^0.4.23"
   },
   "devDependencies": {
     "@nestjs/cli": "^8.0.0",
