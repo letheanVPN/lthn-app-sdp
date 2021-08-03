@@ -322,7 +322,7 @@ paths:
 info:
   title: Lethean VPN
   description: Distributed Virtual Private Marketplace
-  version: '1.2.0'
+  version: 1.2.1
   contact:
     name: Lethean VPN
     url: https://lt.hn
@@ -1400,6 +1400,18 @@ components:
         - username
         - name
         - email
+    CommitSummary:
+      type: object
+      properties:
+        html:
+          type: string
+        type:
+          type: string
+          enum:
+            - xhtml
+      required:
+        - html
+        - type
     Commit:
       type: object
       properties:
@@ -1416,7 +1428,7 @@ components:
         author:
           $ref: "#/components/schemas/CommitAuthor"
         summary:
-          type: string
+          $ref: "#/components/schemas/CommitSummary"
       required:
         - id
         - link

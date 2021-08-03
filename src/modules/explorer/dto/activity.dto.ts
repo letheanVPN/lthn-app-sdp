@@ -33,7 +33,12 @@ export class CommitLink {
   @ApiProperty()
   href: string;
 }
-
+export class CommitSummary {
+  @ApiProperty()
+  html: string;
+  @ApiProperty({ enum: ['xhtml'] })
+  type: string;
+}
 export class Commit {
   @ApiProperty()
   id: string;
@@ -48,5 +53,5 @@ export class Commit {
   @ApiProperty()
   author: CommitAuthor;
   @ApiProperty()
-  summary: string;
+  summary: CommitSummary;
 }
