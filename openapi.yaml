@@ -322,7 +322,7 @@ paths:
 info:
   title: Lethean VPN
   description: Distributed Virtual Private Marketplace
-  version: '1.1.1'
+  version: '1.2.0'
   contact:
     name: Lethean VPN
     url: https://lt.hn

@@ -15,25 +15,38 @@ export class Commit {
   @ApiProperty()
   id: string;
   @ApiProperty()
-  link: {
-    href: 'https://gitlab.com/lthn.io/websites/lt.hn/-/commit/23c5932c80068b85ad2a33f5f557a29cfbed0b82';
-  };
+  link: CommitLink;
   @ApiProperty()
   title: string;
   @ApiProperty()
   updated: string;
   @ApiProperty()
-  'media:thumbnail': {
-    width: string;
-    height: string;
-    url: string;
-  };
+  'media:thumbnail': CommitMediaThumbnail;
   @ApiProperty()
-  author: {
-    username: string;
-    name: string;
-    email: string;
-  };
+  author: CommitAuthor;
   @ApiProperty()
   summary: string;
+}
+
+export class CommitAuthor {
+  @ApiProperty()
+  username: string;
+  @ApiProperty()
+  name: string;
+  @ApiProperty()
+  email: string;
+}
+
+export class CommitMediaThumbnail {
+  @ApiProperty()
+  width: string;
+  @ApiProperty()
+  height: string;
+  @ApiProperty()
+  url: string;
+}
+
+export class CommitLink {
+  @ApiProperty()
+  href: string;
 }
