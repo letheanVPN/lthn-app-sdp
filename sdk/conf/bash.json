@@ -4,7 +4,7 @@
     "generateBashCompletion": true,
     "generateZshCompletion":  true,
     "processMarkdown":  true,
-    "scriptName":"lthnd-vpn",
+    "scriptName":"lthn",
     "hostEnvironmentVariable": "https://dvpm.io"
   }
 }
