@@ -34,7 +34,7 @@ async function bootstrap() {
       .addServer('https://dvpm.io'),
     {
       webServerOptions: {
-        enabled: true,
+        enabled: false,
         path: '/',
       },
       fileGeneratorOptions: {
