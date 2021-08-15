@@ -2,7 +2,7 @@ fs = require('fs');
 r = require('rethinkdb');
 ion = require('ion-js');
 //db.dvpm.io
-r.connect({ host: 'localhost', port: 28015 }, async (err, conn) => {
+r.connect({ host: 'rethink', port: 28015 }, async (err, conn) => {
   if (err) throw err;
 
   let providerData = ion.loadAll(

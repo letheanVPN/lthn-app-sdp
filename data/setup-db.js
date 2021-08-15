@@ -1,6 +1,6 @@
 r = require('rethinkdb');
 //db.dvpm.io
-r.connect({ host: 'localhost', port: 28015 }, async (err, conn) => {
+r.connect({ host: 'rethink', port: 28015 }, async (err, conn) => {
   if (err) throw err;
 
   await r.dbCreate('lethean-api').run(conn, (err, result) => {

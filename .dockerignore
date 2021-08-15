@@ -1,5 +1,5 @@
 dist
-data
+
 node_modules
 sdk
 rethinkdb_data
