@@ -1,0 +1,11 @@
+version: "3.3"
+services:
+  server:
+    container_name: lthn-api
+    image: lthn/api
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 36911:36911
+
