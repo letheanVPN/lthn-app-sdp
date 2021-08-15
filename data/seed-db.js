@@ -1,57 +1,112 @@
+fs = require('fs');
 r = require('rethinkdb');
-
-r.connect({ host: 'db.dvpm.io', port: 28015 }, async (err, conn) => {
+ion = require('ion-js');
+//db.dvpm.io
+r.connect({ host: 'localhost', port: 28015 }, async (err, conn) => {
   if (err) throw err;
 
-  await r.dbCreate('lethean-api').run(conn, (err, result) => {
-    if (err) {
-      console.log(err.msg);
-    } else {
-      console.log('Created Database lethean-api');
-    }
+  let providerData = ion.loadAll(
+    fs.readFileSync('data/sets/providers_prod.ion'),
+  );
+  providerData.forEach((item) => {
+    item.allFields().forEach((row) => {
+      r.db('lethean-api')
+        .table('provider')
+        .insert(JSON.parse(JSON.stringify(row[1][0])))
+        .run(conn, (err, result) => {
+          if (err) {
+            //console.log(err.msg);
+          } else {
+            console.log('Created Provider');
+          }
+        });
+    });
   });
 
-  await r
-    .db('lethean-api')
-    .tableCreate('services')
-    .run(conn, (err, result) => {
-      if (err) {
-        console.log(err.msg);
-      } else {
-        console.log('Created Services Table');
-      }
+  let services = ion.loadAll(fs.readFileSync('data/sets/services_prod.ion'));
+  services.forEach((item) => {
+    item.allFields().forEach((row) => {
+      r.db('lethean-api')
+        .table('services')
+        .insert(JSON.parse(JSON.stringify(row[1][0])))
+        .run(conn, (err, result) => {
+          if (err) {
+            //console.log(err.msg);
+          } else {
+            console.log('Created Provider');
+          }
+        });
     });
-  await r
-    .db('lethean-api')
-    .tableCreate('provider')
-    .run(conn, (err, result) => {
-      if (err) {
-        console.log(err.msg);
-      } else {
-        console.log('Created Provider Table');
-      }
-    });
+  });
 
-  await r
-    .db('lethean-api')
-    .tableCreate('feedback')
-    .run(conn, (err, result) => {
-      if (err) {
-        console.log(err.msg);
-      } else {
-        console.log('Created Feedback Table');
-      }
+  let feedback = ion.loadAll(fs.readFileSync('data/sets/fback_prod.ion'));
+  feedback.forEach((item) => {
+    item.allFields().forEach((row) => {
+      r.db('lethean-api')
+        .table('feedback')
+        .insert(JSON.parse(JSON.stringify(row[1][0])))
+        .run(conn, (err, result) => {
+          if (err) {
+            //console.log(err.msg);
+          } else {
+            console.log('Created Provider');
+          }
+        });
     });
+  });
 
-  await r
-    .db('lethean-api')
-    .tableCreate('protocol')
-    .run(conn, (err, result) => {
-      if (err) {
-        console.log(err.msg);
-      } else {
-        console.log('Created Protocol Table');
-      }
+  let paymentHistory = ion.loadAll(
+    fs.readFileSync('data/sets/payment_history_prod.ion'),
+  );
+  paymentHistory.forEach((item) => {
+    item.allFields().forEach((row) => {
+      r.db('lethean-api')
+        .table('payment_history')
+        .insert(JSON.parse(JSON.stringify(row[1][0])))
+        .run(conn, (err, result) => {
+          if (err) {
+            //console.log(err.msg);
+          } else {
+            console.log('Created Provider');
+          }
+        });
     });
+  });
+
+  let providerHistory = ion.loadAll(
+    fs.readFileSync('data/sets/provider_history_prod.ion'),
+  );
+  providerHistory.forEach((item) => {
+    item.allFields().forEach((row) => {
+      r.db('lethean-api')
+        .table('provider_history')
+        .insert(JSON.parse(JSON.stringify(row[1][0])))
+        .run(conn, (err, result) => {
+          if (err) {
+            //console.log(err.msg);
+          } else {
+            console.log('Created Provider');
+          }
+        });
+    });
+  });
+  let servicesHistory = ion.loadAll(
+    fs.readFileSync('data/sets/services_history_prod.ion'),
+  );
+  servicesHistory.forEach((item) => {
+    item.allFields().forEach((row) => {
+      r.db('lethean-api')
+        .table('services_history')
+        .insert(JSON.parse(JSON.stringify(row[1][0])))
+        .run(conn, (err, result) => {
+          if (err) {
+            //console.log(err.msg);
+          } else {
+            console.log('Created Provider');
+          }
+        });
+    });
+  });
+
   await conn.close();
 });
