@@ -1,21 +1,18 @@
-import { Injectable } from '@nestjs/common';
-import { ServiceEntity } from './entities/service.entity';
-import { map } from 'rxjs/operators';
+import { Inject, Injectable } from '@nestjs/common';
 import { HttpService } from '@nestjs/axios';
-
-const TABLE = 'services';
+import * as rethink from 'rethinkdb';
 
 @Injectable()
 export class ServiceService {
-  constructor(private httpService: HttpService) {}
+  private connection: rethink.Connection;
 
-  async listServices() {
-    return this.httpService
-      .get('https://sdp.lethean.io/v1/services/search')
-      .pipe(
-        map((res) => {
-          return res.data as ServiceEntity[];
-        }),
-      );
+  constructor(
+    private httpService: HttpService,
+    @Inject('RethinkProvider') connection,
+  ) {
+    this.connection = connection;
+  }
+  async listServices(): Promise<rethink.Cursor> {
+    return await rethink.table('providers').getAll().run(this.connection);
   }
 }
