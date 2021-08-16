@@ -3,10 +3,6 @@ services:
   dvpm:
     container_name: lthn-api
     image: lthn/api
-    links:
-      - rethink
-    depends_on:
-      - rethink
     build:
       context: .
       dockerfile: Dockerfile
@@ -16,7 +12,7 @@ services:
     container_name: lthn-api-db
     image: rethinkdb:2.4-buster-slim
     volumes:
-      - ./data/rethink:/data
+      - ./rethinkdb_data:/data
     expose:
       - 28015
       - 29015
