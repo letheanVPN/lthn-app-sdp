@@ -16,13 +16,10 @@ r.connect({ host: 'rethink', port: 28015 }, async (err, conn) => {
         .run(conn, (err, result) => {
           if (err) {
             //console.log(err.msg);
-          } else {
-            console.log('Created Provider');
           }
         });
     });
   });
-
   let services = ion.loadAll(fs.readFileSync('data/sets/services_prod.ion'));
   services.forEach((item) => {
     item.allFields().forEach((row) => {

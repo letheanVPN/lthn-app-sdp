@@ -1,7 +1,8 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { ServiceEntity } from './entities/service.entity';
 import { map } from 'rxjs/operators';
 import { HttpService } from '@nestjs/axios';
+import { r } from 'rethinkdb-ts';
 
 const TABLE = 'services';
 
@@ -17,5 +18,23 @@ export class ServiceService {
           return res.data as ServiceEntity[];
         }),
       );
+  }
+
+  async queryServices() {
+    const pool = r.getPoolMaster();
+    if (pool) {
+      await pool.waitForHealthy();
+    }
+
+    const result = await r
+      .table('services')
+      .filter(function (row) {
+        return row('disable').eq(false);
+      })
+      .eqJoin(r.row('provider'), r.table('provider'))
+      .zip()
+      .run();
+
+    return result;
   }
 }
