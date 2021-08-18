@@ -18,6 +18,7 @@ COPY pm2.json .
 COPY --from=build /app/dist/ /app/dist
 COPY openapi.yaml /app/dist/openapi.yaml
 COPY frontend /app/frontend
+COPY data /app/data
 
 CMD [ "pm2-runtime", "start", "pm2.json" ]
 
