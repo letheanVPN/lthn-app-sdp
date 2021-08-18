@@ -11,8 +11,8 @@ import { join } from 'path';
 @Module({
   imports: [
     CacheModule.register({
-      ttl: 5, // seconds
-      max: 10, // maximum number of items in cache
+      ttl: 15, // seconds
+      max: 100, // maximum number of items in cache
     }),
     ProviderModule,
     ServiceModule,

@@ -17,6 +17,21 @@ paths:
           description: Services list
       tags:
         - vpn
+  /v1/services/search:
+    get:
+      operationId: queryServices
+      parameters: []
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ServiceEntity"
+      tags:
+        - vpn
   /v1/explorer/chain/mempool:
     get:
       operationId: getMempool

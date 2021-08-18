@@ -22,4 +22,16 @@ export class ServiceController {
         return error;
       });
   }
+
+  @Get('search')
+  async queryServices(): Promise<ServiceEntity[]> {
+    return await this.servicesService
+      .queryServices()
+      .then((result) => {
+        return result;
+      })
+      .catch((error) => {
+        return error;
+      });
+  }
 }

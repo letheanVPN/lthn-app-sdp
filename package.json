@@ -22,8 +22,9 @@
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "setup:macos": "bash sdk/install.deps.macos.sh",
-    "setup:db": "docker compose run dvpm node data/setup-db.js",
-    "setup:db-data": "docker compose run dvpm node data/seed-db.js"
+    "setup:db": "node data/setup-db.js",
+    "setup:db-data": "node data/seed-db.js",
+    "setup:db-types": "node data/db-types.js"
   },
   "dependencies": {
     "@nestjs/axios": "0.0.1",
@@ -46,6 +47,7 @@
     "qs": "^6.10.1",
     "reflect-metadata": "^0.1.13",
     "rethinkdb": "^2.4.2",
+    "rethinkdb-ts": "^2.4.14",
     "rimraf": "^3.0.2",
     "rxjs": "^7.2.0",
     "swagger-ui-express": "^4.1.6",
