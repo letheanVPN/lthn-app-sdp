@@ -44,11 +44,11 @@ exports.feedback_get = function(req, res) {
       d2 = datetime.create("01/01/1990 00:00:00")
       fb.Items.forEach(function(feed){
         d1 = datetime.create(feed.date)
-        console.log(feed.services, "feed services")
-        console.log(req.params.id, "req param id")
+        //console.log(feed.services, "feed services")
+        //console.log(req.params.id, "req param id")
         if(feed.services === req.params.id && feed.client === req.params.client && feed.speed >=1 && feed.stability >= 1 && d1.getTime() > d2.getTime()){
-          console.log("Im in")
-          console.log(d1)
+         // console.log("Im in")
+         // console.log(d1)
           d2 = d1
           mSpeed = feed.speed
           mStability = feed.stability
