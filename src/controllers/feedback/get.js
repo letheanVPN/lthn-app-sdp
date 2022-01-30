@@ -10,11 +10,11 @@ var formatted = dt.format('m/d/Y H:M:S');
 
 let dynamoDb;
 
+// create DB
 if (IS_OFFLINE === 'true'){
   dynamoDb = new AWS.DynamoDB.DocumentClient({
     region: 'localhost', endpoint: 'http://localhost:8000'
   });
-  console.log(dynamoDb, '<---- my get server offline');
 }else{
   dynamoDb = new AWS.DynamoDB.DocumentClient();
 }
@@ -37,7 +37,7 @@ exports.feedback_get = function(req, res) {
       res.status(400).json({ error: 'Could not get feedback' });
     }
 
-    if (fb.Items) {             
+    if (fb.Items) {
       mSpeed = 0
       mStability = 0
       flag = 0
@@ -66,5 +66,5 @@ exports.feedback_get = function(req, res) {
 
       });
     }
-  });  
+  });
 };

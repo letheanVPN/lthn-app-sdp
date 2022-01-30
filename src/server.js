@@ -1,11 +1,10 @@
-
+const path = require('path');
 const express = require('express')
 const swaggerJSDoc = require("swagger-jsdoc");
 const swaggerUi = require("swagger-ui-express");
-const apiRoutesV1 = require('./routes/v1')
-//All Configs
-const config = require('./config');
-
+const apiRoutesV1 = require(path.join(__dirname, 'routes', 'v1'))
+// //All Configs
+// const config = require('./config');
 const swaggerDefinition = {
     openapi: '3.0.0',
     info: {
@@ -14,7 +13,7 @@ const swaggerDefinition = {
         description: 'This is a realtime rest API for the lethean marketplace',
         contact: {
             name: 'Lethean Discord',
-            url: 'https://discord.lt.hn'
+            url: 'http://discord.lt.hn'
         },
         servers: [
             {
@@ -28,12 +27,12 @@ const swaggerDefinition = {
 
 const options = {
     swaggerDefinition,
-    apis: ['./routes/v1/*.js'],
+    apis: [path.join(__dirname, 'routes', 'v1', '*.js')],
 };
 const swaggerSpec = swaggerJSDoc(options);
 
 // encryption middleware to attach headers
-var encryptionMiddleware = require('./middleware/encryption');
+var encryptionMiddleware = require(path.join(__dirname, 'middleware', 'encryption'));
 
 
 const app = express()
@@ -78,7 +77,7 @@ app.use(function(req, res, next) {
 app.use('/', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 app.listen(port, () => {
-    console.log(`Example app listening at http://localhost:${port}`)
+    console.log(`Listening at http://localhost:${port}`)
 })
 
 

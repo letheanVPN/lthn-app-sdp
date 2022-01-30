@@ -4,7 +4,14 @@ const SERVICESCHECKED_TABLE = process.env.SERVICESCHECKED_TABLE;
 const IS_OFFLINE = process.env.IS_OFFLINE;
 
 let dynamoDb;
-dynamoDb = new AWS.DynamoDB.DocumentClient();
+// create DB
+if (IS_OFFLINE === 'true'){
+  dynamoDb = new AWS.DynamoDB.DocumentClient({
+    region: 'localhost', endpoint: 'http://localhost:8000'
+  });
+}else{
+  dynamoDb = new AWS.DynamoDB.DocumentClient();
+}
 
 
 exports.favorite_get = function(req, res) {
@@ -30,12 +37,12 @@ exports.favorite_get = function(req, res) {
           });
           //res.status(200).send(callback:true)
         }
-        if(fav.Items.length == flag){
+        if(fav.Items.length === flag){
           res.status(200).send(array);
         }
         flag ++
       });
-      
+
     }
-  });  
+  });
 };

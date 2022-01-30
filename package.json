@@ -1,15 +1,14 @@
 {
-  "name": "intense-coin",
+  "name": "lethean-sdp",
   "version": "1.0.0",
   "description": "",
-  "main": "server.js",
+  "main": "src/server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node src/server.js"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
-  "homepage": "https://bitbucket.org/alfasoftware/intense-service-discovery-protocol#readme",
+  "license": "EUPL-1.2",
   "dependencies": {
     "apicache": "^1.2.3",
     "atoa": "^1.0.0",

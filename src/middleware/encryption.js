@@ -1,4 +1,3 @@
-const config = require('../config');
 
 // returns a header from the given body
 exports.generateHeader = function(body) {

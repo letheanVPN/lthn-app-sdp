@@ -1,23 +1,27 @@
 // schedule cron
 //All Configs
 const AWS = require('aws-sdk');
-const config = require('./config');
 const MONEY = process.env.MONEY;
 const SERVERRPC = process.env.SERVERRPC
 const PROVIDERS_TABLE = process.env.PROVIDERS_TABLE;
 const PAYMENT_HISTORY_TABLE = process.env.PAYMENT_HISTORY_TABLE;
 var schedule = require('node-schedule');
 var request = require('request');
-
+const IS_OFFLINE = process.env.IS_OFFLINE;
 var datetime = require('node-datetime');
 
 const uuidv1 = require('uuid/v1');
 
 let dynamoDb;
 
-dynamoDb = new AWS.DynamoDB.DocumentClient();
-
-
+// create DB
+if (IS_OFFLINE === 'true'){
+	dynamoDb = new AWS.DynamoDB.DocumentClient({
+		region: 'localhost', endpoint: 'http://localhost:8000'
+	});
+}else{
+	dynamoDb = new AWS.DynamoDB.DocumentClient();
+}
 
 // sudo curl -X POST http://wallet.cloud.lethean.io:3000/json_rpc -d'{"jsonrpc":"2.0","id":"0","method":"get_transfers", "params":{"in":true}' -H 'Content-Type: application/json'
 
@@ -43,7 +47,7 @@ module.exports.runSchedule = function(event, context, callback) {
 			body.result.in.sort(sortfunction)
 
 	    	console.log(JSON.stringify(body.result.in));
-	    	
+
 			var params = {
 				TableName: PROVIDERS_TABLE,
 			}
@@ -73,7 +77,7 @@ module.exports.runSchedule = function(event, context, callback) {
 									id: providerPayment.payment_id,
 								},
 							}
-							
+
 							dynamoDb.get(queryFilter, (error, providerFromDynamo) => {
 								if (error) {
 									console.log("error to get the provider from providers_table");
@@ -101,10 +105,10 @@ module.exports.runSchedule = function(event, context, callback) {
 										var height = providerPayment.height;
 
 										console.log("Payment height is " + height + " and provider last height is " + providerFromDynamo.height);
-										
+
 										// create a random ID to provider payment history
 										var uuid = uuidv1();
-										
+
 										console.log("my ID payment: " + id);
 										console.log('my height from DB: --'+ providerFromDynamo.height + "  / my new height from wallet: --" + height);
 
@@ -182,14 +186,14 @@ module.exports.runSchedule = function(event, context, callback) {
 											}
 										});
 									}
-								}	
+								}
 							});
 						}
 					} else { // provider does not exist in the database, create it
 						if (proviversFromDynamo.Items.map(function(e) { return e.id; }).indexOf(providerPayment.payment_id) == -1 && MONEY == providerPayment.amount && providerPayment.payment_id.length == 64 && arrayToNewProvider.indexOf(providerPayment.payment_id) == -1) {
 							console.log("Importing payments from the wallet for the first time");
 							console.log("get only first providerPayment");
-							
+
 							arrayToNewProvider.push(providerPayment.payment_id);
 
 							var id = providerPayment.payment_id;

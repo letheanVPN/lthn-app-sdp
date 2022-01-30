@@ -17,12 +17,12 @@ var formatted = dt.format('m/d/Y H:M:S');
 
 let dynamoDb;
 
-if (IS_OFFLINE === 'true') {
+// create DB
+if (IS_OFFLINE === 'true'){
   dynamoDb = new AWS.DynamoDB.DocumentClient({
     region: 'localhost', endpoint: 'http://localhost:8000'
   });
-  console.log(dynamoDb, '<---- my get server offline');
-} else {
+}else{
   dynamoDb = new AWS.DynamoDB.DocumentClient();
 }
 

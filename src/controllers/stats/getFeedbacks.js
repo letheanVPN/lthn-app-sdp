@@ -6,13 +6,12 @@ const IS_OFFLINE = process.env.IS_OFFLINE;
 
 let dynamoDb;
 
+// create DB
 if (IS_OFFLINE === 'true'){
     dynamoDb = new AWS.DynamoDB.DocumentClient({
         region: 'localhost', endpoint: 'http://localhost:8000'
     });
-    console.log(dynamoDb, '<---- my get server offline');
-}
-else {
+}else{
     dynamoDb = new AWS.DynamoDB.DocumentClient();
 }
 

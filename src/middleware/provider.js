@@ -1,5 +1,4 @@
 const AWS = require('aws-sdk');
-const config = require('../config');
 const PROVIDERS_TABLE = process.env.PROVIDERS_TABLE;
 const PROVIDER_HISTORY_TABLE = process.env.PROVIDER_HISTORY_TABLE;
 const PAYMENT_HISTORY_TABLE = process.env.PAYMENT_HISTORY_TABLE;
@@ -10,7 +9,7 @@ const ADDDAY = process.env.ADDDAY
 var datetime = require('node-datetime');
 
 const uuidv1 = require('uuid/v1');
-      
+
 let dynamoDb;
 
 // create DB
@@ -24,7 +23,7 @@ if (IS_OFFLINE === 'true'){
 
 // from POST
 exports.providerAdd_middleware_controller = function(value, data){
-  
+
   uuid = uuidv1();
   var dt = new Date();
   dt = datetime.create(dt);
@@ -109,7 +108,7 @@ exports.addProvider = async(id, hash, height, dataNow) => {
         id: id,
       },
   }
-  
+
   await dynamoDb.get(paramProvider, (error, result) => {
     nodeType = null;
     name = null;
@@ -117,7 +116,7 @@ exports.addProvider = async(id, hash, height, dataNow) => {
     wallet = null;
     terms = null;
     lastProviderUpdate = null;
-    
+
     if (error) {
       console.log(error);
     }
@@ -131,7 +130,7 @@ exports.addProvider = async(id, hash, height, dataNow) => {
         terms = value.terms;
         lastProviderUpdate = value.lastProviderUpdate;
       }
-      
+
       Lastheight = value.height;
       Lasthash = value.hash;
       lastPayment = value.lastPayment;
@@ -179,7 +178,7 @@ exports.addProvider = async(id, hash, height, dataNow) => {
         if (error) {
           console.log(error);
         }
-      });      
+      });
     }
 
 

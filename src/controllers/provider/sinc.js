@@ -53,7 +53,7 @@ exports.provider_sinc = function(req, res) {
         if (providers.Items) {
 
           result.Items.forEach(function(providerold) {
-            providers.Items.forEach(function(providernew) {  
+            providers.Items.forEach(function(providernew) {
               var dt = new Date();
               dt = datetime.create(dt);
               var dateNow = dt.format('m/d/Y H:M:S');
@@ -83,7 +83,7 @@ exports.provider_sinc = function(req, res) {
                     console.log(error);
                   }
                 });
-              } 
+              }
             });
 
             console.log(providers.Items.indexOf(providerold.id) + " provider out of new table: " + providerold.id)
@@ -118,13 +118,13 @@ exports.provider_sinc = function(req, res) {
               });
             }
 
-            
+
             i++;
             console.log(result.Items.length + " items total to update");
             console.log(i + " my i");
             //if (result.LastEvaluatedKey && lastIndex != result.LastEvaluatedKey) {
             //if (i == lastIndex+result.Items.length-1) {
-            if (result.LastEvaluatedKey != result.ExclusiveStartKey && i == lastIndex+result.Items.length) {
+            if (result.LastEvaluatedKey !== result.ExclusiveStartKey && i === lastIndex+result.Items.length) {
               console.log("Get next scan from PROVIDER table");
               params.ExclusiveStartKey = result.LastEvaluatedKey;
               //lastIndex = result.LastEvaluatedKey;
@@ -135,7 +135,7 @@ exports.provider_sinc = function(req, res) {
 
             } else {
               console.log("check with i > lastIndex+result.Items.length-1");
-              if (i == lastIndex+result.Items.length) {
+              if (i === lastIndex+result.Items.length) {
                 console.log("i > lastIndex+result.Items.length-1 is true");
                 setTimeout(function () {
                   res.status(200).json({ providerSynched: i, message: 'Provider up-to-date'});
@@ -143,11 +143,11 @@ exports.provider_sinc = function(req, res) {
               }
             }
 
-            
-            
+
+
           });
         }
-      }); 
+      });
     }
   });
 };

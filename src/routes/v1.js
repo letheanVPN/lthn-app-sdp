@@ -2,7 +2,6 @@ const express = require('express');
 const router = express.Router();
 const apicache = require('apicache');
 let cache = apicache.middleware;
-const config = require('../config');
 const serviceRoutes = require('./v1/services')
 const favoriteRoutes = require('./v1/favorite')
 const feedbackRoutes = require('./v1/feedback')
