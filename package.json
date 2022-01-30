@@ -40,7 +40,7 @@
     "urlsafe-base64": "^1.0.0",
     "utf8": "^3.0.0",
     "uuid": "^3.2.1",
-    "xml-crypto": "^0.10.1",
+    "xml-crypto": "^1.5.4",
     "z-schema": "^3.19.1"
   },
   "devDependencies": {
