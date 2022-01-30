@@ -5,7 +5,15 @@ let cache = apicache.middleware;
 const serviceRoutes = require('./v1/services')
 const favoriteRoutes = require('./v1/favorite')
 const feedbackRoutes = require('./v1/feedback')
+// set up rate limiter: maximum of five requests per minute
+var RateLimit = require('express-rate-limit');
+var limiter = new RateLimit({
+    windowMs: 1*60*1000, // 1 minute
+    max: 5
+});
 
+// apply rate limiter to all requests
+router.use(limiter);
 
 router.use('/services', serviceRoutes)
 router.use('/favorite', favoriteRoutes)
