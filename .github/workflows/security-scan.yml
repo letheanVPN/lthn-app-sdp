@@ -2,9 +2,19 @@ name: Security Check
 
 on:
   push:
-    branches: [ main ]
+    branches:
+      - 'main'
+      - 'v*'
+    tags:
+      - 'v*'
+    paths-ignore:
+      - '**.md'
   pull_request:
-    branches: [ main ]
+    branches:
+      - 'main'
+      - 'v*'
+    paths-ignore:
+      - '**.md'
 
 jobs:
   trojan:
@@ -16,8 +26,7 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: 16.x
-      - run: npm install --legacy-peer-deps
-      - run: npm run build
+      - run: npm install
       - run: npm install anti-trojan-source
 
   bidi:
@@ -29,8 +38,7 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: 16.x
-      - run: npm install --legacy-peer-deps
-      - run: npm run build
+      - run: npm install
       - name: Unicode bidi attack check
         run: npx anti-trojan-source --files='/runner/work/gui-interface/gui-interface/dist/**/*.js'
       - name: run auditjs
@@ -46,8 +54,7 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: 16.x
-      - run: npm install --legacy-peer-deps
-      - run: npm run build
+      - run: npm install
       - name: run auditjs
         run: npx --loglevel=error auditjs@beta ossi --json > auditjs.json || exit 0
 
@@ -60,8 +67,7 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: 16.x
-      - run: npm install --legacy-peer-deps
-      - run: npm run build
+      - run: npm install
       - run: npx ban-sensitive-files -- --all
 
   semgrep:
@@ -76,8 +82,7 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: 16.x
-      - run: npm install --legacy-peer-deps
-      - run: npm run build
+      - run: npm install
       - uses: returntocorp/semgrep-action@v1
         with:
           config: >- # more at semgrep.dev/explore
