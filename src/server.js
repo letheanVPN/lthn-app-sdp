@@ -81,3 +81,8 @@ app.listen(port, () => {
 })
 
 
+process.on('SIGINT', function() {
+    app.stop(function(err) {
+        process.exit(err ? 1 : 0);
+    });
+});

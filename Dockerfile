@@ -8,7 +8,12 @@ COPY pm2.json .
 ENV NPM_CONFIG_LOGLEVEL warn
 RUN npm install --production
 
-# Show current folder structure in logs
-RUN ls -al -R
+# git auto-pull
+RUN pm2 install pm2-auto-pull
+RUN pm2 set pm2-auto-pull:interval 60000
 
-CMD [ "pm2-runtime", "start", "pm2.json" ]
+# Monitor Server
+RUN pm2 install pm2-server-monit
+
+
+CMD [ "pm2-runtime", "start", "pm2.json", "--web", "3001" ]

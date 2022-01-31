@@ -4,6 +4,13 @@ Please dont run this on a live server for now.
 
 Docker Hub: https://hub.docker.com/r/lthn/sdp
 
+`docker run --detach --name lethean-sdp --expose 3000 --hostname "${HOSTNAME}" lthn/sdp `
+
+- `$ docker exec -it lethean-sdp pm2 monit` 	    Monitoring CPU/Usage of each process
+- `$ docker exec -it lethean-sdp pm2 list`	        Listing managed processes
+- `$ docker exec -it lethean-sdp pm2 show`	        Get more information about a process
+- `$ docker exec -it lethean-sdp pm2 reload all`	0sec downtime reload all applications
+
 ```dockerfile
 version: '3.8'
 services:
