@@ -3,20 +3,20 @@ const SERVICESCHECKED_TABLE = process.env.SERVICESCHECKED_TABLE;
 // Check offline dynamo BD
 const IS_OFFLINE = process.env.IS_OFFLINE;
 const uuidv1 = require('uuid/v1');
-
+const DYNAMODB_URI = process.env.DYNAMODB_URI;
 let dynamoDb;
 
 // create DB
 if (IS_OFFLINE === 'true'){
   dynamoDb = new AWS.DynamoDB.DocumentClient({
-    region: 'localhost', endpoint: 'http://localhost:8000'
+    region: 'localhost', endpoint: DYNAMODB_URI
   });
 }else{
   dynamoDb = new AWS.DynamoDB.DocumentClient();
 }
 
 
-exports.favoriteAdd_middleware_controller = function(services, provider, client) {  
+exports.favoriteAdd_middleware_controller = function(services, provider, client) {
   uuid = uuidv1()
   console.log(uuid, 'my uuid')
   const param = {
@@ -41,7 +41,7 @@ exports.favoriteAdd_middleware_controller = function(services, provider, client)
 };
 
 
-exports.favoriteRemove_middleware_controller = function(id) {  
+exports.favoriteRemove_middleware_controller = function(id) {
   const param = {
     TableName: SERVICESCHECKED_TABLE,
     Key: {

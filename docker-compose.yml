@@ -14,8 +14,8 @@ services:
     build:
       context: .
     container_name: lethean-sdp
-    environment:
-      - IS_OFFLINE=true
+    env_file:
+      - src/config.env
     ports:
       - "8080:3000"
       - "8081:3001"

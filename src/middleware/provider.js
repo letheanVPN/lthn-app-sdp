@@ -4,7 +4,7 @@ const PROVIDER_HISTORY_TABLE = process.env.PROVIDER_HISTORY_TABLE;
 const PAYMENT_HISTORY_TABLE = process.env.PAYMENT_HISTORY_TABLE;
 // Check offline dynamo BD
 const IS_OFFLINE = process.env.IS_OFFLINE;
-const ADDDAY = process.env.ADDDAY
+const DYNAMODB_URI = process.env.DYNAMODB_URI;
 
 var datetime = require('node-datetime');
 
@@ -15,7 +15,7 @@ let dynamoDb;
 // create DB
 if (IS_OFFLINE === 'true'){
   dynamoDb = new AWS.DynamoDB.DocumentClient({
-    region: 'localhost', endpoint: 'http://localhost:8000'
+    region: 'localhost', endpoint: DYNAMODB_URI
   });
 }else{
   dynamoDb = new AWS.DynamoDB.DocumentClient();

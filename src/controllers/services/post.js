@@ -13,13 +13,13 @@ var datetime = require('node-datetime');
 var dt = datetime.create();
 var formatted = dt.format('m/d/Y H:M:S');
 const uuidv1 = require('uuid/v1');
-      
+const DYNAMODB_URI = process.env.DYNAMODB_URI;
 let dynamoDb;
 
 // create DB
 if (IS_OFFLINE === 'true'){
   dynamoDb = new AWS.DynamoDB.DocumentClient({
-    region: 'localhost', endpoint: 'http://localhost:8000'
+    region: 'localhost', endpoint: DYNAMODB_URI
   });
 }else{
   dynamoDb = new AWS.DynamoDB.DocumentClient();
@@ -37,7 +37,7 @@ var hashGetController = require('../hash/get')
 
 
 // Create User endpoint
-/* 
+/*
 
 use dev
 curl -i -H "Content-Type: application/json" -X POST -d '{"protocolVersion": 2, "provider":{"id": "ea29a26650fcc58f5106f46892568c9bea29a26650fcc58f5106f46892568c9b","nodeType": "residential","name": "Laion Camargo","certificates": ["TGFpb24gUm9kcmlndWVzIGRlIENhbWFyZ28gZXN0ZSBlIG1ldSB0ZXN0ZSBkZSBiYXNlIDY0IHBhcmEgbWluaGEgYXBwbGljYXRpb24gSVROUw=="],"wallet": "iz5RCx5nsRAdvpfGnTjqB4Q8rv5zKkvJS1skjD6m7w2pdGbSX44QsETVK6Gcrgz6U99Ar4o3a8SMFQPzzC7tJ64H1bZcfgYAJ","terms": "my term text"}, "services":[{"id": "2C", "name": "Laion Camargo","type":"proxy","cost": 99999999,"firstPrePaidMinutes": 5,"firstVerificationsNeeded": 2,"subsequentPrePaidMinutes": 2,"subsequentVerificationsNeeded": 0,"allowRefunds": true,"downloadSpeed": 1000000,"uploadSpeed": 1000000,"proxy": [],"vpn":[], "validity":{"from":"2018-05-11T13:13:13Z", "to":"2018-06-11T14:14:14Z"}, "disable": false}, {"id": "3C", "protocolVersion": 1, "name": "Laion Camargo","type":"proxy","cost": 99999999,"firstPrePaidMinutes": 5,"firstVerificationsNeeded": 2,"subsequentPrePaidMinutes": 2,"subsequentVerificationsNeeded": 0,"allowRefunds": true,"downloadSpeed": 1000000,"uploadSpeed": 1000000,"proxy": [],"vpn":[], "validity":{"from":"2018-05-11T13:13:13Z", "to":"2018-06-11T14:14:14Z"}, "disable": "teste"}]}' http://localhost:3000/v1/services/add
@@ -151,7 +151,7 @@ exports.services_post = function(req, res) {
 						var dateNow = dt.format('m/d/Y H:M:S');
 
 						if (Date.parse(dateEnd) <= Date.parse(dateNow)) {
-							res.status(400).json({ status: '1001', message: 'You have to pay for the subscription before submitting your services'});				
+							res.status(400).json({ status: '1001', message: 'You have to pay for the subscription before submitting your services'});
 						} else {
 							const makeRequestProvider = async () => {
 
@@ -169,7 +169,7 @@ exports.services_post = function(req, res) {
 										if (error) {
 											console.log("Error to read the providers table");
 											return;
-										} 
+										}
 										else if (result.Items.length >= 1) {
 											result.Items.forEach(function(serv) {
 												req.body.services.forEach(function(data) {
@@ -213,7 +213,7 @@ exports.services_post = function(req, res) {
 													}
 												});
 											});
-										} 
+										}
 
 										req.body.services.forEach(function(data) {
 											var paramsService = {

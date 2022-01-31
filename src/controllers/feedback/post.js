@@ -3,13 +3,13 @@ const AWS = require('aws-sdk');
 const FEEDBACK_TABLE = process.env.FEEDBACK_TABLE;
 // Check offline dynamo BD
 const IS_OFFLINE = process.env.IS_OFFLINE;
-      
+const DYNAMODB_URI = process.env.DYNAMODB_URI;
 let dynamoDb;
 
 // create DB
 if (IS_OFFLINE === 'true'){
   dynamoDb = new AWS.DynamoDB.DocumentClient({
-    region: 'localhost', endpoint: 'http://localhost:8000'
+    region: 'localhost', endpoint: DYNAMODB_URI
   });
 }else{
   dynamoDb = new AWS.DynamoDB.DocumentClient();
@@ -21,7 +21,7 @@ const Feedback = require('../../models/feedback')
 var feedbackMiddlewareController = require('../../middleware/feedback');
 
 // Post Feedback endpoint
-/* 
+/*
 offline
 curl -H "Content-Type: application/json" -X POST -d '{"id": "c0d1f8c0-42ff-11e8-9b93-675523fe3fda", "speed":1, "stability": 1}' http://localhost:3000/v1/feedback/add
 

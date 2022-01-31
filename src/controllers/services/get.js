@@ -7,20 +7,21 @@ const { performance } = require('perf_hooks');
 const SERVICES_TABLE = process.env.SERVICES_TABLE;
 const FEEDBACK_TABLE = process.env.FEEDBACK_TABLE;
 const PROVIDERS_TABLE = process.env.PROVIDERS_TABLE;
+const SDP_VERSION = '1'
 // Check offline dynamo BD
 const IS_OFFLINE = process.env.IS_OFFLINE;
 var datetime = require('node-datetime');
 var dt = datetime.create();
 var formatted = dt.format('m/d/Y H:M:S');
 
-
+const DYNAMODB_URI = process.env.DYNAMODB_URI;
 
 let dynamoDb;
 
 // create DB
 if (IS_OFFLINE === 'true'){
   dynamoDb = new AWS.DynamoDB.DocumentClient({
-    region: 'localhost', endpoint: 'http://localhost:8000'
+    region: 'localhost', endpoint: DYNAMODB_URI
   });
 }else{
   dynamoDb = new AWS.DynamoDB.DocumentClient();
@@ -108,7 +109,7 @@ exports.servicesSearch_get = function (req, res) {
           return;
         }
 
-        if (fb == undefined || fb.Items == undefined) {
+        if (fb === undefined || fb.Items === undefined) {
           res.status(404).json({ error: "Feedback not found" });
           return;
         }
@@ -156,7 +157,7 @@ exports.servicesSearch_get = function (req, res) {
 
                 for (x = 0; x < prov.Item.certificates.length; x++) {
                   console.log("number of provider certificates: " + prov.Item.certificates.length);
-                  if (serv.certificates[z].id == prov.Item.certificates[x].id) {
+                  if (serv.certificates[z].id === prov.Item.certificates[x].id) {
                     console.log("call my createCertificate");
                     var newCertificate = createCertificatesMiddleware.createCertificates(prov.Item.certificates[x].content)
                     newCertificate = btoa(newCertificate);
@@ -168,7 +169,7 @@ exports.servicesSearch_get = function (req, res) {
               }
 
               // default value
-              if(serv.freeService != true) {
+              if(serv.freeService !== true) {
                 serv.freeService = false;
               }
 
@@ -229,7 +230,7 @@ exports.servicesSearch_get = function (req, res) {
           }
 
           // this if cannot be within disabled provider validation or no result will be returned
-          if (i == result.Items.length) {
+          if (i === result.Items.length) {
             array.sort(function (a, b) { return a.cost - b.cost });
             res.status(200).send({ protocolVersion: process.env.SDP_VERSION, providers: array });
             console.log("Returning correct response, all items populated");
@@ -267,7 +268,7 @@ exports.provider_get = function (req, res, next) {
       return;
     }
 
-    if (result == undefined || result.Items == undefined) {
+    if (result === undefined || result.Items === undefined) {
       res.status(404).json({ error: "No services found" });
       return;
     }
@@ -327,7 +328,7 @@ exports.provider_get = function (req, res, next) {
             for (z = 0; z < serv.certificates.length; z++) {
 
               for (x = 0; x < prov.Item.certificates.length; x++) {
-                if (serv.certificates[z].id == prov.Item.certificates[x].id) {
+                if (serv.certificates[z].id === prov.Item.certificates[x].id) {
                   prov.Item.certificates[x].content = createCertificatesMiddleware.createCertificates(prov.Item.certificates[x].content)
                   prov.Item.certificates[x].content = btoa(prov.Item.certificates[x].content);
                   certArray.push({ "certContent": prov.Item.certificates[x].content });
@@ -388,7 +389,7 @@ exports.provider_get = function (req, res, next) {
 
 
             // this if cannot be within disabled provider validation or no result will be returned
-            if (i == result.Items.length) {
+            if (i === result.Items.length) {
               array.sort(function (a, b) { return a.cost - b.cost });
               res.status(200).send({ protocolVersion: process.env.SDP_VERSION, providers: array });
               console.log("Returning correct response, all items populated");

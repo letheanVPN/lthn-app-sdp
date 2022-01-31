@@ -6,20 +6,20 @@ const uuidv1 = require('uuid/v1');
 var datetime = require('node-datetime');
 var dt = datetime.create();
 var formatted = dt.format('m/d/Y H:M:S');
-
+const DYNAMODB_URI = process.env.DYNAMODB_URI;
 let dynamoDb;
 
 // create DB
 if (IS_OFFLINE === 'true'){
   dynamoDb = new AWS.DynamoDB.DocumentClient({
-    region: 'localhost', endpoint: 'http://localhost:8000'
+    region: 'localhost', endpoint: DYNAMODB_URI
   });
 }else{
   dynamoDb = new AWS.DynamoDB.DocumentClient();
 }
 
 
-exports.feedbackSetup_middleware_controller = function(services, provider, feedback, client) {  
+exports.feedbackSetup_middleware_controller = function(services, provider, feedback, client) {
   uuid = uuidv1()
   console.log(uuid, 'my uuid')
   const param = {
@@ -47,7 +47,7 @@ exports.feedbackSetup_middleware_controller = function(services, provider, feedb
 };
 
 
-exports.feedbackPost_middleware_controller = function(feedback, data) {  
+exports.feedbackPost_middleware_controller = function(feedback, data) {
   const param = {
     TableName: FEEDBACK_TABLE,
     Item: {

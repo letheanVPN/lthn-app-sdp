@@ -5,6 +5,7 @@ const MONEY = process.env.MONEY;
 const SERVERRPC = process.env.SERVERRPC
 const PROVIDERS_TABLE = process.env.PROVIDERS_TABLE;
 const PAYMENT_HISTORY_TABLE = process.env.PAYMENT_HISTORY_TABLE;
+const DYNAMODB_URI = process.env.DYNAMODB_URI;
 var schedule = require('node-schedule');
 var request = require('request');
 const IS_OFFLINE = process.env.IS_OFFLINE;
@@ -17,7 +18,7 @@ let dynamoDb;
 // create DB
 if (IS_OFFLINE === 'true'){
 	dynamoDb = new AWS.DynamoDB.DocumentClient({
-		region: 'localhost', endpoint: 'http://localhost:8000'
+		region: 'localhost', endpoint: DYNAMODB_URI
 	});
 }else{
 	dynamoDb = new AWS.DynamoDB.DocumentClient();
@@ -40,7 +41,7 @@ module.exports.runSchedule = function(event, context, callback) {
 	};
 
 	request(options, function (error, response, body) {
-	  	if (!error && response.statusCode == 200) {
+	  	if (!error && response.statusCode === 200) {
 		    function sortfunction(a, b){
 			  return (a.timestamp - b.timestamp)
 			}
@@ -70,7 +71,7 @@ module.exports.runSchedule = function(event, context, callback) {
 					console.log("check if the provider exist in table: " + proviversFromDynamo.Items.map(function(e) { return e.id; }).indexOf(providerPayment.payment_id))
 
 					if (proviversFromDynamo.Items.map(function(e) { return e.id; }).indexOf(providerPayment.payment_id) > -1) {
-						if (providerPayment.payment_id.length == 64 && MONEY == providerPayment.amount) {
+						if (providerPayment.payment_id.length === 64 && MONEY === providerPayment.amount) {
 							var queryFilter = {
 								TableName: PROVIDERS_TABLE,
 								Key:{

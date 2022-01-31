@@ -7,13 +7,13 @@ const IS_OFFLINE = process.env.IS_OFFLINE;
 var datetime = require('node-datetime');
 
 const uuidv1 = require('uuid/v1');
-
+const DYNAMODB_URI = process.env.DYNAMODB_URI;
 let dynamoDb;
 
 // create DB
 if (IS_OFFLINE === 'true'){
   dynamoDb = new AWS.DynamoDB.DocumentClient({
-    region: 'localhost', endpoint: 'http://localhost:8000'
+    region: 'localhost', endpoint: DYNAMODB_URI
   });
 }else{
   dynamoDb = new AWS.DynamoDB.DocumentClient();
@@ -58,7 +58,7 @@ exports.provider_sinc = function(req, res) {
               dt = datetime.create(dt);
               var dateNow = dt.format('m/d/Y H:M:S');
               // make update
-              if (providerold.id == providernew.id) {
+              if (providerold.id === providernew.id) {
                 var data = providerold;
                 const providerAddNew = {
                   TableName: PROVIDERS_TABLE,
@@ -88,7 +88,7 @@ exports.provider_sinc = function(req, res) {
 
             console.log(providers.Items.indexOf(providerold.id) + " provider out of new table: " + providerold.id)
 
-            if (providers.Items.indexOf(providerold.id) == -1) {
+            if (providers.Items.indexOf(providerold.id) === -1) {
 
               var dt = new Date();
               dt = datetime.create(dt);
