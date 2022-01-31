@@ -2,7 +2,7 @@ const path = require('path');
 const express = require('express')
 const swaggerJSDoc = require("swagger-jsdoc");
 const swaggerUi = require("swagger-ui-express");
-const apiRoutesV1 = require(path.join(__dirname, 'routes', 'v1'))
+const apiRoutesV1 = require('./routes/v1')
 // //All Configs
 // const config = require('./config');
 const swaggerDefinition = {
@@ -32,7 +32,7 @@ const options = {
 const swaggerSpec = swaggerJSDoc(options);
 
 // encryption middleware to attach headers
-var encryptionMiddleware = require(path.join(__dirname, 'middleware', 'encryption'));
+var encryptionMiddleware = require('./middleware/encryption');
 
 
 const app = express()
