@@ -28,21 +28,8 @@ jobs:
           node-version: 16.x
       - run: npm install
       - run: npm install anti-trojan-source
-
-  bidi:
-    name: bidi attack check
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v2
-        with:
-          node-version: 16.x
-      - run: npm install
       - name: Unicode bidi attack check
-        run: npx anti-trojan-source --files='/runner/work/gui-interface/gui-interface/dist/**/*.js'
-      - name: run auditjs
-        run: npx --loglevel=error auditjs@beta ossi --json > auditjs.json || exit 0
+        run: npx anti-trojan-source --files='/runner/work/sdp/sdp/**/*.js'
   js-audit:
     name: AuditJS
     runs-on: ubuntu-latest

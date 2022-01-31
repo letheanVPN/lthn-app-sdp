@@ -45,12 +45,12 @@
     "z-schema": "^3.19.1"
   },
   "devDependencies": {
+    "anti-trojan-source": "^1.4.0",
     "ban-sensitive-files": "^1.9.17",
     "chai": "^4.3.6",
     "mocha": "^9.2.0",
     "supertest": "^6.2.2"
   },
-
   "release": {
     "analyzeCommits": "simple-commit-message"
   }
