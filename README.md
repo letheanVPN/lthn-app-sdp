@@ -1,4 +1,4 @@
-# Virtual People Network - Like an Address book; Modernised, Work in Progress.
+# SDP Self Hosting
 
 Please dont run this on a live server for now.
 
