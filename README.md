@@ -2,6 +2,11 @@
 
 Please dont run this on a live server for now.
 
+## Typescript replacment
+
+Using nestjs it's feature rich but not quite ready as the system moves to rethinkDB. 
+https://github.com/letheanVPN/sdp/tree/dev
+
 ## Local build
 
 ```text
