@@ -1,0 +1,8 @@
+{
+  "additionalProperties": {
+    "gemName": "letheanSDP",
+    "moduleName": "letheanSDPClient",
+    "gemHomepage": "https://lt.hn",
+    "gemLicense": "EUPL-1.2"
+  }
+}

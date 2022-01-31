@@ -1,0 +1,11 @@
+{
+  "additionalProperties": {
+    "apiNamePrefix": "LetheanSDPClient",
+    "projectName": "LetheanSDP",
+    "podHomepage": "https://lt.hn",
+    "podLicense": "EUPL-1.2",
+    "podSocialMediaURL": "https://twitter.com/LetheanVPN",
+    "podSource": "https://github.com/organizations/LetheanMovement/sdp-api-swift5.git",
+    "podSummary": "Lethean SDP"
+  }
+}

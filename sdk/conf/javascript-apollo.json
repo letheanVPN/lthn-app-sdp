@@ -1,0 +1,8 @@
+{
+  "additionalProperties": {
+    "apiPackage":"letheanSDP",
+    "projectName":"@lethean/sdp-apollo",
+    "licenseName":"EUPL-1.2",
+    "npmName":"@lethean/sdp-apollo"
+  }
+}

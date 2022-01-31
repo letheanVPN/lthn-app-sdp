@@ -1,0 +1,8 @@
+{
+  "additionalProperties": {
+    "cppNamespace": "lthn::sdp::api",
+    "allowUnicodeIdentifiers": true,
+    "contentCompression":  true,
+    "modelNamePrefix":  "lthnSDP"
+  }
+}

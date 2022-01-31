@@ -1,0 +1,20 @@
+{
+  "additionalProperties": {
+    "artifactUrl": "https://gitlab.com/lthn.io/projects/sdk/clients/java",
+    "artifactDescription": "Lethean VPN API",
+    "apiPackage": "org.lethean.api",
+    "artifactId": "org.lethean",
+    "developerEmail": "sdk@lethean.io",
+    "developerName": "Lethean VPN",
+    "developerOrganization": "LetheanVPN",
+    "developerOrganizationUrl": "https://lt.hn",
+    "groupId": "org.lethean.sdp",
+    "invokerPackage": "org.lethean.sdp",
+    "modelPackage": "org.lethean.sdp.model",
+    "licenseName": "GPLv3",
+    "licenseUrl": "https://www.gnu.org/licenses/gpl-3.0.html",
+    "scmUrl": "https://gitlab.com/lthn.io/projects/sdk/clients/java",
+    "scmConnection": "scm:git:git@gitlab.com:lthn.io/projects/sdk/clients/java.git",
+    "scmDeveloperConnection": "scm:git:git@gitlab.com:lthn.io/projects/sdk/clients/java.git"
+  }
+}

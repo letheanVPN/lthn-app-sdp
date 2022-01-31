@@ -2,3 +2,4 @@ docker
 rethinkdb_data
 node_modules
 .idea
+sdk/client

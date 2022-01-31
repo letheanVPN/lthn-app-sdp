@@ -4,12 +4,14 @@
   "description": "",
   "main": "src/server.js",
   "scripts": {
-    "start": "node src/server.js"
+    "start": "node src/server.js",
+    "build:sdk": "sh updateVersion.sh && bash sdk/build.sh"
   },
   "keywords": [],
   "author": "",
   "license": "EUPL-1.2",
   "dependencies": {
+    "@openapitools/openapi-generator-cli": "^2.4.25",
     "apicache": "^1.2.3",
     "atoa": "^1.0.0",
     "atob": "^2.1.1",

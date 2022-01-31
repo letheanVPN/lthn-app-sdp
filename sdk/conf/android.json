@@ -1,0 +1,9 @@
+{
+  "additionalProperties": {
+    "groupId": "org.lthn",
+    "apiPackage":"org.lthn.sdp.api",
+    "invokerPackage":"org.lthn.sdp.api",
+    "artifactId":"org.lthn.sdp.api",
+    "modelPackage":"org.lthn.sdp.models"
+  }
+}

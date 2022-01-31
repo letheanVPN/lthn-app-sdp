@@ -1,0 +1,7 @@
+{
+  "additionalProperties": {
+    "packageName": "letheanSDP",
+    "projectName": "letheanSDP",
+    "packageUrl": "https://lt.hn/en/sdk/python"
+  }
+}

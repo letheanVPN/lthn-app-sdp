@@ -1,0 +1,10 @@
+{
+  "additionalProperties": {
+    "apiPackage": "lethean-sdp",
+    "generateBashCompletion": true,
+    "generateZshCompletion":  true,
+    "processMarkdown":  true,
+    "scriptName":"letheanSDP",
+    "hostEnvironmentVariable": "https://sdp.lt.hn"
+  }
+}

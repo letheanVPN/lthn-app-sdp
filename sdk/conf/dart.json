@@ -1,0 +1,7 @@
+{
+  "additionalProperties": {
+    "pubDescription": "Lethean SDP",
+    "pubHomepage": "https://lt.hn",
+    "licenseName": "GPLv3"
+  }
+}

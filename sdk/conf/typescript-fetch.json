@@ -1,0 +1,7 @@
+{
+  "additionalProperties": {
+    "apiModulePrefix":"letheanSDP",
+    "configurationPrefix":"letheanSDP",
+    "npmName":"@lethean/sdp-ts-fetch"
+  }
+}
