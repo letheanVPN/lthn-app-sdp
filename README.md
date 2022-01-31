@@ -2,6 +2,19 @@
 
 Please dont run this on a live server for now.
 
+## Local build
+
+```text
+npm install
+npm start
+```
+
+http://localhost:3000
+
+![img.png](.github/img.png)
+
+## Docker
+
 Docker Hub: https://hub.docker.com/r/lthn/sdp
 
 `docker run --detach --name lethean-sdp --expose 3000 --hostname "${HOSTNAME}" lthn/sdp `
