@@ -51,14 +51,7 @@
     "pre-git": "^3.17.1",
     "supertest": "^6.2.2"
   },
-  "config": {
-    "pre-git": {
-      "enabled": true,
-      "pre-commit": [
-        "npx ban-sensitive-files"
-      ]
-    }
-  },
+
   "release": {
     "analyzeCommits": "simple-commit-message"
   }
