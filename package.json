@@ -9,6 +9,7 @@
     "prebuild": "rimraf dist",
     "build": "nest build",
     "build:sdk": "sh updateVersion.sh && bash sdk/build.sh",
+typescr    "build:gogetssl": "bash sdk/build/gogetssl.sh",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "pm2 start pm2.json",
     "stop": "pm2 stop pm2.json",
