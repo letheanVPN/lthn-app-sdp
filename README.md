@@ -1,4 +1,4 @@
-# sdp
+# Virtual People Network - Like an Address book; Modernised, Work in Progress.
 
 Please dont run this on a live server for now.
 
