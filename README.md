@@ -32,7 +32,7 @@ Docker Hub: https://hub.docker.com/r/lthn/sdp
 - `$ docker exec -it lethean-sdp pm2 show`	        Get more information about a process
 - `$ docker exec -it lethean-sdp pm2 reload all`	0sec downtime reload all applications
 
-```dockerfile
+```yaml
 version: '3.8'
 services:
   dynamodb-local:
@@ -49,10 +49,9 @@ services:
     build:
       context: .
     container_name: lethean-sdp
-    environment:
-      - IS_OFFLINE=true
+    env_file:
+      - src/config.env
     ports:
       - "8080:3000"
-
-
+      - "8081:3001"
 ```
