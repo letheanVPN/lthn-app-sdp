@@ -55,3 +55,26 @@ services:
       - "8080:3000"
       - "8081:3001"
 ```
+
+## SDP SDK's
+
+- https://github.com/LetheanMovement/sdp-api-ts-fetch
+- https://github.com/LetheanMovement/sdp-api-swift5
+- https://github.com/LetheanMovement/sdp-api-ruby
+- https://github.com/LetheanMovement/sdp-api-powershell
+- https://github.com/LetheanMovement/sdp-api-php
+- https://github.com/LetheanMovement/sdp-api-elm
+- https://github.com/LetheanMovement/sdp-api-dart
+- https://github.com/LetheanMovement/sdp-api-c
+- https://github.com/LetheanMovement/sdp-api-cpp-qt
+- https://github.com/LetheanMovement/sdp-api-rxjs
+- https://github.com/LetheanMovement/sdp-api-ts-node
+- https://github.com/LetheanMovement/sdp-api-ts-angular
+- https://github.com/LetheanMovement/sdp-api-ts
+- https://github.com/LetheanMovement/sdp-api-rust
+- https://github.com/LetheanMovement/sdp-api-python
+- https://github.com/LetheanMovement/sdp-api-js-apollo
+- https://github.com/LetheanMovement/sdp-api-java
+- https://github.com/LetheanMovement/sdp-api-go
+- https://github.com/LetheanMovement/sdp-api-bash
+- https://github.com/LetheanMovement/sdp-api-android
