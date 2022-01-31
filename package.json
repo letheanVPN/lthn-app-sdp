@@ -14,7 +14,6 @@
     "atoa": "^1.0.0",
     "atob": "^2.1.1",
     "aws-sdk": "^2.223.1",
-    "ban-sensitive-files": "^1.9.17",
     "body-parser": "^1.18.2",
     "btoa": "^1.2.1",
     "cookie-parser": "^1.4.5",
@@ -46,8 +45,21 @@
     "z-schema": "^3.19.1"
   },
   "devDependencies": {
+    "ban-sensitive-files": "^1.9.17",
     "chai": "^4.3.6",
     "mocha": "^9.2.0",
+    "pre-git": "^3.17.1",
     "supertest": "^6.2.2"
+  },
+  "config": {
+    "pre-git": {
+      "enabled": true,
+      "pre-commit": [
+        "npx ban-sensitive-files"
+      ]
+    }
+  },
+  "release": {
+    "analyzeCommits": "simple-commit-message"
   }
 }

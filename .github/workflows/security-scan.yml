@@ -43,8 +43,6 @@ jobs:
         run: npx anti-trojan-source --files='/runner/work/gui-interface/gui-interface/dist/**/*.js'
       - name: run auditjs
         run: npx --loglevel=error auditjs@beta ossi --json > auditjs.json || exit 0
-      - name: Sensitive File Check
-        run: npx ban-sensitive-files -- --all
   js-audit:
     name: AuditJS
     runs-on: ubuntu-latest
@@ -68,7 +66,7 @@ jobs:
         with:
           node-version: 16.x
       - run: npm install
-      - run: npx ban-sensitive-files -- --all
+      - run: npx ban-sensitive-files
 
   semgrep:
     name: SemGrep Scan
