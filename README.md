@@ -6,6 +6,9 @@ Please dont run this on a live server for now.
 
 ```text
 npm install
+```
+
+```text
 npm start
 ```
 
