@@ -1,19 +1,11 @@
 version: "3.3"
 services:
-  dvpm:
+  explorer:
     container_name: lthn-api
-    image: lthn/api
     build:
       context: .
       dockerfile: Dockerfile
     ports:
-      - 36911:36911
-  rethink:
-    container_name: lthn-api-db
-    image: rethinkdb:2.4-buster-slim
-    volumes:
-      - ./rethinkdb_data:/data
-    expose:
-      - 28015
-      - 29015
+      - 8080:80
+
 

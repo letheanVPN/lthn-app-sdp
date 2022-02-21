@@ -1,4 +1,4 @@
-FROM node:14-alpine as build
+FROM node:16-alpine as build
 
 COPY package.json /app/package.json
 WORKDIR /app
@@ -8,11 +8,11 @@ COPY . .
 
 RUN npm run build
 
-FROM keymetrics/pm2:14-alpine as final
+FROM keymetrics/pm2:16-alpine as final
 
 COPY package.json /app/package.json
 WORKDIR /app
-RUN npm install --production
+RUN npm install --production --legacy-peer-deps
 
 COPY pm2.json .
 COPY --from=build /app/dist/ /app/dist
