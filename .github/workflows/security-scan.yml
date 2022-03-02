@@ -21,7 +21,7 @@ jobs:
     name: NPM Trojan Check
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3.0.0
         with:
@@ -34,7 +34,7 @@ jobs:
     name: AuditJS
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3.0.0
         with:
@@ -47,7 +47,7 @@ jobs:
     name: Sensitive File Check
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3.0.0
         with:
@@ -62,7 +62,7 @@ jobs:
     if: (github.actor != 'dependabot[bot]')
     steps:
       # Fetch project source
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3.0.0
         with:
