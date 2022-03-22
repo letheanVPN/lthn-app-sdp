@@ -16,4 +16,4 @@ RUN pm2 set pm2-auto-pull:interval 60000
 RUN pm2 install pm2-server-monit
 
 
-CMD [ "pm2-runtime", "start", "pm2.json", "--web", "3001" ]
+CMD [ "pm2-runtime", "start", "pm2.json" ]
