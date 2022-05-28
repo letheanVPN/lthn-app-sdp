@@ -1,40 +1,23 @@
 openapi: 3.0.0
 paths:
-  /v1/services/search:
-    get:
-      operationId: queryServices
-      parameters: []
-      responses:
-        "200":
-          description: ""
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/ServiceEntity"
-      tags:
-        - vpn
   /v1/explorer/chain/mempool:
     get:
       operationId: getMempool
       summary: ""
       description: Fetch transactions in memory pool
       parameters:
-        - name: limit
-          required: false
-          in: query
-          example: 25
-          description: Transactions per page
-          schema:
-            type: number
         - name: page
           required: false
-          in: query
+          in: path
           example: 0
           description: Page to show
-          schema:
-            type: number
+          schema: {}
+        - name: limit
+          required: false
+          in: path
+          example: 25
+          description: Transactions per page
+          schema: {}
       responses:
         "200":
           description: ""
@@ -66,6 +49,33 @@ paths:
                 $ref: "#/components/schemas/SearchDTO"
       tags:
         - explorer
+  /v1/explorer/chain/block:
+    get:
+      operationId: getTransactions
+      summary: ""
+      description: get the list of blocks
+      parameters:
+        - name: page
+          required: false
+          in: path
+          example: 0
+          description: Page to show
+          schema: {}
+        - name: limit
+          required: false
+          in: path
+          example: 10
+          description: Transactions per page
+          schema: {}
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TransactionsDTO"
+      tags:
+        - explorer
   "/v1/explorer/chain/block/{id}":
     get:
       operationId: getBlock
@@ -95,32 +105,27 @@ paths:
       description: Search for our outputs in last few blocks (up to 5 blocks), using
         provided address and viewkey.
       parameters:
-        - name: address
-          required: true
-          in: query
-          description: Address to check
-          schema:
-            type: string
-        - name: viewkey
-          required: true
-          in: query
-          description: Viewkey for the transaction
-          schema:
-            type: string
-        - name: limit
-          required: false
-          in: query
-          example: 5
-          description: Blocks to check
-          schema:
-            type: number
         - name: mempool
           required: false
-          in: query
+          in: path
           example: 1
           description: Check mempool
-          schema:
-            type: number
+          schema: {}
+        - name: limit
+          required: false
+          in: path
+          description: Blocks to check
+          schema: {}
+        - name: viewkey
+          required: true
+          in: path
+          description: Viewkey for the transaction
+          schema: {}
+        - name: address
+          required: true
+          in: path
+          description: Address to check
+          schema: {}
       responses:
         "200":
           description: ""
@@ -150,35 +155,6 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/RawBlockDTO"
-      tags:
-        - explorer
-  /v1/explorer/chain/transactions:
-    get:
-      operationId: getTransactions
-      summary: ""
-      description: get the list of recent trasnactions
-      parameters:
-        - name: limit
-          required: false
-          in: query
-          example: 10
-          description: Transactions per page
-          schema:
-            type: number
-        - name: page
-          required: false
-          in: query
-          example: 0
-          description: Page to show
-          schema:
-            type: number
-      responses:
-        "200":
-          description: ""
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/TransactionsDTO"
       tags:
         - explorer
   "/v1/explorer/chain/transaction/{tx_hash}":
@@ -238,7 +214,7 @@ paths:
                 $ref: "#/components/schemas/NetworkStatsDTO"
       tags:
         - explorer
-  /v1/explorer/chain/emission:
+  /v1/explorer/chain/stats/emission:
     get:
       operationId: getEmission
       summary: ""
@@ -272,27 +248,23 @@ paths:
     get:
       operationId: proveTransfer
       parameters:
-        - name: txhash
-          required: true
-          in: query
-          schema:
-            type: string
-        - name: address
-          required: true
-          in: query
-          schema:
-            type: string
-        - name: viewkey
-          required: true
-          in: query
-          schema:
-            type: number
         - name: txprove
           required: false
-          in: query
+          in: path
           example: true
-          schema:
-            type: boolean
+          schema: {}
+        - name: viewkey
+          required: true
+          in: path
+          schema: {}
+        - name: address
+          required: true
+          in: path
+          schema: {}
+        - name: txhash
+          required: true
+          in: path
+          schema: {}
       responses:
         "200":
           description: ""
@@ -303,237 +275,18 @@ paths:
       tags:
         - explorer
 info:
-  title: Lethean VPN
-  description: Distributed Virtual Private Marketplace
-  version: 1.2.2
+  title: Lethean Explorer API
+  description: Lethean chain explorer API
+  version: "1"
   contact:
     name: Lethean VPN
     url: https://lt.hn
     email: contact@lethean.io
-  license:
-    name: GPLv3
-    url: https://gitlab.com/lthn.io/projects/vpn/market-api/LICENCE
-tags:
-  - name: explorer
-    description: ""
-  - name: vpn
-    description: ""
+tags: []
 servers:
-  - url: http://localhost:8182
+  - url: https://dvpm.io
 components:
   schemas:
-    ProxySettingsEntity:
-      type: object
-      properties:
-        endpoint:
-          type: string
-          description: IP Address of endpoints for Proxy service only
-          pattern: "/((^s*((([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]).){3}([0-9]|[\
-            1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]))s*$)|(^s*((([0-9A-Fa-f]{1,\
-            4}:){7}([0-9A-Fa-f]{1,4}|:))|(([0-9A-Fa-f]{1,4}:){6}(:[0-9A-Fa-f]{1\
-            ,4}|((25[0-5]|2[0-4]d|1dd|[1-9]?d)(.(25[0-5]|2[0-4]d|1dd|[1-9]?d)){\
-            3})|:))|(([0-9A-Fa-f]{1,4}:){5}(((:[0-9A-Fa-f]{1,4}){1,2})|:((25[0-\
-            5]|2[0-4]d|1dd|[1-9]?d)(.(25[0-5]|2[0-4]d|1dd|[1-9]?d)){3})|:))|(([\
-            0-9A-Fa-f]{1,4}:){4}(((:[0-9A-Fa-f]{1,4}){1,3})|((:[0-9A-Fa-f]{1,4}\
-            )?:((25[0-5]|2[0-4]d|1dd|[1-9]?d)(.(25[0-5]|2[0-4]d|1dd|[1-9]?d)){3\
-            }))|:))|(([0-9A-Fa-f]{1,4}:){3}(((:[0-9A-Fa-f]{1,4}){1,4})|((:[0-9A\
-            -Fa-f]{1,4}){0,2}:((25[0-5]|2[0-4]d|1dd|[1-9]?d)(.(25[0-5]|2[0-4]d|\
-            1dd|[1-9]?d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){2}(((:[0-9A-Fa-f]{1,4})\
-            {1,5})|((:[0-9A-Fa-f]{1,4}){0,3}:((25[0-5]|2[0-4]d|1dd|[1-9]?d)(.(2\
-            5[0-5]|2[0-4]d|1dd|[1-9]?d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){1}(((:[0\
-            -9A-Fa-f]{1,4}){1,6})|((:[0-9A-Fa-f]{1,4}){0,4}:((25[0-5]|2[0-4]d|1\
-            dd|[1-9]?d)(.(25[0-5]|2[0-4]d|1dd|[1-9]?d)){3}))|:))|(:(((:[0-9A-Fa\
-            -f]{1,4}){1,7})|((:[0-9A-Fa-f]{1,4}){0,5}:((25[0-5]|2[0-4]d|1dd|[1-\
-            9]?d)(.(25[0-5]|2[0-4]d|1dd|[1-9]?d)){3}))|:)))(%.+)?s*$))|(^s*((?=\
-            .{1,255}$)(?=.*[A-Za-z].*)[0-9A-Za-z](?:(?:[0-9A-Za-z]|\b-){0,61}[0\
-            -9A-Za-z])?(?:.[0-9A-Za-z](?:(?:[0-9A-Za-z]|\b-){0,61}[0-9A-Za-z])?\
-            )*)s*$)/"
-        port:
-          type: string
-          description: Port available on endpoint
-          pattern: ^([0-9]{1,4}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5])/([tT][cC][pP]|[uU][dD][pP])$
-        terms:
-          type: string
-          description: Terms for the service
-          pattern: "[:print:]"
-        policy:
-          description: >-
-            a JSON containing access policy - whitelist/blacklist default,
-            allowed/blocked IPs and FQDNs in regex format.
-
-            This is NOT sent to SDP. It is used by the Dispatcher to orchestrate restrictions on Server
-          type: array
-          items:
-            type: string
-      required:
-        - endpoint
-        - port
-        - terms
-        - policy
-    VpnSettingsEntity:
-      type: object
-      properties:
-        endpoint:
-          type: string
-          description: IP Addresses of endpoints for VPN service only
-          pattern: "/((^s*((([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]).){3}([0-9]|[\
-            1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]))s*$)|(^s*((([0-9A-Fa-f]{1,\
-            4}:){7}([0-9A-Fa-f]{1,4}|:))|(([0-9A-Fa-f]{1,4}:){6}(:[0-9A-Fa-f]{1\
-            ,4}|((25[0-5]|2[0-4]d|1dd|[1-9]?d)(.(25[0-5]|2[0-4]d|1dd|[1-9]?d)){\
-            3})|:))|(([0-9A-Fa-f]{1,4}:){5}(((:[0-9A-Fa-f]{1,4}){1,2})|:((25[0-\
-            5]|2[0-4]d|1dd|[1-9]?d)(.(25[0-5]|2[0-4]d|1dd|[1-9]?d)){3})|:))|(([\
-            0-9A-Fa-f]{1,4}:){4}(((:[0-9A-Fa-f]{1,4}){1,3})|((:[0-9A-Fa-f]{1,4}\
-            )?:((25[0-5]|2[0-4]d|1dd|[1-9]?d)(.(25[0-5]|2[0-4]d|1dd|[1-9]?d)){3\
-            }))|:))|(([0-9A-Fa-f]{1,4}:){3}(((:[0-9A-Fa-f]{1,4}){1,4})|((:[0-9A\
-            -Fa-f]{1,4}){0,2}:((25[0-5]|2[0-4]d|1dd|[1-9]?d)(.(25[0-5]|2[0-4]d|\
-            1dd|[1-9]?d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){2}(((:[0-9A-Fa-f]{1,4})\
-            {1,5})|((:[0-9A-Fa-f]{1,4}){0,3}:((25[0-5]|2[0-4]d|1dd|[1-9]?d)(.(2\
-            5[0-5]|2[0-4]d|1dd|[1-9]?d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){1}(((:[0\
-            -9A-Fa-f]{1,4}){1,6})|((:[0-9A-Fa-f]{1,4}){0,4}:((25[0-5]|2[0-4]d|1\
-            dd|[1-9]?d)(.(25[0-5]|2[0-4]d|1dd|[1-9]?d)){3}))|:))|(:(((:[0-9A-Fa\
-            -f]{1,4}){1,7})|((:[0-9A-Fa-f]{1,4}){0,5}:((25[0-5]|2[0-4]d|1dd|[1-\
-            9]?d)(.(25[0-5]|2[0-4]d|1dd|[1-9]?d)){3}))|:)))(%.+)?s*$))|(^s*((?=\
-            .{1,255}$)(?=.*[A-Za-z].*)[0-9A-Za-z](?:(?:[0-9A-Za-z]|\b-){0,61}[0\
-            -9A-Za-z])?(?:.[0-9A-Za-z](?:(?:[0-9A-Za-z]|\b-){0,61}[0-9A-Za-z])?\
-            )*)s*$)/"
-        port:
-          type: string
-          description: Port these settings apply to
-          pattern: ^([0-9]{1,4}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5])/([tT][cC][pP]|[uU][dD][pP])$
-        parameters:
-          type: string
-          description: mtu size parameter for vpn service only
-        terms:
-          type: string
-          description: Terms for the service
-          pattern: "[:print:]"
-        policy:
-          description: a JSON containing access policy - whitelist/blacklist default,
-            allowed/blocked IPs and FQDNs in regex format. This is NOT sent to
-            SDP. It is used by the Dispatcher to orchestrate restrictions on
-            Server
-          default: []
-          type: array
-          items:
-            type: string
-      required:
-        - endpoint
-        - port
-        - parameters
-        - terms
-        - policy
-    timeRangeEntity:
-      type: object
-      properties:
-        from:
-          type: string
-          format: date-time
-          description: YYYY-MM-DDT00:00:00Z
-        to:
-          type: string
-          format: date-time
-          description: YYYY-MM-DDT00:00:00Z
-      required:
-        - from
-        - to
-    CertificatesEntity:
-      type: object
-      properties:
-        id:
-          type: number
-          description: ID only
-      required:
-        - id
-    ServiceEntity:
-      type: object
-      properties:
-        id:
-          type: string
-          description: ID of the service
-          minLength: 2
-          maxLength: 2
-          pattern: "[0-9A-F]{1}[0-9A-F]{1}"
-        name:
-          type: string
-          description: Name of the service
-          maxLength: 32
-          pattern: ^[a-zA-Z0-9 ,.-_]+$
-        type:
-          type: string
-          description: Type of the service
-          enum:
-            - vpn
-            - proxy
-        cost:
-          type: string
-          description: Per minute Cost of the service
-          maxLength: 14
-          pattern: ([0-9]{1,5}|[.]{1}[0-9]{1,8})
-        firstPrePaidMinutes:
-          type: number
-          description: Amount of pre-paid minutes for first payment
-          minimum: 10
-          maximum: 1440
-        firstVerificationsNeeded:
-          type: number
-          description: Number of verifications needed for first payment
-          minimum: 0
-          maximum: 2
-        subsequentPrePaidMinutes:
-          type: number
-          description: Amount of pre-paid minutes for subsequent payments
-          minimum: 10
-          maximum: 1440
-        subsequentVerificationsNeeded:
-          type: number
-          description: Number of verifications needed for subsequent payments
-          minimum: 0
-          maximum: 1
-        allowRefunds:
-          type: boolean
-          description: Whether or not refunds are allowed
-        downloadSpeed:
-          type: number
-          description: Service download speed in Mbits
-          minimum: 0
-          maximum: 99999999999
-        uploadSpeed:
-          type: number
-          description: Service upload speed in Mbits
-          minimum: 0
-          maximum: 99999999999
-        proxy:
-          description: array containing Proxy related settings. only available if service
-            is of type proxy, null otherwise
-          type: array
-          items:
-            $ref: "#/components/schemas/ProxySettingsEntity"
-        vpn:
-          description: array containing VPN related settings. only available if service is
-            of type vpn, null otherwise
-          type: array
-          items:
-            $ref: "#/components/schemas/VpnSettingsEntity"
-        validity:
-          $ref: "#/components/schemas/timeRangeEntity"
-        disable:
-          type: boolean
-          description: disable or not the service
-        certificates:
-          description: inside each service, there should be a field named certificates
-            that has a list of IDs, referencing the certificates at the provider
-            level.
-          type: array
-          items:
-            $ref: "#/components/schemas/CertificatesEntity"
-      required:
-        - id
-        - name
-        - type
-        - cost
-        - downloadSpeed
-        - uploadSpeed
-        - disable
     TxnEntity:
       type: object
       properties:
@@ -726,6 +479,69 @@ components:
           description: payload data
           allOf:
             - $ref: "#/components/schemas/SearchEntity"
+      required:
+        - status
+        - data
+    TransactionBlock:
+      type: object
+      properties:
+        age:
+          type: string
+        hash:
+          type: string
+        height:
+          type: number
+        size:
+          type: number
+        timestamp:
+          type: number
+        timestamp_utc:
+          type: string
+        txs:
+          type: array
+          items:
+            $ref: "#/components/schemas/TxnEntity"
+      required:
+        - age
+        - hash
+        - height
+        - size
+        - timestamp
+        - timestamp_utc
+        - txs
+    TransactionsEntity:
+      type: object
+      properties:
+        blocks:
+          type: array
+          items:
+            $ref: "#/components/schemas/TransactionBlock"
+        current_height:
+          type: number
+        limit:
+          type: number
+        page:
+          type: number
+        total_page_no:
+          type: number
+      required:
+        - blocks
+        - current_height
+        - limit
+        - page
+        - total_page_no
+    TransactionsDTO:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+            - success
+            - fail
+        data:
+          description: payload data
+          allOf:
+            - $ref: "#/components/schemas/TransactionsEntity"
       required:
         - status
         - data
@@ -940,69 +756,6 @@ components:
       required:
         - status
         - data
-    TransactionBlock:
-      type: object
-      properties:
-        age:
-          type: string
-        hash:
-          type: string
-        height:
-          type: number
-        size:
-          type: number
-        timestamp:
-          type: number
-        timestamp_utc:
-          type: string
-        txs:
-          type: array
-          items:
-            $ref: "#/components/schemas/TxnEntity"
-      required:
-        - age
-        - hash
-        - height
-        - size
-        - timestamp
-        - timestamp_utc
-        - txs
-    TransactionsEntity:
-      type: object
-      properties:
-        blocks:
-          type: array
-          items:
-            $ref: "#/components/schemas/TransactionBlock"
-        current_height:
-          type: number
-        limit:
-          type: number
-        page:
-          type: number
-        total_page_no:
-          type: number
-      required:
-        - blocks
-        - current_height
-        - limit
-        - page
-        - total_page_no
-    TransactionsDTO:
-      type: object
-      properties:
-        status:
-          type: string
-          enum:
-            - success
-            - fail
-        data:
-          description: payload data
-          allOf:
-            - $ref: "#/components/schemas/TransactionsEntity"
-      required:
-        - status
-        - data
     TransactionEntity:
       type: object
       properties:
@@ -1020,10 +773,6 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/InputsEntity"
-        outputs:
-          type: array
-          items:
-            $ref: "#/components/schemas/OutputEntity"
       required:
         - block_height
         - coinbase
@@ -1031,7 +780,6 @@ components:
         - current_height
         - extra
         - inputs
-        - outputs
     TransactionDTO:
       type: object
       properties:

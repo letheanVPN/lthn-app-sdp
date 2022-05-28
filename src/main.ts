@@ -6,6 +6,7 @@ import { OpenApiNestFactory } from 'nest-openapi-tools';
 
 import * as helmet from 'helmet';
 import { ExplorerModule } from './modules/explorer/explorer.module';
+import { ServiceModule } from './modules/vpn/services/service.module';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, { cors: true });
@@ -23,13 +24,14 @@ async function bootstrap() {
       .setDescription('Distributed Virtual Private Marketplace')
       .setVersion('1.2.2')
       .addTag('explorer')
+      .addTag('vpn')
       .setContact('Lethean VPN', 'https://lt.hn', 'contact@lethean.io')
       .setLicense(
         'GPLv3',
-        'https://github.com/letheanVPN/explorer/LICENCE',
+        'https://gitlab.com/lthn.io/projects/vpn/market-api/LICENCE',
       )
-      //.addServer('http://localhost:36911')
-      .addServer('https://explorer.lt.hn'),
+      .addServer('http://localhost:8182'),
+//      .addServer('https://dvpm.io'),
     {
       webServerOptions: {
         enabled: true,
@@ -47,11 +49,11 @@ async function bootstrap() {
       },
     },
     {
-      include: [ExplorerModule],
+      include: [ExplorerModule, ServiceModule],
       operationIdFactory: (c: string, method: string) => method,
     },
   );
 
-  await app.listen(80);
+  await app.listen(8182);
 }
 bootstrap();

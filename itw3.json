@@ -1,0 +1,38 @@
+{
+  "rethinkdb": {
+    "host": "localhost",
+    "port": 28015,
+    "db": "lethean-api",
+    "tables": {
+      "provider": {
+        "name": "provider",
+        "file": "data/sets/providers_prod.ion"
+      },
+      "services": {
+        "name": "services",
+        "file": "data/sets/services_prod.ion"
+      },
+      "services_checked": {
+        "name": "services_checked",
+        "file": "data/sets/services_checked_prod.ion"
+      },
+      "feedback": {
+        "name": "feedback",
+        "file": "data/sets/fback_prod.ion"
+      },
+      "payment_history": {
+        "name": "payment_history",
+        "file": "data/sets/payment_history_prod.ion"
+      },
+      "provider_history": {
+        "name": "provider_history",
+        "file": "data/sets/provider_history_prod.ion"
+      },
+      "services_history": {
+        "name": "services_history",
+        "file": "data/sets/services_history_prod.ion"
+      }
+    }
+  }
+
+}

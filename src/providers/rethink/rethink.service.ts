@@ -3,7 +3,7 @@ import * as rethink from 'rethinkdb';
 
 @Injectable()
 export class RethinkService {
-  private connection: rethink.Connection;
+  public connection: rethink.Connection;
 
   constructor(@Inject('RethinkProvider') connection) {
     this.connection = connection;
@@ -43,5 +43,9 @@ export class RethinkService {
       .table(tableName)
       .getAll()
       .run(this.connection);
+  }
+
+  async table(tableName: string) {
+    return rethink.db('lethean-api').table(tableName);
   }
 }

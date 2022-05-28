@@ -205,14 +205,6 @@ export class ExplorerController {
     return this.explorerService.getVersion();
   }
 
-  /**
-   * Project commits
-   */
-  @Get('activity')
-  getActivity(): Promise<Observable<Activity>> {
-    return this.explorerService.getActivity();
-  }
-
   @Get('validate/transfer')
   @ApiQuery({
     name: 'txhash',

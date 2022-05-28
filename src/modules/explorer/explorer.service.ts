@@ -30,32 +30,6 @@ export class ExplorerService {
         }),
       );
   }
-  async getActivity() {
-    return this.httpService.get('https://gitlab.com/lthn.io.atom').pipe(
-      map((res) => {
-        const parser = require('fast-xml-parser');
-        const options = {
-          attributeNamePrefix: '',
-          attrNodeName: false, //default is 'false'
-          ignoreAttributes: false,
-          textNodeName: 'html',
-          ignoreNameSpace: false,
-          allowBooleanAttributes: false,
-          parseNodeValue: true,
-          parseAttributeValue: true,
-          trimValues: true,
-          parseTrueNumberOnly: false,
-          arrayMode: false, //"strict",
-          stopNodes: ['summary'],
-        };
-        const str = parser.parse(res.data, options);
-        return {
-          updated: str.feed.updated,
-          updates: str.feed.entry,
-        } as Activity;
-      }),
-    );
-  }
 
   async getTransactions(limit, page) {
     return this.httpService
