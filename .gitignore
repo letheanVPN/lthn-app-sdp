@@ -1,4 +1,6 @@
 # compiled output
+/data/sets
+
 /dist
 /node_modules
 /data/rethink
