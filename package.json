@@ -44,7 +44,7 @@
     "jsbi": "^3.1.6",
     "nest-openapi-tools": "^3.0.1",
     "pm2": "^5.1.0",
-    "qs": "^6.10.1",
+    "qs": "^6.10.3",
     "reflect-metadata": "^0.1.13",
     "rethinkdb": "^2.4.2",
     "rethinkdb-ts": "^2.4.14",
