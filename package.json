@@ -38,7 +38,7 @@
     "@types/xml2js": "^0.4.9",
     "axios": "^0.21.2",
     "cache-manager": "^3.4.4",
-    "fast-xml-parser": "^3.19.0",
+    "fast-xml-parser": "^4.2.4",
     "helmet": "^4.6.0",
     "ion-js": "^4.2.1",
     "jsbi": "^3.1.6",
